@@ -137,22 +137,42 @@ public class ChessPiece {
     }
 
     public Collection<ChessMove> RookMoves(ChessBoard board, ChessPosition position){
+        // all moves in a positive row path
 
+        // all moves in a negative row path
+
+        // all moves in a positive column path
+
+        // all moves in a negative column path
     }
 
     public Collection<ChessMove> KnightMoves(ChessBoard board, ChessPosition position){
-
+        // 8 possible moves
     }
 
     public Collection<ChessMove> BishopMoves(ChessBoard board, ChessPosition position){
+        // all moves in quadrant 1 direction
 
+        // all moves in quadrant 2 direction
+
+        // all moves in quadrant 3 direction
+
+        // all moves in quadrant 4 direction
     }
 
     public Collection<ChessMove> QueenMoves(ChessBoard board, ChessPosition position){
+        // could combine getting the moves for a bishop and rook
+        Collection<ChessMove> knightMoves = KnightMoves(board, position);
+        Collection<ChessMove> bishopMoves = BishopMoves(board, position);
 
+        Collection<ChessMove> combined = new ArrayList<>();
+        combined.addAll(knightMoves);
+        combined.addAll(bishopMoves);
+
+        return combined;
     }
 
     public Collection<ChessMove> KingMoves(ChessBoard board, ChessPosition position){
-
+        // dumb and lazy. But important. Move in any direction 1 space
     }
 }
