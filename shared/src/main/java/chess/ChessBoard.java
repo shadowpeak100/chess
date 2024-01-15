@@ -35,6 +35,18 @@ public class ChessBoard {
         return Board[position.getRow()][position.getColumn()];
     }
 
+    public ChessPiece[][] getBoard(){
+        return Board;
+    }
+
+    public boolean occupied(ChessPosition position){
+        return getBoard()[position.getRow()][position.getColumn()] != null;
+    }
+
+    public boolean occupied(int row, int col){
+        return getBoard()[row][col] != null;
+    }
+
     /**
      * Sets the board to the default starting board
      * (How the game of chess normally starts)
