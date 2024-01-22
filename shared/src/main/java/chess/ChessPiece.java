@@ -1,8 +1,10 @@
 package chess;
 
+import java.lang.reflect.Array;
 import java.util.ArrayList;
 import java.util.Collection;
 import java.util.HashSet;
+import java.util.Objects;
 
 /**
  * Represents a single chess piece
@@ -11,6 +13,18 @@ import java.util.HashSet;
  * signature of the existing methods.
  */
 public class ChessPiece {
+    @Override
+    public boolean equals(Object o) {
+        if (this == o) return true;
+        if (o == null || getClass() != o.getClass()) return false;
+        ChessPiece that = (ChessPiece) o;
+        return color == that.color && type == that.type;
+    }
+
+    @Override
+    public int hashCode() {
+        return Objects.hash(color, type);
+    }
 
     private ChessGame.TeamColor color;
     private ChessPiece.PieceType type;
@@ -92,7 +106,7 @@ public class ChessPiece {
             if (position.getRow() == 1){
                 //allow move 2 ahead
                 if (!board.occupied(3, position.getColumn())){
-                    returnVal.add(new ChessMove(position, new ChessPosition(3, position.getColumn()), PieceType.PAWN));
+                    returnVal.add(new ChessMove(position, new ChessPosition(3, position.getColumn()), null));
                 }
             }
             if (position.getRow() == 6){
@@ -108,13 +122,13 @@ public class ChessPiece {
             }
             //add in default move of 1 space
             if (!board.occupied(position.getRow() + 1, position.getColumn())){
-                returnVal.add(new ChessMove(position, new ChessPosition(position.getRow() + 1, position.getColumn()), PieceType.PAWN));
+                returnVal.add(new ChessMove(position, new ChessPosition(position.getRow() + 1, position.getColumn()), null));
             }
         }else{
             if (position.getRow() == 6){
                 //allow move 2 ahead
                 if (!board.occupied(4, position.getColumn())){
-                    returnVal.add(new ChessMove(position, new ChessPosition(4, position.getColumn()), PieceType.PAWN));
+                    returnVal.add(new ChessMove(position, new ChessPosition(4, position.getColumn()), null));
                 }
             }
             if (position.getRow() == 1){
@@ -130,42 +144,169 @@ public class ChessPiece {
             }
             //add in default move of 1 space
             if (!board.occupied(position.getRow() - 1, position.getColumn())){
-                returnVal.add(new ChessMove(position, new ChessPosition(position.getRow() - 1, position.getColumn()), PieceType.PAWN));
+                returnVal.add(new ChessMove(position, new ChessPosition(position.getRow() - 1, position.getColumn()), null));
             }
         }
         return returnVal;
     }
 
     public Collection<ChessMove> RookMoves(ChessBoard board, ChessPosition position){
+
+        Collection<ChessMove> returnVal = new ArrayList<>();
+        // get current position
+        int row = position.getRow();
+        int col = position.getColumn();
+
         // all moves in a positive row path
+        for(int i = 1; i < 8; i++){
+            if(row + i <= 7){
+                ChessPosition proposedPosition = new ChessPosition(row + i, col);
+                if(!board.occupied(proposedPosition)){
+                    returnVal.add(new ChessMove(position, proposedPosition, null));
+                }
+            }
+        }
 
         // all moves in a negative row path
+        for(int i = 1; i < 8; i++){
+            if(row - i >= 0){
+                ChessPosition proposedPosition = new ChessPosition(row - i, col);
+                if(!board.occupied(proposedPosition)){
+                    returnVal.add(new ChessMove(position, proposedPosition, null));
+                }
+            }
+        }
 
         // all moves in a positive column path
+        for(int i = 1; i < 8; i++){
+            if(col + i <= 7){
+                ChessPosition proposedPosition = new ChessPosition(row, col + i);
+                if(!board.occupied(proposedPosition)){
+                    returnVal.add(new ChessMove(position, proposedPosition, null));
+                }
+            }
+        }
 
         // all moves in a negative column path
+        for(int i = 1; i < 8; i++){
+            if(col - i >= 0){
+                ChessPosition proposedPosition = new ChessPosition(row, col - i);
+                if(!board.occupied(proposedPosition)){
+                    returnVal.add(new ChessMove(position, new ChessPosition(row, col - i), null));
+                }
+            }
+        }
+        return returnVal;
     }
 
     public Collection<ChessMove> KnightMoves(ChessBoard board, ChessPosition position){
         // 8 possible moves
+        Collection<ChessMove> returnVal = new ArrayList<>();
+        int row = position.getRow();
+        int col = position.getColumn();
+        int proposedRow;
+        int proposedCol;
+
+        //moves in a clockwise fashion
+        //quadrant 1
+        proposedCol = col + 1;
+        proposedRow = row + 2;
+        if(board.validMove(proposedRow, proposedCol) && !board.occupied(proposedRow, proposedCol)){
+            returnVal.add(new ChessMove(position, new ChessPosition(proposedRow, proposedCol), null));
+        }
+
+        proposedCol = col + 2;
+        proposedRow = row + 1;
+        if(board.validMove(proposedRow, proposedCol) && !board.occupied(proposedRow, proposedCol)){
+            returnVal.add(new ChessMove(position, new ChessPosition(proposedRow, proposedCol), null));
+        }
+
+        //quadrant 2
+        proposedCol = col + 2;
+        proposedRow = row - 1;
+        if(board.validMove(proposedRow, proposedCol) && !board.occupied(proposedRow, proposedCol)){
+            returnVal.add(new ChessMove(position, new ChessPosition(proposedRow, proposedCol), null));
+        }
+
+        proposedCol = col + 1;
+        proposedRow = row - 2;
+        if(board.validMove(proposedRow, proposedCol) && !board.occupied(proposedRow, proposedCol)){
+            returnVal.add(new ChessMove(position, new ChessPosition(proposedRow, proposedCol), null));
+        }
+
+        //quadrant 3
+        proposedCol = col - 1;
+        proposedRow = row - 2;
+        if(board.validMove(proposedRow, proposedCol) && !board.occupied(proposedRow, proposedCol)){
+            returnVal.add(new ChessMove(position, new ChessPosition(proposedRow, proposedCol), null));
+        }
+
+        proposedCol = col - 2;
+        proposedRow = row - 1;
+        if(board.validMove(proposedRow, proposedCol) && !board.occupied(proposedRow, proposedCol)){
+            returnVal.add(new ChessMove(position, new ChessPosition(proposedRow, proposedCol), null));
+        }
+
+        //quadrant 4
+        proposedCol = col - 2;
+        proposedRow = row + 1;
+        if(board.validMove(proposedRow, proposedCol) && !board.occupied(proposedRow, proposedCol)){
+            returnVal.add(new ChessMove(position, new ChessPosition(proposedRow, proposedCol), null));
+        }
+
+        proposedCol = col - 1;
+        proposedRow = row + 2;
+        if(board.validMove(proposedRow, proposedCol) && !board.occupied(proposedRow, proposedCol)){
+            returnVal.add(new ChessMove(position, new ChessPosition(proposedRow, proposedCol), null));
+        }
+
+        return returnVal;
     }
 
     public Collection<ChessMove> BishopMoves(ChessBoard board, ChessPosition position){
         // all moves in quadrant 1 direction
+        Collection<ChessMove> returnVal = new ArrayList<>();
+
+        for(int i = 1; i <= 7; i++){
+            ChessPosition proposedPosition = new ChessPosition(position.getRow() + i, position.getColumn() + i);
+            if(board.validMove(proposedPosition) && !board.occupied(proposedPosition)){
+                returnVal.add(new ChessMove(position, proposedPosition, null));
+            }
+        }
 
         // all moves in quadrant 2 direction
+        for(int i = 1; i <= 7; i++){
+            ChessPosition proposedPosition = new ChessPosition(position.getRow() + i, position.getColumn() - i);
+            if(board.validMove(proposedPosition) && !board.occupied(proposedPosition)){
+                returnVal.add(new ChessMove(position, proposedPosition, null));
+            }
+        }
 
         // all moves in quadrant 3 direction
+        for(int i = 1; i <= 7; i++){
+            ChessPosition proposedPosition = new ChessPosition(position.getRow() - i, position.getColumn() - i);
+            if(board.validMove(proposedPosition) && !board.occupied(proposedPosition)){
+                returnVal.add(new ChessMove(position, proposedPosition, null));
+            }
+        }
 
         // all moves in quadrant 4 direction
+        for(int i = 1; i <= 7; i++){
+            ChessPosition proposedPosition = new ChessPosition(position.getRow() - i, position.getColumn() + i);
+            if(board.validMove(proposedPosition) && !board.occupied(proposedPosition)){
+                returnVal.add(new ChessMove(position, proposedPosition, null));
+            }
+        }
+
+        return returnVal;
     }
 
     public Collection<ChessMove> QueenMoves(ChessBoard board, ChessPosition position){
-        // could combine getting the moves for a bishop and rook
+        // could combine getting the moves for a bishop and rook - but must change all types to queen
         Collection<ChessMove> knightMoves = KnightMoves(board, position);
         Collection<ChessMove> bishopMoves = BishopMoves(board, position);
-
         Collection<ChessMove> combined = new ArrayList<>();
+
         combined.addAll(knightMoves);
         combined.addAll(bishopMoves);
 
@@ -174,5 +315,60 @@ public class ChessPiece {
 
     public Collection<ChessMove> KingMoves(ChessBoard board, ChessPosition position){
         // dumb and lazy. But important. Move in any direction 1 space
+        Collection<ChessMove> returnVal = new ArrayList<>();
+        int row = position.getRow();
+        int col = position.getColumn();
+        int proposedRow;
+        int proposedCol;
+
+        proposedCol = col;
+        proposedRow = row + 1;
+        if(board.validMove(proposedRow, proposedCol) && !board.occupied(proposedRow, proposedCol)){
+            returnVal.add(new ChessMove(position, new ChessPosition(proposedRow, proposedCol), null));
+        }
+
+        proposedCol = col + 1;
+        proposedRow = row + 1;
+        if(board.validMove(proposedRow, proposedCol) && !board.occupied(proposedRow, proposedCol)){
+            returnVal.add(new ChessMove(position, new ChessPosition(proposedRow, proposedCol), null));
+        }
+
+        proposedCol = col + 1;
+        proposedRow = row;
+        if(board.validMove(proposedRow, proposedCol) && !board.occupied(proposedRow, proposedCol)){
+            returnVal.add(new ChessMove(position, new ChessPosition(proposedRow, proposedCol), null));
+        }
+
+        proposedCol = col + 1;
+        proposedRow = row - 1;
+        if(board.validMove(proposedRow, proposedCol) && !board.occupied(proposedRow, proposedCol)){
+            returnVal.add(new ChessMove(position, new ChessPosition(proposedRow, proposedCol), null));
+        }
+
+        proposedCol = col;
+        proposedRow = row - 1;
+        if(board.validMove(proposedRow, proposedCol) && !board.occupied(proposedRow, proposedCol)){
+            returnVal.add(new ChessMove(position, new ChessPosition(proposedRow, proposedCol), null));
+        }
+
+        proposedCol = col - 1;
+        proposedRow = row - 1;
+        if(board.validMove(proposedRow, proposedCol) && !board.occupied(proposedRow, proposedCol)){
+            returnVal.add(new ChessMove(position, new ChessPosition(proposedRow, proposedCol), null));
+        }
+
+        proposedCol = col - 1;
+        proposedRow = row;
+        if(board.validMove(proposedRow, proposedCol) && !board.occupied(proposedRow, proposedCol)){
+            returnVal.add(new ChessMove(position, new ChessPosition(proposedRow, proposedCol), null));
+        }
+
+        proposedCol = col - 1;
+        proposedRow = row + 1;
+        if(board.validMove(proposedRow, proposedCol) && !board.occupied(proposedRow, proposedCol)){
+            returnVal.add(new ChessMove(position, new ChessPosition(proposedRow, proposedCol), null));
+        }
+
+        return returnVal;
     }
 }

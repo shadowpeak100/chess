@@ -47,6 +47,26 @@ public class ChessBoard {
         return getBoard()[row][col] != null;
     }
 
+    public boolean validMove(ChessPosition position){
+        if(position.getRow() >= 0 && position.getRow() <= 7){
+            if(position.getColumn() >= 0 && position.getColumn() <= 7){
+                return true;
+            }
+            return false;
+        }
+        return false;
+    }
+
+    public boolean validMove(int row, int col){
+        if(row >= 0 && row <= 7){
+            if(col >= 0 && col <= 7){
+                return true;
+            }
+            return false;
+        }
+        return false;
+    }
+
     /**
      * Sets the board to the default starting board
      * (How the game of chess normally starts)
