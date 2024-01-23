@@ -56,8 +56,4 @@ public class ChessMove {
     public ChessPiece.PieceType getPromotionPiece() {
         return promotion;
     }
-
-    public void setPromotionPiece(ChessPiece.PieceType p){
-        promotion = p;
-    }
 }

@@ -5,6 +5,7 @@ import org.junit.jupiter.api.Assertions;
 import org.junit.jupiter.api.Test;
 import passoffTests.TestFactory;
 
+import java.util.Collection;
 import java.util.HashSet;
 
 import static passoffTests.TestFactory.*;
@@ -252,7 +253,9 @@ public class PawnMoveTests {
             validMoves.add(TestFactory.getNewMove(start, end, ChessPiece.PieceType.KNIGHT));
         }
 
-        Assertions.assertEquals(validMoves, testPiece.pieceMoves(board, start), "Wrong moves");
+        Collection<ChessMove> proposed = testPiece.pieceMoves(board, start);
+
+        Assertions.assertEquals(validMoves, proposed, "Wrong moves");
     }
 
 }

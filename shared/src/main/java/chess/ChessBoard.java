@@ -47,6 +47,20 @@ public class ChessBoard {
         return getBoard()[row][col] != null;
     }
 
+    public boolean occupiedEnemy(ChessPosition position, ChessGame.TeamColor color){
+        if (getBoard()[position.getRow()][position.getColumn()] != null  && getBoard()[position.getRow()][position.getColumn()].getTeamColor() != color){
+            return true;
+        }
+        return false;
+    }
+
+    public boolean occupiedEnemy(int row, int col, ChessGame.TeamColor color){
+        if (getBoard()[row][col] != null && getBoard()[row][col].getTeamColor() != color){
+            return true;
+        }
+        return false;
+    }
+
     public boolean validMove(ChessPosition position){
         if(position.getRow() >= 0 && position.getRow() <= 7){
             if(position.getColumn() >= 0 && position.getColumn() <= 7){
