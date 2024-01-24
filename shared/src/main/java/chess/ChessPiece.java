@@ -243,40 +243,72 @@ public class ChessPiece {
 
         // all moves in a positive row path
         for(int i = 1; i < 8; i++){
-            if(row + i <= 7){
+            if(row + i <= 8){
                 ChessPosition proposedPosition = new ChessPosition(row + i, col);
-                if(!board.occupied(proposedPosition)){
+
+                if(board.validMove(proposedPosition) && !board.occupied(proposedPosition)){
                     returnVal.add(new ChessMove(position, proposedPosition, null));
+                }
+                if (board.occupiedEnemy(proposedPosition, color)){
+                    returnVal.add(new ChessMove(position, proposedPosition, null));
+                    break;
+                }
+                if (board.occupied(proposedPosition)){
+                    break;
                 }
             }
         }
 
         // all moves in a negative row path
         for(int i = 1; i < 8; i++){
-            if(row - i >= 0){
+            if(row - i >= 1){
                 ChessPosition proposedPosition = new ChessPosition(row - i, col);
-                if(!board.occupied(proposedPosition)){
+
+                if(board.validMove(proposedPosition) && !board.occupied(proposedPosition)){
                     returnVal.add(new ChessMove(position, proposedPosition, null));
+                }
+                if (board.occupiedEnemy(proposedPosition, color)){
+                    returnVal.add(new ChessMove(position, proposedPosition, null));
+                    break;
+                }
+                if (board.occupied(proposedPosition)){
+                    break;
                 }
             }
         }
 
         // all moves in a positive column path
         for(int i = 1; i < 8; i++){
-            if(col + i <= 7){
+            if(col + i <= 8){
                 ChessPosition proposedPosition = new ChessPosition(row, col + i);
-                if(!board.occupied(proposedPosition)){
+
+                if(board.validMove(proposedPosition) && !board.occupied(proposedPosition)){
                     returnVal.add(new ChessMove(position, proposedPosition, null));
+                }
+                if (board.occupiedEnemy(proposedPosition, color)){
+                    returnVal.add(new ChessMove(position, proposedPosition, null));
+                    break;
+                }
+                if (board.occupied(proposedPosition)){
+                    break;
                 }
             }
         }
 
         // all moves in a negative column path
         for(int i = 1; i < 8; i++){
-            if(col - i >= 0){
+            if(col - i >= 1){
                 ChessPosition proposedPosition = new ChessPosition(row, col - i);
-                if(!board.occupied(proposedPosition)){
-                    returnVal.add(new ChessMove(position, new ChessPosition(row, col - i), null));
+
+                if(board.validMove(proposedPosition) && !board.occupied(proposedPosition)){
+                    returnVal.add(new ChessMove(position, proposedPosition, null));
+                }
+                if (board.occupiedEnemy(proposedPosition, color)){
+                    returnVal.add(new ChessMove(position, proposedPosition, null));
+                    break;
+                }
+                if (board.occupied(proposedPosition)){
+                    break;
                 }
             }
         }
