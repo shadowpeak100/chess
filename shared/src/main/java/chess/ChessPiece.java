@@ -67,52 +67,50 @@ public class ChessPiece {
         Collection<ChessMove> postFormat = new HashSet<>();
         Collection<ChessMove> returnVal = null;
 
-        // the program uses 0-7 numbering while users use 1-8, convert to computer ready index
-        ChessPosition updatedPosition = new ChessPosition(myPosition.getRow() - 1, myPosition.getColumn() - 1);
-
         switch (type){
             case KING:
-                returnVal = KingMoves(board, updatedPosition);
+                returnVal = KingMoves(board, myPosition);
                 break;
             case QUEEN:
-                returnVal = QueenMoves(board, updatedPosition);
+                returnVal = QueenMoves(board, myPosition);
                 break;
             case BISHOP:
-                returnVal = BishopMoves(board, updatedPosition);
+                returnVal = BishopMoves(board, myPosition);
                 break;
             case KNIGHT:
-                returnVal = KnightMoves(board, updatedPosition);
+                returnVal = KnightMoves(board, myPosition);
                 break;
             case ROOK:
-                returnVal = RookMoves(board, updatedPosition);
+                returnVal = RookMoves(board, myPosition);
                 break;
             case PAWN:
-                returnVal = PawnMoves(board, updatedPosition, color);
+                returnVal = PawnMoves(board, myPosition, color);
                 break;
             default:
                 System.out.println("Invalid piece, cannot determine possible moves: " + type);
                 System.exit(1);
         }
-        // convert back to 1-8 numbering
-        for (ChessMove cM : returnVal) {
-            postFormat.add(new ChessMove(myPosition, new ChessPosition(cM.getEndPosition().getRow() + 1, cM.getEndPosition().getColumn() + 1), cM.getPromotionPiece()));
-        }
-        return postFormat;
+        return returnVal;
     }
 
     public void handleWhitePawnMove(ChessBoard board, ChessPosition currentPosition, ChessPosition proposedPosition, Collection<ChessMove> returnVal, ChessGame.TeamColor color){
-        //is it a valid 1 space move
-        if(!board.occupied(proposedPosition) && Math.abs(proposedPosition.getRow() - currentPosition.getRow()) == 1){
-            // is it an edge or not?
-            if(!handlePromotionWhite(board, proposedPosition, returnVal)){
-                returnVal.add(new ChessMove(currentPosition, proposedPosition, null));
+        //if it is out of bounds, return
+        if(proposedPosition.getColumn() < 1 || proposedPosition.getColumn() > 8 || proposedPosition.getRow() < 1 || proposedPosition.getRow() > 8){
+            return;
+        }
 
+        //is it a valid 1 space move
+        if(!board.occupied(proposedPosition) && Math.abs(proposedPosition.getRow() - currentPosition.getRow()) == 1
+        && currentPosition.getColumn() - proposedPosition.getColumn() == 0){
+            // is it an edge or not?
+            if(!handlePromotionWhite(board, currentPosition, proposedPosition, returnVal)){
+                returnVal.add(new ChessMove(currentPosition, proposedPosition, null));
             }
         }
 
         //is it a valid 2 space move
-        if (currentPosition.getRow() == 1 && proposedPosition.getRow() == 3){
-            if (!board.occupied(proposedPosition)){
+        if (currentPosition.getRow() == 2 && proposedPosition.getRow() == 4){
+            if (!board.occupied(proposedPosition) && !board.occupied(new ChessPosition(proposedPosition.getRow() + 1, proposedPosition.getColumn() + 1))){
                 returnVal.add(new ChessMove(currentPosition, proposedPosition, null));
             }
         }
@@ -121,33 +119,74 @@ public class ChessPiece {
         if(Math.abs(currentPosition.getColumn() - proposedPosition.getColumn()) == 1 && Math.abs(currentPosition.getRow() - proposedPosition.getRow()) == 1){
             if (board.occupiedEnemy(proposedPosition, color)){
                 //is it a promotion or not?
-                if(!handlePromotionWhite(board, proposedPosition, returnVal)){
+                if(!handlePromotionWhite(board, currentPosition, proposedPosition, returnVal)){
                     returnVal.add(new ChessMove(currentPosition, proposedPosition, null));
                 }
             }
         }
     }
 
-    public boolean handlePromotionWhite(ChessBoard board, ChessPosition position, Collection<ChessMove> returnVal){
-        if (position.getRow() == 6) {
-            if (!board.occupied(7, position.getColumn())) {
-                returnVal.add(new ChessMove(position, new ChessPosition(7, position.getColumn()), PieceType.QUEEN));
-                returnVal.add(new ChessMove(position, new ChessPosition(7, position.getColumn()), PieceType.BISHOP));
-                returnVal.add(new ChessMove(position, new ChessPosition(7, position.getColumn()), PieceType.KNIGHT));
-                returnVal.add(new ChessMove(position, new ChessPosition(7, position.getColumn()), PieceType.ROOK));
+    public void handleBlackPawnMove(ChessBoard board, ChessPosition currentPosition, ChessPosition proposedPosition, Collection<ChessMove> returnVal, ChessGame.TeamColor color){
+        //if it is out of bounds, return
+        if(proposedPosition.getColumn() <= 0 || proposedPosition.getColumn() > 8 || proposedPosition.getRow() <= 0 || proposedPosition.getRow() > 8){
+            return;
+        }
+
+        //is it a valid 1 space move
+        if(!board.occupied(proposedPosition) && Math.abs(proposedPosition.getRow() - currentPosition.getRow()) == 1
+        && currentPosition.getColumn() - proposedPosition.getColumn() == 0){
+            // is it an edge or not?
+            if(!handlePromotionBlack(board, currentPosition, proposedPosition, returnVal)){
+                returnVal.add(new ChessMove(currentPosition, proposedPosition, null));
+
+            }
+        }
+
+        //is it a valid 2 space move
+        if (currentPosition.getRow() == 7 && proposedPosition.getRow() == 5){
+            if (!board.occupied(proposedPosition) && !board.occupied(new ChessPosition(proposedPosition.getRow() + 1, proposedPosition.getColumn()))){
+                returnVal.add(new ChessMove(currentPosition, proposedPosition, null));
+            }
+        }
+
+        //is it a valid capture
+        if(Math.abs(currentPosition.getColumn() - proposedPosition.getColumn()) == 1 && Math.abs(currentPosition.getRow() - proposedPosition.getRow()) == 1){
+            if (board.occupiedEnemy(proposedPosition, color)){
+                //is it a promotion or not?
+                if(!handlePromotionBlack(board, currentPosition, proposedPosition, returnVal)){
+                    returnVal.add(new ChessMove(currentPosition, proposedPosition, null));
+                }
+            }
+        }
+    }
+
+    public boolean handlePromotionWhite(ChessBoard board, ChessPosition currentPosition, ChessPosition proposedPosition, Collection<ChessMove> returnVal){
+        if (proposedPosition.getRow() == 8) {
+            if (!board.occupied(8, proposedPosition.getColumn())) {
+                returnVal.add(new ChessMove(currentPosition, new ChessPosition(8, proposedPosition.getColumn()), PieceType.QUEEN));
+                returnVal.add(new ChessMove(currentPosition, new ChessPosition(8, proposedPosition.getColumn()), PieceType.BISHOP));
+                returnVal.add(new ChessMove(currentPosition, new ChessPosition(8, proposedPosition.getColumn()), PieceType.KNIGHT));
+                returnVal.add(new ChessMove(currentPosition, new ChessPosition(8, proposedPosition.getColumn()), PieceType.ROOK));
+                return true;
+            }
+            if (board.occupiedEnemy(8, proposedPosition.getColumn(), ChessGame.TeamColor.WHITE)) {
+                returnVal.add(new ChessMove(currentPosition, new ChessPosition(8, proposedPosition.getColumn()), PieceType.QUEEN));
+                returnVal.add(new ChessMove(currentPosition, new ChessPosition(8, proposedPosition.getColumn()), PieceType.BISHOP));
+                returnVal.add(new ChessMove(currentPosition, new ChessPosition(8, proposedPosition.getColumn()), PieceType.KNIGHT));
+                returnVal.add(new ChessMove(currentPosition, new ChessPosition(8, proposedPosition.getColumn()), PieceType.ROOK));
                 return true;
             }
         }
         return false;
     }
 
-    public boolean handlePromotionBlack(ChessBoard board, ChessPosition position, Collection<ChessMove> returnVal){
-        if (position.getRow() == 1){
-            if (!board.occupied(0, position.getColumn())){
-                returnVal.add(new ChessMove(position, new ChessPosition(0, position.getColumn()), PieceType.QUEEN));
-                returnVal.add(new ChessMove(position, new ChessPosition(0, position.getColumn()), PieceType.BISHOP));
-                returnVal.add(new ChessMove(position, new ChessPosition(0, position.getColumn()), PieceType.KNIGHT));
-                returnVal.add(new ChessMove(position, new ChessPosition(0, position.getColumn()), PieceType.ROOK));
+    public boolean handlePromotionBlack(ChessBoard board, ChessPosition currentPosition, ChessPosition proposedPosition, Collection<ChessMove> returnVal){
+        if (proposedPosition.getRow() == 1){
+            if (!board.occupied(1, proposedPosition.getColumn() + 1)){
+                returnVal.add(new ChessMove(currentPosition, new ChessPosition(1, proposedPosition.getColumn()), PieceType.QUEEN));
+                returnVal.add(new ChessMove(currentPosition, new ChessPosition(1, proposedPosition.getColumn()), PieceType.BISHOP));
+                returnVal.add(new ChessMove(currentPosition, new ChessPosition(1, proposedPosition.getColumn()), PieceType.KNIGHT));
+                returnVal.add(new ChessMove(currentPosition, new ChessPosition(1, proposedPosition.getColumn()), PieceType.ROOK));
                 return true;
             }
         }
@@ -161,55 +200,36 @@ public class ChessPiece {
         // may move 1 square otherwise
         // capture diagonally
         Collection<ChessMove> returnVal = new HashSet<>();
+        ChessPosition proposedPosition = null;
 
         if (color == ChessGame.TeamColor.WHITE){
-            if (position.getRow() == 1){
-                //allow move 2 ahead
-                ChessPosition proposed = new ChessPosition(3, position.getColumn());
-                if (!board.occupied(proposed)){
-                    returnVal.add(new ChessMove(position, proposed, null));
-                }
-            }
-            boolean promoted = handlePromotionWhite(board, position, returnVal);
-            //add in default move of 1 space
-            if (!board.occupied(position.getRow() + 1, position.getColumn()) && !promoted){
-                returnVal.add(new ChessMove(position, new ChessPosition(position.getRow() + 1, position.getColumn()), null));
-            }
-            //add in moves for taking enemy piece
-            if (board.occupiedEnemy(position.getRow() + 1, position.getColumn() + 1, color) && board.validMove(position.getRow() + 1, position.getColumn() + 1)){
-                if (!handlePromotionWhite(board, position, returnVal)){
-                    returnVal.add(new ChessMove(position, new ChessPosition(position.getRow() + 1, position.getColumn() + 1), null));
-                }
-            }
-            if (board.occupiedEnemy(position.getRow() + 1, position.getColumn() - 1, color) && board.validMove(position.getRow() + 1, position.getColumn() - 1)){
-                if (!handlePromotionWhite(board, position, returnVal)){
-                    returnVal.add(new ChessMove(position, new ChessPosition(position.getRow() + 1, position.getColumn() - 1), null));
-                }
-            }
+            //propose 2 spaces ahead
+            proposedPosition = new ChessPosition(position.getRow() + 2, position.getColumn());
+            handleWhitePawnMove(board, position, proposedPosition, returnVal, color);
+
+            //propose 1 space ahead
+            proposedPosition = new ChessPosition(position.getRow() + 1, position.getColumn());
+            handleWhitePawnMove(board, position, proposedPosition, returnVal, color);
+
+            //propose the 2 two captures
+            proposedPosition = new ChessPosition(position.getRow() + 1, position.getColumn() + 1);
+            handleWhitePawnMove(board, position, proposedPosition, returnVal, color);
+            proposedPosition = new ChessPosition(position.getRow() + 1, position.getColumn() - 1);
+            handleWhitePawnMove(board, position, proposedPosition, returnVal, color);
         }else{
-            // black pieces
-            if (position.getRow() == 6){
-                //allow move 2 ahead
-                if (!board.occupied(4, position.getColumn())){
-                    returnVal.add(new ChessMove(position, new ChessPosition(4, position.getColumn()), null));
-                }
-            }
-            boolean promoted = handlePromotionBlack(board, position, returnVal);
-            //add in default move of 1 space
-            if (!board.occupied(position.getRow() - 1, position.getColumn()) && !promoted){
-                returnVal.add(new ChessMove(position, new ChessPosition(position.getRow() - 1, position.getColumn()), null));
-            }
-            //add in moves for taking enemy piece
-            if (board.occupiedEnemy(position.getRow() - 1, position.getColumn() - 1, color) && board.validMove(position.getRow() - 1, position.getColumn() - 1)){
-                if (!handlePromotionBlack(board, position, returnVal)) {
-                    returnVal.add(new ChessMove(position, new ChessPosition(position.getRow() - 1, position.getColumn() - 1), null));
-                }
-            }
-            if (board.occupiedEnemy(position.getRow() - 1, position.getColumn() + 1, color) && board.validMove(position.getRow() - 1, position.getColumn() + 1)){
-                if (!handlePromotionBlack(board, position, returnVal)) {
-                    returnVal.add(new ChessMove(position, new ChessPosition(position.getRow() - 1, position.getColumn() + 1), null));
-                }
-            }
+            //propose 2 spaces ahead
+            proposedPosition = new ChessPosition(position.getRow() - 2, position.getColumn());
+            handleBlackPawnMove(board, position, proposedPosition, returnVal, color);
+
+            //propose 1 space ahead
+            proposedPosition = new ChessPosition(position.getRow() - 1, position.getColumn());
+            handleBlackPawnMove(board, position, proposedPosition, returnVal, color);
+
+            //propose the 2 two captures
+            proposedPosition = new ChessPosition(position.getRow() - 1, position.getColumn() + 1);
+            handleBlackPawnMove(board, position, proposedPosition, returnVal, color);
+            proposedPosition = new ChessPosition(position.getRow() - 1, position.getColumn() - 1);
+            handleBlackPawnMove(board, position, proposedPosition, returnVal, color);
         }
         return returnVal;
     }

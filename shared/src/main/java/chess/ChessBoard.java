@@ -21,7 +21,7 @@ public class ChessBoard {
      * @param piece    the piece to add
      */
     public void addPiece(ChessPosition position, ChessPiece piece) {
-        this.Board[position.getRow()][position.getColumn()] = piece;
+        this.Board[position.getRow()-1][position.getColumn()-1] = piece;
     }
 
     /**
@@ -32,7 +32,7 @@ public class ChessBoard {
      * position
      */
     public ChessPiece getPiece(ChessPosition position) {
-        return Board[position.getRow()][position.getColumn()];
+        return Board[position.getRow()-1][position.getColumn()-1];
     }
 
     public ChessPiece[][] getBoard(){
@@ -40,30 +40,33 @@ public class ChessBoard {
     }
 
     public boolean occupied(ChessPosition position){
-        return getBoard()[position.getRow()][position.getColumn()] != null;
-    }
-
-    public boolean occupied(int row, int col){
-        return getBoard()[row][col] != null;
-    }
-
-    public boolean occupiedEnemy(ChessPosition position, ChessGame.TeamColor color){
-        if (getBoard()[position.getRow()][position.getColumn()] != null  && getBoard()[position.getRow()][position.getColumn()].getTeamColor() != color){
+        if(getBoard()[position.getRow()-1][position.getColumn()-1] != null){
             return true;
         }
         return false;
     }
 
-    public boolean occupiedEnemy(int row, int col, ChessGame.TeamColor color){
-        if (getBoard()[row][col] != null && getBoard()[row][col].getTeamColor() != color){
+    public boolean occupied(int row, int col){
+        return getBoard()[row-1][col-1] != null;
+    }
+
+    public boolean occupiedEnemy(ChessPosition position, ChessGame.TeamColor color){
+        if (getBoard()[position.getRow() - 1][position.getColumn() - 1] != null  && getBoard()[position.getRow() - 1][position.getColumn() - 1].getTeamColor() != color){
+            return true;
+        }
+        return false;
+    }
+
+    public boolean occupiedEnemy(int row, int col, ChessGame.TeamColor currentTeamColor){
+        if (getBoard()[row - 1][col - 1] != null && getBoard()[row - 1][col - 1].getTeamColor() != currentTeamColor){
             return true;
         }
         return false;
     }
 
     public boolean validMove(ChessPosition position){
-        if(position.getRow() >= 0 && position.getRow() <= 7){
-            if(position.getColumn() >= 0 && position.getColumn() <= 7){
+        if(position.getRow() > 0 && position.getRow() <= 8){
+            if(position.getColumn() > 0 && position.getColumn() <= 8){
                 return true;
             }
             return false;
@@ -72,8 +75,8 @@ public class ChessBoard {
     }
 
     public boolean validMove(int row, int col){
-        if(row >= 0 && row <= 7){
-            if(col >= 0 && col <= 7){
+        if(row > 0 && row <= 8){
+            if(col > 0 && col <= 8){
                 return true;
             }
             return false;

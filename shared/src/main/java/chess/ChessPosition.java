@@ -26,6 +26,7 @@ public class ChessPosition {
     private int col;
 
     public ChessPosition(int row, int col) {
+        // make sure these are 1-8, these are "human formats" and are converted later to 0-7
         this.row = row;
         this.col = col;
     }
