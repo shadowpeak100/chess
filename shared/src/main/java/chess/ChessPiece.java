@@ -322,58 +322,92 @@ public class ChessPiece {
         int col = position.getColumn();
         int proposedRow;
         int proposedCol;
+        ChessPosition proposedPosition = null;
+
 
         //moves in a clockwise fashion
         //quadrant 1
         proposedCol = col + 1;
         proposedRow = row + 2;
-        if(board.validMove(proposedRow, proposedCol) && !board.occupied(proposedRow, proposedCol)){
-            returnVal.add(new ChessMove(position, new ChessPosition(proposedRow, proposedCol), null));
+        proposedPosition = new ChessPosition(proposedRow, proposedCol);
+        if(board.validMove(proposedPosition) && !board.occupied(proposedPosition)){
+            returnVal.add(new ChessMove(position, proposedPosition, null));
+        }
+        if(board.validMove(proposedPosition) && board.occupiedEnemy(proposedPosition, color)){
+            returnVal.add(new ChessMove(position, proposedPosition, null));
         }
 
         proposedCol = col + 2;
         proposedRow = row + 1;
-        if(board.validMove(proposedRow, proposedCol) && !board.occupied(proposedRow, proposedCol)){
-            returnVal.add(new ChessMove(position, new ChessPosition(proposedRow, proposedCol), null));
+        proposedPosition = new ChessPosition(proposedRow, proposedCol);
+        if(board.validMove(proposedPosition) && !board.occupied(proposedPosition)){
+            returnVal.add(new ChessMove(position, proposedPosition, null));
+        }
+        if(board.validMove(proposedPosition) && board.occupiedEnemy(proposedPosition, color)){
+            returnVal.add(new ChessMove(position, proposedPosition, null));
         }
 
         //quadrant 2
         proposedCol = col + 2;
         proposedRow = row - 1;
-        if(board.validMove(proposedRow, proposedCol) && !board.occupied(proposedRow, proposedCol)){
-            returnVal.add(new ChessMove(position, new ChessPosition(proposedRow, proposedCol), null));
+        proposedPosition = new ChessPosition(proposedRow, proposedCol);
+        if(board.validMove(proposedPosition) && !board.occupied(proposedPosition)){
+            returnVal.add(new ChessMove(position, proposedPosition, null));
+        }
+        if(board.validMove(proposedPosition) && board.occupiedEnemy(proposedPosition, color)){
+            returnVal.add(new ChessMove(position, proposedPosition, null));
         }
 
         proposedCol = col + 1;
         proposedRow = row - 2;
-        if(board.validMove(proposedRow, proposedCol) && !board.occupied(proposedRow, proposedCol)){
-            returnVal.add(new ChessMove(position, new ChessPosition(proposedRow, proposedCol), null));
+        proposedPosition = new ChessPosition(proposedRow, proposedCol);
+        if(board.validMove(proposedPosition) && !board.occupied(proposedPosition)){
+            returnVal.add(new ChessMove(position, proposedPosition, null));
+        }
+        if(board.validMove(proposedPosition) && board.occupiedEnemy(proposedPosition, color)){
+            returnVal.add(new ChessMove(position, proposedPosition, null));
         }
 
         //quadrant 3
         proposedCol = col - 1;
         proposedRow = row - 2;
-        if(board.validMove(proposedRow, proposedCol) && !board.occupied(proposedRow, proposedCol)){
-            returnVal.add(new ChessMove(position, new ChessPosition(proposedRow, proposedCol), null));
+        proposedPosition = new ChessPosition(proposedRow, proposedCol);
+        if(board.validMove(proposedPosition) && !board.occupied(proposedPosition)){
+            returnVal.add(new ChessMove(position, proposedPosition, null));
+        }
+        if(board.validMove(proposedPosition) && board.occupiedEnemy(proposedPosition, color)){
+            returnVal.add(new ChessMove(position, proposedPosition, null));
         }
 
         proposedCol = col - 2;
         proposedRow = row - 1;
-        if(board.validMove(proposedRow, proposedCol) && !board.occupied(proposedRow, proposedCol)){
-            returnVal.add(new ChessMove(position, new ChessPosition(proposedRow, proposedCol), null));
+        proposedPosition = new ChessPosition(proposedRow, proposedCol);
+        if(board.validMove(proposedPosition) && !board.occupied(proposedPosition)){
+            returnVal.add(new ChessMove(position, proposedPosition, null));
+        }
+        if(board.validMove(proposedPosition) && board.occupiedEnemy(proposedPosition, color)){
+            returnVal.add(new ChessMove(position, proposedPosition, null));
         }
 
         //quadrant 4
         proposedCol = col - 2;
         proposedRow = row + 1;
-        if(board.validMove(proposedRow, proposedCol) && !board.occupied(proposedRow, proposedCol)){
-            returnVal.add(new ChessMove(position, new ChessPosition(proposedRow, proposedCol), null));
+        proposedPosition = new ChessPosition(proposedRow, proposedCol);
+        if(board.validMove(proposedPosition) && !board.occupied(proposedPosition)){
+            returnVal.add(new ChessMove(position, proposedPosition, null));
+        }
+        if(board.validMove(proposedPosition) && board.occupiedEnemy(proposedPosition, color)){
+            returnVal.add(new ChessMove(position, proposedPosition, null));
         }
 
         proposedCol = col - 1;
         proposedRow = row + 2;
-        if(board.validMove(proposedRow, proposedCol) && !board.occupied(proposedRow, proposedCol)){
-            returnVal.add(new ChessMove(position, new ChessPosition(proposedRow, proposedCol), null));
+        proposedPosition = new ChessPosition(proposedRow, proposedCol);
+        if(board.validMove(proposedPosition) && !board.occupied(proposedPosition)){
+            returnVal.add(new ChessMove(position, proposedPosition, null));
+        }
+        if(board.validMove(proposedPosition) && board.occupiedEnemy(proposedPosition, color)){
+            returnVal.add(new ChessMove(position, proposedPosition, null));
         }
 
         return returnVal;
