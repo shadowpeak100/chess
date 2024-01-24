@@ -422,6 +422,13 @@ public class ChessPiece {
             if(board.validMove(proposedPosition) && !board.occupied(proposedPosition)){
                 returnVal.add(new ChessMove(position, proposedPosition, null));
             }
+            if(board.validMove(proposedPosition) && board.occupiedEnemy(proposedPosition, color)){
+                returnVal.add(new ChessMove(position, proposedPosition, null));
+                break;
+            }
+            if(!board.validMove(proposedPosition) || board.occupied(proposedPosition)){
+                break;
+            }
         }
 
         // all moves in quadrant 2 direction
@@ -429,6 +436,13 @@ public class ChessPiece {
             ChessPosition proposedPosition = new ChessPosition(position.getRow() + i, position.getColumn() - i);
             if(board.validMove(proposedPosition) && !board.occupied(proposedPosition)){
                 returnVal.add(new ChessMove(position, proposedPosition, null));
+            }
+            if(board.validMove(proposedPosition) && board.occupiedEnemy(proposedPosition, color)){
+                returnVal.add(new ChessMove(position, proposedPosition, null));
+                break;
+            }
+            if(!board.validMove(proposedPosition) || board.occupied(proposedPosition)){
+                break;
             }
         }
 
@@ -438,6 +452,13 @@ public class ChessPiece {
             if(board.validMove(proposedPosition) && !board.occupied(proposedPosition)){
                 returnVal.add(new ChessMove(position, proposedPosition, null));
             }
+            if(board.validMove(proposedPosition) && board.occupiedEnemy(proposedPosition, color)){
+                returnVal.add(new ChessMove(position, proposedPosition, null));
+                break;
+            }
+            if(!board.validMove(proposedPosition) || board.occupied(proposedPosition)){
+                break;
+            }
         }
 
         // all moves in quadrant 4 direction
@@ -445,6 +466,13 @@ public class ChessPiece {
             ChessPosition proposedPosition = new ChessPosition(position.getRow() - i, position.getColumn() + i);
             if(board.validMove(proposedPosition) && !board.occupied(proposedPosition)){
                 returnVal.add(new ChessMove(position, proposedPosition, null));
+            }
+            if(board.validMove(proposedPosition) && board.occupiedEnemy(proposedPosition, color)){
+                returnVal.add(new ChessMove(position, proposedPosition, null));
+                break;
+            }
+            if(!board.validMove(proposedPosition) || board.occupied(proposedPosition)){
+                break;
             }
         }
 
