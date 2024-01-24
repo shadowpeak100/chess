@@ -481,11 +481,11 @@ public class ChessPiece {
 
     public Collection<ChessMove> QueenMoves(ChessBoard board, ChessPosition position){
         // could combine getting the moves for a bishop and rook - but must change all types to queen
-        Collection<ChessMove> knightMoves = KnightMoves(board, position);
+        Collection<ChessMove> rookMoves = RookMoves(board, position);
         Collection<ChessMove> bishopMoves = BishopMoves(board, position);
         Collection<ChessMove> combined = new HashSet<>();
 
-        combined.addAll(knightMoves);
+        combined.addAll(rookMoves);
         combined.addAll(bishopMoves);
 
         return combined;
