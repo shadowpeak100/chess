@@ -64,7 +64,6 @@ public class ChessPiece {
      * @return Collection of valid moves
      */
     public Collection<ChessMove> pieceMoves(ChessBoard board, ChessPosition myPosition) {
-        Collection<ChessMove> postFormat = new HashSet<>();
         Collection<ChessMove> returnVal = null;
 
         switch (type){

@@ -4,9 +4,8 @@
     <option name="autoReloadType" value="SELECTIVE" />
   </component>
   <component name="ChangeListManager">
-    <list default="true" id="cd6e1b2c-0683-4b74-b193-8a2e879ced1b" name="Changes" comment="Queen moves">
+    <list default="true" id="cd6e1b2c-0683-4b74-b193-8a2e879ced1b" name="Changes" comment="Rest of the tests have passed">
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/shared/src/main/java/chess/ChessBoard.java" beforeDir="false" afterPath="$PROJECT_DIR$/shared/src/main/java/chess/ChessBoard.java" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/shared/src/main/java/chess/ChessPiece.java" beforeDir="false" afterPath="$PROJECT_DIR$/shared/src/main/java/chess/ChessPiece.java" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
@@ -29,25 +28,29 @@
     <option name="showLibraryContents" value="true" />
     <option name="showMembers" value="true" />
   </component>
-  <component name="PropertiesComponent">{
-  &quot;keyToString&quot;: {
-    &quot;Downloaded.Files.Path.Enabled&quot;: &quot;false&quot;,
-    &quot;Repository.Attach.Annotations&quot;: &quot;false&quot;,
-    &quot;Repository.Attach.JavaDocs&quot;: &quot;false&quot;,
-    &quot;Repository.Attach.Sources&quot;: &quot;false&quot;,
-    &quot;RunOnceActivity.OpenProjectViewOnStart&quot;: &quot;true&quot;,
-    &quot;RunOnceActivity.ShowReadmeOnStart&quot;: &quot;true&quot;,
-    &quot;SHARE_PROJECT_CONFIGURATION_FILES&quot;: &quot;true&quot;,
-    &quot;WebServerToolWindowFactoryState&quot;: &quot;false&quot;,
-    &quot;git-widget-placeholder&quot;: &quot;main&quot;,
-    &quot;node.js.detected.package.eslint&quot;: &quot;true&quot;,
-    &quot;node.js.detected.package.tslint&quot;: &quot;true&quot;,
-    &quot;node.js.selected.package.eslint&quot;: &quot;(autodetect)&quot;,
-    &quot;node.js.selected.package.tslint&quot;: &quot;(autodetect)&quot;,
-    &quot;settings.editor.selected.configurable&quot;: &quot;inlay.hints&quot;,
-    &quot;vue.rearranger.settings.migration&quot;: &quot;true&quot;
+  <component name="PropertiesComponent"><![CDATA[{
+  "keyToString": {
+    "Downloaded.Files.Path.Enabled": "false",
+    "JUnit.passoffTests.chessTests.chessPieceTests in test.executor": "Run",
+    "Repository.Attach.Annotations": "false",
+    "Repository.Attach.JavaDocs": "false",
+    "Repository.Attach.Sources": "false",
+    "RunOnceActivity.OpenProjectViewOnStart": "true",
+    "RunOnceActivity.ShowReadmeOnStart": "true",
+    "SHARE_PROJECT_CONFIGURATION_FILES": "true",
+    "WebServerToolWindowFactoryState": "false",
+    "git-widget-placeholder": "main",
+    "kotlin-language-version-configured": "true",
+    "last_opened_file_path": "/Users/brayden/src/school/CS240/chess",
+    "node.js.detected.package.eslint": "true",
+    "node.js.detected.package.tslint": "true",
+    "node.js.selected.package.eslint": "(autodetect)",
+    "node.js.selected.package.tslint": "(autodetect)",
+    "nodejs_package_manager_path": "npm",
+    "settings.editor.selected.configurable": "inlay.hints",
+    "vue.rearranger.settings.migration": "true"
   }
-}</component>
+}]]></component>
   <component name="RunManager" selected="JUnit.ChessPositionTests">
     <configuration name="ChessBoardTests" type="JUnit" factoryName="JUnit" temporary="true" nameIsGenerated="true">
       <module name="test" />
@@ -89,21 +92,7 @@
       </extension>
       <option name="PACKAGE_NAME" value="passoffTests.chessTests" />
       <option name="MAIN_CLASS_NAME" value="passoffTests.chessTests.ChessPositionTests" />
-      <option name="TEST_OBJECT" value="class" />
-      <method v="2">
-        <option name="Make" enabled="true" />
-      </method>
-    </configuration>
-    <configuration name="QueenMoveTests" type="JUnit" factoryName="JUnit" temporary="true" nameIsGenerated="true">
-      <module name="test" />
-      <extension name="coverage">
-        <pattern>
-          <option name="PATTERN" value="passoffTests.chessTests.chessPieceTests.*" />
-          <option name="ENABLED" value="true" />
-        </pattern>
-      </extension>
-      <option name="PACKAGE_NAME" value="passoffTests.chessTests.chessPieceTests" />
-      <option name="MAIN_CLASS_NAME" value="passoffTests.chessTests.chessPieceTests.QueenMoveTests" />
+      <option name="METHOD_NAME" value="" />
       <option name="TEST_OBJECT" value="class" />
       <method v="2">
         <option name="Make" enabled="true" />
@@ -124,13 +113,34 @@
         <option name="Make" enabled="true" />
       </method>
     </configuration>
+    <configuration name="passoffTests.chessTests.chessPieceTests in test" type="JUnit" factoryName="JUnit" temporary="true" nameIsGenerated="true">
+      <module name="test" />
+      <extension name="coverage">
+        <pattern>
+          <option name="PATTERN" value="passoffTests.chessTests.chessPieceTests.*" />
+          <option name="ENABLED" value="true" />
+        </pattern>
+      </extension>
+      <option name="PACKAGE_NAME" value="passoffTests.chessTests.chessPieceTests" />
+      <option name="TEST_OBJECT" value="package" />
+      <method v="2">
+        <option name="Make" enabled="true" />
+      </method>
+    </configuration>
+    <list>
+      <item itemvalue="JUnit.passoffTests.chessTests.chessPieceTests in test" />
+      <item itemvalue="JUnit.ChessBoardTests" />
+      <item itemvalue="JUnit.ChessMoveTests" />
+      <item itemvalue="JUnit.ChessPositionTests" />
+      <item itemvalue="JUnit.RookMoveTests" />
+    </list>
     <recent_temporary>
       <list>
         <item itemvalue="JUnit.ChessPositionTests" />
         <item itemvalue="JUnit.ChessMoveTests" />
         <item itemvalue="JUnit.ChessBoardTests" />
+        <item itemvalue="JUnit.passoffTests.chessTests.chessPieceTests in test" />
         <item itemvalue="JUnit.RookMoveTests" />
-        <item itemvalue="JUnit.QueenMoveTests" />
       </list>
     </recent_temporary>
   </component>
@@ -144,7 +154,14 @@
       <updated>1705338454252</updated>
       <workItem from="1705338455468" duration="504000" />
       <workItem from="1705338975436" duration="18695000" />
-      <workItem from="1705881497620" duration="30043000" />
+      <workItem from="1705881497620" duration="32644000" />
+      <workItem from="1706218713475" duration="6480000" />
+      <workItem from="1706236709956" duration="12000" />
+      <workItem from="1706236732036" duration="172000" />
+      <workItem from="1706237083107" duration="256000" />
+      <workItem from="1706286865850" duration="160000" />
+      <workItem from="1706287095690" duration="9000" />
+      <workItem from="1706853853592" duration="628000" />
     </task>
     <task id="LOCAL-00001" summary="ChessBoard, ChessPiece &amp; ChessPosition initial implementations">
       <option name="closed" value="true" />
@@ -226,7 +243,15 @@
       <option name="project" value="LOCAL" />
       <updated>1706127796776</updated>
     </task>
-    <option name="localTasksCounter" value="11" />
+    <task id="LOCAL-00011" summary="Rest of the tests have passed">
+      <option name="closed" value="true" />
+      <created>1706132129080</created>
+      <option name="number" value="00011" />
+      <option name="presentableId" value="LOCAL-00011" />
+      <option name="project" value="LOCAL" />
+      <updated>1706132129080</updated>
+    </task>
+    <option name="localTasksCounter" value="12" />
     <servers />
   </component>
   <component name="TypeScriptGeneratedFilesManager">
@@ -254,6 +279,7 @@
     <MESSAGE value="Knight moves" />
     <MESSAGE value="Bishop Moves" />
     <MESSAGE value="Queen moves" />
-    <option name="LAST_COMMIT_MESSAGE" value="Queen moves" />
+    <MESSAGE value="Rest of the tests have passed" />
+    <option name="LAST_COMMIT_MESSAGE" value="Rest of the tests have passed" />
   </component>
 </project>
