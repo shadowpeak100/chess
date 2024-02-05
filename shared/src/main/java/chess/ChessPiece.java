@@ -116,7 +116,7 @@ public class ChessPiece {
 
         //is it a valid capture
         if(Math.abs(currentPosition.getColumn() - proposedPosition.getColumn()) == 1 && Math.abs(currentPosition.getRow() - proposedPosition.getRow()) == 1){
-            if (board.occupiedEnemy(proposedPosition, color)){
+            if (board.occupiedByOppositeColor(proposedPosition, color)){
                 //is it a promotion or not?
                 if(!handlePromotionWhite(board, currentPosition, proposedPosition, returnVal)){
                     returnVal.add(new ChessMove(currentPosition, proposedPosition, null));
@@ -150,7 +150,7 @@ public class ChessPiece {
 
         //is it a valid capture
         if(Math.abs(currentPosition.getColumn() - proposedPosition.getColumn()) == 1 && Math.abs(currentPosition.getRow() - proposedPosition.getRow()) == 1){
-            if (board.occupiedEnemy(proposedPosition, color)){
+            if (board.occupiedByOppositeColor(proposedPosition, color)){
                 //is it a promotion or not?
                 if(!handlePromotionBlack(board, currentPosition, proposedPosition, returnVal)){
                     returnVal.add(new ChessMove(currentPosition, proposedPosition, null));
@@ -168,7 +168,7 @@ public class ChessPiece {
                 returnVal.add(new ChessMove(currentPosition, new ChessPosition(8, proposedPosition.getColumn()), PieceType.ROOK));
                 return true;
             }
-            if (board.occupiedEnemy(8, proposedPosition.getColumn(), ChessGame.TeamColor.WHITE)) {
+            if (board.occupiedByOppositeColor(8, proposedPosition.getColumn(), ChessGame.TeamColor.WHITE)) {
                 returnVal.add(new ChessMove(currentPosition, new ChessPosition(8, proposedPosition.getColumn()), PieceType.QUEEN));
                 returnVal.add(new ChessMove(currentPosition, new ChessPosition(8, proposedPosition.getColumn()), PieceType.BISHOP));
                 returnVal.add(new ChessMove(currentPosition, new ChessPosition(8, proposedPosition.getColumn()), PieceType.KNIGHT));
@@ -248,7 +248,7 @@ public class ChessPiece {
                 if(board.validMove(proposedPosition) && !board.occupied(proposedPosition)){
                     returnVal.add(new ChessMove(position, proposedPosition, null));
                 }
-                if (board.occupiedEnemy(proposedPosition, color)){
+                if (board.occupiedByOppositeColor(proposedPosition, color)){
                     returnVal.add(new ChessMove(position, proposedPosition, null));
                     break;
                 }
@@ -266,7 +266,7 @@ public class ChessPiece {
                 if(board.validMove(proposedPosition) && !board.occupied(proposedPosition)){
                     returnVal.add(new ChessMove(position, proposedPosition, null));
                 }
-                if (board.occupiedEnemy(proposedPosition, color)){
+                if (board.occupiedByOppositeColor(proposedPosition, color)){
                     returnVal.add(new ChessMove(position, proposedPosition, null));
                     break;
                 }
@@ -284,7 +284,7 @@ public class ChessPiece {
                 if(board.validMove(proposedPosition) && !board.occupied(proposedPosition)){
                     returnVal.add(new ChessMove(position, proposedPosition, null));
                 }
-                if (board.occupiedEnemy(proposedPosition, color)){
+                if (board.occupiedByOppositeColor(proposedPosition, color)){
                     returnVal.add(new ChessMove(position, proposedPosition, null));
                     break;
                 }
@@ -302,7 +302,7 @@ public class ChessPiece {
                 if(board.validMove(proposedPosition) && !board.occupied(proposedPosition)){
                     returnVal.add(new ChessMove(position, proposedPosition, null));
                 }
-                if (board.occupiedEnemy(proposedPosition, color)){
+                if (board.occupiedByOppositeColor(proposedPosition, color)){
                     returnVal.add(new ChessMove(position, proposedPosition, null));
                     break;
                 }
@@ -332,7 +332,7 @@ public class ChessPiece {
         if(board.validMove(proposedPosition) && !board.occupied(proposedPosition)){
             returnVal.add(new ChessMove(position, proposedPosition, null));
         }
-        if(board.validMove(proposedPosition) && board.occupiedEnemy(proposedPosition, color)){
+        if(board.validMove(proposedPosition) && board.occupiedByOppositeColor(proposedPosition, color)){
             returnVal.add(new ChessMove(position, proposedPosition, null));
         }
 
@@ -342,7 +342,7 @@ public class ChessPiece {
         if(board.validMove(proposedPosition) && !board.occupied(proposedPosition)){
             returnVal.add(new ChessMove(position, proposedPosition, null));
         }
-        if(board.validMove(proposedPosition) && board.occupiedEnemy(proposedPosition, color)){
+        if(board.validMove(proposedPosition) && board.occupiedByOppositeColor(proposedPosition, color)){
             returnVal.add(new ChessMove(position, proposedPosition, null));
         }
 
@@ -353,7 +353,7 @@ public class ChessPiece {
         if(board.validMove(proposedPosition) && !board.occupied(proposedPosition)){
             returnVal.add(new ChessMove(position, proposedPosition, null));
         }
-        if(board.validMove(proposedPosition) && board.occupiedEnemy(proposedPosition, color)){
+        if(board.validMove(proposedPosition) && board.occupiedByOppositeColor(proposedPosition, color)){
             returnVal.add(new ChessMove(position, proposedPosition, null));
         }
 
@@ -363,7 +363,7 @@ public class ChessPiece {
         if(board.validMove(proposedPosition) && !board.occupied(proposedPosition)){
             returnVal.add(new ChessMove(position, proposedPosition, null));
         }
-        if(board.validMove(proposedPosition) && board.occupiedEnemy(proposedPosition, color)){
+        if(board.validMove(proposedPosition) && board.occupiedByOppositeColor(proposedPosition, color)){
             returnVal.add(new ChessMove(position, proposedPosition, null));
         }
 
@@ -374,7 +374,7 @@ public class ChessPiece {
         if(board.validMove(proposedPosition) && !board.occupied(proposedPosition)){
             returnVal.add(new ChessMove(position, proposedPosition, null));
         }
-        if(board.validMove(proposedPosition) && board.occupiedEnemy(proposedPosition, color)){
+        if(board.validMove(proposedPosition) && board.occupiedByOppositeColor(proposedPosition, color)){
             returnVal.add(new ChessMove(position, proposedPosition, null));
         }
 
@@ -384,7 +384,7 @@ public class ChessPiece {
         if(board.validMove(proposedPosition) && !board.occupied(proposedPosition)){
             returnVal.add(new ChessMove(position, proposedPosition, null));
         }
-        if(board.validMove(proposedPosition) && board.occupiedEnemy(proposedPosition, color)){
+        if(board.validMove(proposedPosition) && board.occupiedByOppositeColor(proposedPosition, color)){
             returnVal.add(new ChessMove(position, proposedPosition, null));
         }
 
@@ -395,7 +395,7 @@ public class ChessPiece {
         if(board.validMove(proposedPosition) && !board.occupied(proposedPosition)){
             returnVal.add(new ChessMove(position, proposedPosition, null));
         }
-        if(board.validMove(proposedPosition) && board.occupiedEnemy(proposedPosition, color)){
+        if(board.validMove(proposedPosition) && board.occupiedByOppositeColor(proposedPosition, color)){
             returnVal.add(new ChessMove(position, proposedPosition, null));
         }
 
@@ -405,7 +405,7 @@ public class ChessPiece {
         if(board.validMove(proposedPosition) && !board.occupied(proposedPosition)){
             returnVal.add(new ChessMove(position, proposedPosition, null));
         }
-        if(board.validMove(proposedPosition) && board.occupiedEnemy(proposedPosition, color)){
+        if(board.validMove(proposedPosition) && board.occupiedByOppositeColor(proposedPosition, color)){
             returnVal.add(new ChessMove(position, proposedPosition, null));
         }
 
@@ -421,7 +421,7 @@ public class ChessPiece {
             if(board.validMove(proposedPosition) && !board.occupied(proposedPosition)){
                 returnVal.add(new ChessMove(position, proposedPosition, null));
             }
-            if(board.validMove(proposedPosition) && board.occupiedEnemy(proposedPosition, color)){
+            if(board.validMove(proposedPosition) && board.occupiedByOppositeColor(proposedPosition, color)){
                 returnVal.add(new ChessMove(position, proposedPosition, null));
                 break;
             }
@@ -436,7 +436,7 @@ public class ChessPiece {
             if(board.validMove(proposedPosition) && !board.occupied(proposedPosition)){
                 returnVal.add(new ChessMove(position, proposedPosition, null));
             }
-            if(board.validMove(proposedPosition) && board.occupiedEnemy(proposedPosition, color)){
+            if(board.validMove(proposedPosition) && board.occupiedByOppositeColor(proposedPosition, color)){
                 returnVal.add(new ChessMove(position, proposedPosition, null));
                 break;
             }
@@ -451,7 +451,7 @@ public class ChessPiece {
             if(board.validMove(proposedPosition) && !board.occupied(proposedPosition)){
                 returnVal.add(new ChessMove(position, proposedPosition, null));
             }
-            if(board.validMove(proposedPosition) && board.occupiedEnemy(proposedPosition, color)){
+            if(board.validMove(proposedPosition) && board.occupiedByOppositeColor(proposedPosition, color)){
                 returnVal.add(new ChessMove(position, proposedPosition, null));
                 break;
             }
@@ -466,7 +466,7 @@ public class ChessPiece {
             if(board.validMove(proposedPosition) && !board.occupied(proposedPosition)){
                 returnVal.add(new ChessMove(position, proposedPosition, null));
             }
-            if(board.validMove(proposedPosition) && board.occupiedEnemy(proposedPosition, color)){
+            if(board.validMove(proposedPosition) && board.occupiedByOppositeColor(proposedPosition, color)){
                 returnVal.add(new ChessMove(position, proposedPosition, null));
                 break;
             }
@@ -504,7 +504,7 @@ public class ChessPiece {
         if(board.validMove(proposedPosition) && !board.occupied(proposedPosition)){
             returnVal.add(new ChessMove(position, proposedPosition, null));
         }
-        if(board.validMove(proposedPosition) && board.occupiedEnemy(proposedPosition, color)){
+        if(board.validMove(proposedPosition) && board.occupiedByOppositeColor(proposedPosition, color)){
             returnVal.add(new ChessMove(position, proposedPosition, null));
         }
 
@@ -514,7 +514,7 @@ public class ChessPiece {
         if(board.validMove(proposedPosition) && !board.occupied(proposedPosition)){
             returnVal.add(new ChessMove(position, proposedPosition, null));
         }
-        if(board.validMove(proposedPosition) && board.occupiedEnemy(proposedPosition, color)){
+        if(board.validMove(proposedPosition) && board.occupiedByOppositeColor(proposedPosition, color)){
             returnVal.add(new ChessMove(position, proposedPosition, null));
         }
 
@@ -524,7 +524,7 @@ public class ChessPiece {
         if(board.validMove(proposedPosition) && !board.occupied(proposedPosition)){
             returnVal.add(new ChessMove(position, proposedPosition, null));
         }
-        if(board.validMove(proposedPosition) && board.occupiedEnemy(proposedPosition, color)){
+        if(board.validMove(proposedPosition) && board.occupiedByOppositeColor(proposedPosition, color)){
             returnVal.add(new ChessMove(position, proposedPosition, null));
         }
 
@@ -534,7 +534,7 @@ public class ChessPiece {
         if(board.validMove(proposedPosition) && !board.occupied(proposedPosition)){
             returnVal.add(new ChessMove(position, proposedPosition, null));
         }
-        if(board.validMove(proposedPosition) && board.occupiedEnemy(proposedPosition, color)){
+        if(board.validMove(proposedPosition) && board.occupiedByOppositeColor(proposedPosition, color)){
             returnVal.add(new ChessMove(position, proposedPosition, null));
         }
 
@@ -544,7 +544,7 @@ public class ChessPiece {
         if(board.validMove(proposedPosition) && !board.occupied(proposedPosition)){
             returnVal.add(new ChessMove(position, proposedPosition, null));
         }
-        if(board.validMove(proposedPosition) && board.occupiedEnemy(proposedPosition, color)){
+        if(board.validMove(proposedPosition) && board.occupiedByOppositeColor(proposedPosition, color)){
             returnVal.add(new ChessMove(position, proposedPosition, null));
         }
 
@@ -554,7 +554,7 @@ public class ChessPiece {
         if(board.validMove(proposedPosition) && !board.occupied(proposedPosition)){
             returnVal.add(new ChessMove(position, proposedPosition, null));
         }
-        if(board.validMove(proposedPosition) && board.occupiedEnemy(proposedPosition, color)){
+        if(board.validMove(proposedPosition) && board.occupiedByOppositeColor(proposedPosition, color)){
             returnVal.add(new ChessMove(position, proposedPosition, null));
         }
 
@@ -564,7 +564,7 @@ public class ChessPiece {
         if(board.validMove(proposedPosition) && !board.occupied(proposedPosition)){
             returnVal.add(new ChessMove(position, proposedPosition, null));
         }
-        if(board.validMove(proposedPosition) && board.occupiedEnemy(proposedPosition, color)){
+        if(board.validMove(proposedPosition) && board.occupiedByOppositeColor(proposedPosition, color)){
             returnVal.add(new ChessMove(position, proposedPosition, null));
         }
 
@@ -574,7 +574,7 @@ public class ChessPiece {
         if(board.validMove(proposedPosition) && !board.occupied(proposedPosition)){
             returnVal.add(new ChessMove(position, proposedPosition, null));
         }
-        if(board.validMove(proposedPosition) && board.occupiedEnemy(proposedPosition, color)){
+        if(board.validMove(proposedPosition) && board.occupiedByOppositeColor(proposedPosition, color)){
             returnVal.add(new ChessMove(position, proposedPosition, null));
         }
 

@@ -64,14 +64,14 @@ public class ChessBoard {
         return getBoard()[row-1][col-1] != null;
     }
 
-    public boolean occupiedEnemy(ChessPosition position, ChessGame.TeamColor color){
-        if (getBoard()[position.getRow() - 1][position.getColumn() - 1] != null  && getBoard()[position.getRow() - 1][position.getColumn() - 1].getTeamColor() != color){
+    public boolean occupiedByOppositeColor(ChessPosition position, ChessGame.TeamColor selfColor){
+        if (getBoard()[position.getRow() - 1][position.getColumn() - 1] != null  && getBoard()[position.getRow() - 1][position.getColumn() - 1].getTeamColor() != selfColor){
             return true;
         }
         return false;
     }
 
-    public boolean occupiedEnemy(int row, int col, ChessGame.TeamColor currentTeamColor){
+    public boolean occupiedByOppositeColor(int row, int col, ChessGame.TeamColor currentTeamColor){
         if (getBoard()[row - 1][col - 1] != null && getBoard()[row - 1][col - 1].getTeamColor() != currentTeamColor){
             return true;
         }

@@ -4,9 +4,11 @@
     <option name="autoReloadType" value="SELECTIVE" />
   </component>
   <component name="ChangeListManager">
-    <list default="true" id="cd6e1b2c-0683-4b74-b193-8a2e879ced1b" name="Changes" comment="Chess game tests">
+    <list default="true" id="cd6e1b2c-0683-4b74-b193-8a2e879ced1b" name="Changes" comment="Implemented getters/setters, part of valid moves">
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/shared/src/main/java/chess/ChessBoard.java" beforeDir="false" afterPath="$PROJECT_DIR$/shared/src/main/java/chess/ChessBoard.java" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/shared/src/main/java/chess/ChessGame.java" beforeDir="false" afterPath="$PROJECT_DIR$/shared/src/main/java/chess/ChessGame.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/shared/src/main/java/chess/ChessPiece.java" beforeDir="false" afterPath="$PROJECT_DIR$/shared/src/main/java/chess/ChessPiece.java" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -171,7 +173,7 @@
       <workItem from="1706237083107" duration="256000" />
       <workItem from="1706286865850" duration="160000" />
       <workItem from="1706287095690" duration="9000" />
-      <workItem from="1706853853592" duration="4785000" />
+      <workItem from="1706853853592" duration="8469000" />
     </task>
     <task id="LOCAL-00001" summary="ChessBoard, ChessPiece &amp; ChessPosition initial implementations">
       <option name="closed" value="true" />
@@ -269,7 +271,15 @@
       <option name="project" value="LOCAL" />
       <updated>1706854510874</updated>
     </task>
-    <option name="localTasksCounter" value="13" />
+    <task id="LOCAL-00013" summary="Implemented getters/setters, part of valid moves">
+      <option name="closed" value="true" />
+      <created>1706939154920</created>
+      <option name="number" value="00013" />
+      <option name="presentableId" value="LOCAL-00013" />
+      <option name="project" value="LOCAL" />
+      <updated>1706939154920</updated>
+    </task>
+    <option name="localTasksCounter" value="14" />
     <servers />
   </component>
   <component name="TypeScriptGeneratedFilesManager">
@@ -299,6 +309,7 @@
     <MESSAGE value="Queen moves" />
     <MESSAGE value="Rest of the tests have passed" />
     <MESSAGE value="Chess game tests" />
-    <option name="LAST_COMMIT_MESSAGE" value="Chess game tests" />
+    <MESSAGE value="Implemented getters/setters, part of valid moves" />
+    <option name="LAST_COMMIT_MESSAGE" value="Implemented getters/setters, part of valid moves" />
   </component>
 </project>

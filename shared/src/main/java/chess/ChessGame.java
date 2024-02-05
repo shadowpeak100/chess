@@ -1,6 +1,7 @@
 package chess;
 
 import java.util.Collection;
+import java.util.HashSet;
 
 /**
  * For a class that can manage a chess game, making moves on a board
@@ -51,7 +52,16 @@ public class ChessGame {
     public Collection<ChessMove> validMoves(ChessPosition startPosition){
         var focusedPiece = board.getPiece(startPosition);
         Collection<ChessMove> possibleMoves = focusedPiece.pieceMoves(board, startPosition);
+
         //eliminate the moves that put the king in danger
+        for(int i = 1; i <= 8; i++){
+            for(int j = 1; j <= 8; j++){
+                ChessPosition position = new ChessPosition(i, j);
+                if (board.occupiedByOppositeColor(position, )){
+
+                }
+            }
+        }
 
 
         return possibleMoves;
@@ -95,7 +105,25 @@ public class ChessGame {
      * @return True if the specified team is in stalemate, otherwise false
      */
     public boolean isInStalemate(TeamColor teamColor) {
-        throw new RuntimeException("Not implemented");
+        //combine all possible moves, if count is 0, fail
+        ChessGame.TeamColor enemyColor = null;
+        Collection<ChessMove> combined = new HashSet<>();
+
+        if(teamColor == TeamColor.WHITE){
+            enemyColor = TeamColor.BLACK;
+        }else{
+            enemyColor = TeamColor.WHITE;
+        }
+
+        for(int i = 1; i <= 8; i++){
+            for(int j = 1; j <= 8; j++){
+                ChessPosition position = new ChessPosition(i, j);
+                if (board.occupiedByOppositeColor(position, enemyColor)){
+                    combined.addAll(validMoves(position));
+                }
+            }
+        }
+        return combined.isEmpty();
     }
 
     /**
