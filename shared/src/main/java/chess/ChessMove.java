@@ -1,5 +1,6 @@
 package chess;
 
+import java.util.Collection;
 import java.util.Objects;
 
 /**
@@ -31,6 +32,15 @@ public class ChessMove {
         startPos = startPosition;
         endPos = endPosition;
         promotion = promotionPiece;
+    }
+
+    public boolean ContainedWithin(Collection<ChessMove> set){
+        for (ChessMove move : set){
+            if(move.startPos.equals(startPos) && move.endPos.equals(endPos) && move.promotion == promotion){
+                return true;
+            }
+        }
+        return false;
     }
 
     /**

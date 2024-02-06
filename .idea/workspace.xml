@@ -4,11 +4,12 @@
     <option name="autoReloadType" value="SELECTIVE" />
   </component>
   <component name="ChangeListManager">
-    <list default="true" id="cd6e1b2c-0683-4b74-b193-8a2e879ced1b" name="Changes" comment="Implemented getters/setters, part of valid moves">
+    <list default="true" id="cd6e1b2c-0683-4b74-b193-8a2e879ced1b" name="Changes" comment="stalemate function">
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/shared/src/main/java/chess/ChessBoard.java" beforeDir="false" afterPath="$PROJECT_DIR$/shared/src/main/java/chess/ChessBoard.java" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/shared/src/main/java/chess/ChessGame.java" beforeDir="false" afterPath="$PROJECT_DIR$/shared/src/main/java/chess/ChessGame.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/shared/src/main/java/chess/ChessPiece.java" beforeDir="false" afterPath="$PROJECT_DIR$/shared/src/main/java/chess/ChessPiece.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/shared/src/main/java/chess/ChessMove.java" beforeDir="false" afterPath="$PROJECT_DIR$/shared/src/main/java/chess/ChessMove.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/shared/src/test/java/passoffTests/chessTests/ChessGameTests.java" beforeDir="false" afterPath="$PROJECT_DIR$/shared/src/test/java/passoffTests/chessTests/ChessGameTests.java" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -41,6 +42,8 @@
   "keyToString": {
     "Downloaded.Files.Path.Enabled": "false",
     "JUnit.ChessBoardTests.executor": "Run",
+    "JUnit.ChessGameTests.executor": "Run",
+    "JUnit.ChessGameTests.makeValidMoves.executor": "Run",
     "JUnit.ChessMoveTests.executor": "Run",
     "JUnit.ChessPositionTests.executor": "Run",
     "JUnit.passoffTests.chessTests.chessPieceTests in test.executor": "Run",
@@ -63,7 +66,7 @@
     "vue.rearranger.settings.migration": "true"
   }
 }]]></component>
-  <component name="RunManager" selected="JUnit.ChessPositionTests">
+  <component name="RunManager" selected="JUnit.ChessGameTests.makeValidMoves">
     <configuration name="ChessBoardTests" type="JUnit" factoryName="JUnit" temporary="true" nameIsGenerated="true">
       <module name="test" />
       <extension name="coverage">
@@ -75,6 +78,37 @@
       <option name="PACKAGE_NAME" value="passoffTests.chessTests" />
       <option name="MAIN_CLASS_NAME" value="passoffTests.chessTests.ChessBoardTests" />
       <option name="TEST_OBJECT" value="class" />
+      <method v="2">
+        <option name="Make" enabled="true" />
+      </method>
+    </configuration>
+    <configuration name="ChessGameTests" type="JUnit" factoryName="JUnit" temporary="true" nameIsGenerated="true">
+      <module name="test" />
+      <extension name="coverage">
+        <pattern>
+          <option name="PATTERN" value="passoffTests.chessTests.*" />
+          <option name="ENABLED" value="true" />
+        </pattern>
+      </extension>
+      <option name="PACKAGE_NAME" value="passoffTests.chessTests" />
+      <option name="MAIN_CLASS_NAME" value="passoffTests.chessTests.ChessGameTests" />
+      <option name="TEST_OBJECT" value="class" />
+      <method v="2">
+        <option name="Make" enabled="true" />
+      </method>
+    </configuration>
+    <configuration name="ChessGameTests.makeValidMoves" type="JUnit" factoryName="JUnit" temporary="true" nameIsGenerated="true">
+      <module name="test" />
+      <extension name="coverage">
+        <pattern>
+          <option name="PATTERN" value="passoffTests.chessTests.*" />
+          <option name="ENABLED" value="true" />
+        </pattern>
+      </extension>
+      <option name="PACKAGE_NAME" value="passoffTests.chessTests" />
+      <option name="MAIN_CLASS_NAME" value="passoffTests.chessTests.ChessGameTests" />
+      <option name="METHOD_NAME" value="makeValidMoves" />
+      <option name="TEST_OBJECT" value="method" />
       <method v="2">
         <option name="Make" enabled="true" />
       </method>
@@ -110,49 +144,20 @@
         <option name="Make" enabled="true" />
       </method>
     </configuration>
-    <configuration name="RookMoveTests" type="JUnit" factoryName="JUnit" temporary="true" nameIsGenerated="true">
-      <module name="test" />
-      <extension name="coverage">
-        <pattern>
-          <option name="PATTERN" value="passoffTests.chessTests.chessPieceTests.*" />
-          <option name="ENABLED" value="true" />
-        </pattern>
-      </extension>
-      <option name="PACKAGE_NAME" value="passoffTests.chessTests.chessPieceTests" />
-      <option name="MAIN_CLASS_NAME" value="passoffTests.chessTests.chessPieceTests.RookMoveTests" />
-      <option name="TEST_OBJECT" value="class" />
-      <method v="2">
-        <option name="Make" enabled="true" />
-      </method>
-    </configuration>
-    <configuration name="passoffTests.chessTests.chessPieceTests in test" type="JUnit" factoryName="JUnit" temporary="true" nameIsGenerated="true">
-      <module name="test" />
-      <extension name="coverage">
-        <pattern>
-          <option name="PATTERN" value="passoffTests.chessTests.chessPieceTests.*" />
-          <option name="ENABLED" value="true" />
-        </pattern>
-      </extension>
-      <option name="PACKAGE_NAME" value="passoffTests.chessTests.chessPieceTests" />
-      <option name="TEST_OBJECT" value="package" />
-      <method v="2">
-        <option name="Make" enabled="true" />
-      </method>
-    </configuration>
     <list>
-      <item itemvalue="JUnit.passoffTests.chessTests.chessPieceTests in test" />
+      <item itemvalue="JUnit.ChessGameTests" />
+      <item itemvalue="JUnit.ChessGameTests.makeValidMoves" />
       <item itemvalue="JUnit.ChessBoardTests" />
       <item itemvalue="JUnit.ChessMoveTests" />
       <item itemvalue="JUnit.ChessPositionTests" />
-      <item itemvalue="JUnit.RookMoveTests" />
     </list>
     <recent_temporary>
       <list>
+        <item itemvalue="JUnit.ChessGameTests.makeValidMoves" />
+        <item itemvalue="JUnit.ChessGameTests" />
         <item itemvalue="JUnit.ChessPositionTests" />
         <item itemvalue="JUnit.ChessMoveTests" />
         <item itemvalue="JUnit.ChessBoardTests" />
-        <item itemvalue="JUnit.passoffTests.chessTests.chessPieceTests in test" />
-        <item itemvalue="JUnit.RookMoveTests" />
       </list>
     </recent_temporary>
   </component>
@@ -173,7 +178,7 @@
       <workItem from="1706237083107" duration="256000" />
       <workItem from="1706286865850" duration="160000" />
       <workItem from="1706287095690" duration="9000" />
-      <workItem from="1706853853592" duration="8469000" />
+      <workItem from="1706853853592" duration="24793000" />
     </task>
     <task id="LOCAL-00001" summary="ChessBoard, ChessPiece &amp; ChessPosition initial implementations">
       <option name="closed" value="true" />
@@ -279,7 +284,15 @@
       <option name="project" value="LOCAL" />
       <updated>1706939154920</updated>
     </task>
-    <option name="localTasksCounter" value="14" />
+    <task id="LOCAL-00014" summary="stalemate function">
+      <option name="closed" value="true" />
+      <created>1707098679520</created>
+      <option name="number" value="00014" />
+      <option name="presentableId" value="LOCAL-00014" />
+      <option name="project" value="LOCAL" />
+      <updated>1707098679520</updated>
+    </task>
+    <option name="localTasksCounter" value="15" />
     <servers />
   </component>
   <component name="TypeScriptGeneratedFilesManager">
@@ -310,6 +323,23 @@
     <MESSAGE value="Rest of the tests have passed" />
     <MESSAGE value="Chess game tests" />
     <MESSAGE value="Implemented getters/setters, part of valid moves" />
-    <option name="LAST_COMMIT_MESSAGE" value="Implemented getters/setters, part of valid moves" />
+    <MESSAGE value="stalemate function" />
+    <option name="LAST_COMMIT_MESSAGE" value="stalemate function" />
+  </component>
+  <component name="XDebuggerManager">
+    <breakpoint-manager>
+      <breakpoints>
+        <line-breakpoint enabled="true" type="java-line">
+          <url>file://$PROJECT_DIR$/shared/src/test/java/passoffTests/chessTests/ChessGameTests.java</url>
+          <line>45</line>
+          <option name="timeStamp" value="2" />
+        </line-breakpoint>
+        <line-breakpoint enabled="true" type="java-line">
+          <url>file://$PROJECT_DIR$/shared/src/main/java/chess/ChessGame.java</url>
+          <line>79</line>
+          <option name="timeStamp" value="3" />
+        </line-breakpoint>
+      </breakpoints>
+    </breakpoint-manager>
   </component>
 </project>

@@ -53,6 +53,10 @@ public class ChessBoard {
         return Board;
     }
 
+    public void setBoard(int row, int col, ChessPiece piece){
+        Board[row - 1][col - 1] = piece;
+    }
+
     public boolean occupied(ChessPosition position){
         if(getBoard()[position.getRow()-1][position.getColumn()-1] != null){
             return true;
