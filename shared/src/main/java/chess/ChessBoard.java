@@ -28,6 +28,19 @@ public class ChessBoard {
         Board = new ChessPiece[8][8];
     }
 
+    public ChessBoard(ChessPiece[][] t) {
+        Board = t;
+    }
+
+    public ChessBoard boardDeepCopy() {
+        ChessPiece[][] copy = new ChessPiece[getBoard().length][];
+        for (int i = 0; i < getBoard().length; i++) {
+            copy[i] = new ChessPiece[getBoard()[i].length];
+            System.arraycopy(getBoard()[i], 0, copy[i], 0, getBoard()[i].length);
+        }
+        return new ChessBoard(copy);
+    }
+
     /**
      * Adds a chess piece to the chessboard
      *
@@ -58,6 +71,9 @@ public class ChessBoard {
     }
 
     public boolean occupied(ChessPosition position){
+        if(position.getRow() > 8 || position.getColumn() < 1 || position.getColumn() > 8 || position.getRow() < 1){
+            return false;
+        }
         if(getBoard()[position.getRow()-1][position.getColumn()-1] != null){
             return true;
         }

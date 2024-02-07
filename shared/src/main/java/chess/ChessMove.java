@@ -35,6 +35,9 @@ public class ChessMove {
     }
 
     public boolean ContainedWithin(Collection<ChessMove> set){
+        if(set == null){
+            return false;
+        }
         for (ChessMove move : set){
             if(move.startPos.equals(startPos) && move.endPos.equals(endPos) && move.promotion == promotion){
                 return true;
