@@ -63,6 +63,17 @@ public class ChessGame {
      * @return Set of valid moves for requested piece, or null if no piece at
      * startPosition
      */
+    public Collection<ChessMove> possibleMoves(ChessPosition startPosition) {
+        var focusedPiece = board.getPiece(startPosition);
+        Collection<ChessMove> returnVal = new HashSet<>();
+
+        if (focusedPiece == null) {
+            return null;
+        }
+        Collection<ChessMove> possibleMoves = focusedPiece.pieceMoves(board, startPosition);
+        return possibleMoves;
+    }
+
     public Collection<ChessMove> validMoves(ChessPosition startPosition){
         var focusedPiece = board.getPiece(startPosition);
         Collection<ChessMove> returnVal = new HashSet<>();
@@ -70,22 +81,21 @@ public class ChessGame {
         if(focusedPiece == null){
             return null;
         }
+
         Collection<ChessMove> possibleMoves = focusedPiece.pieceMoves(board, startPosition);
-        return possibleMoves;
         //the moves that put us in checkmate we should not do
-//        for(ChessMove move : possibleMoves){
-//            ChessGame testGame = new ChessGame();
-//            testGame.board = new ChessBoard(boardDeepCopy(this.board.getBoard()));
-//            try{
-//                testGame.makeMockMove(move);
-//            } catch (InvalidMoveException e) {
-//                continue;
-//            }
-//            if(!isInCheckmate(focusedPiece.getTeamColor())){
-//                returnVal.add(move);
-//            }
-//        }
-//        return returnVal;
+        ChessGame testGame = new ChessGame();
+        for(ChessMove move : possibleMoves){
+            testGame.board = new ChessBoard(boardDeepCopy(this.board.getBoard()));
+
+            testGame.board.setBoard(move.getEndPosition().getRow(),move.getEndPosition().getColumn(), this.board.getPiece(move.getStartPosition()));
+            testGame.board.setBoard(move.getStartPosition().getRow(), move.getStartPosition().getColumn(), null);
+
+            if(!testGame.checkmatePostMove(focusedPiece.getTeamColor())){
+                returnVal.add(move);
+            }
+        }
+        return returnVal;
     }
 
     /**
@@ -100,7 +110,7 @@ public class ChessGame {
             throw new InvalidMoveException("Invalid move, it must be your turn" + move.toString());
         }
 
-        Collection<ChessMove> possibleMoves = validMoves(move.getStartPosition());
+        Collection<ChessMove> possibleMoves = possibleMoves(move.getStartPosition());
 
         //are we currently in check?
         boolean check = isInCheck(getTeamTurn());
@@ -138,7 +148,7 @@ public class ChessGame {
     }
 
     public void makeMockMove(ChessMove move) throws InvalidMoveException {
-        Collection<ChessMove> possibleMoves = validMoves(move.getStartPosition());
+        Collection<ChessMove> possibleMoves = possibleMoves(move.getStartPosition());
 
         if(move.ContainedWithin(possibleMoves)){
             this.board.setBoard(move.getEndPosition().getRow(),move.getEndPosition().getColumn(), this.board.getPiece(move.getStartPosition()));
@@ -163,7 +173,7 @@ public class ChessGame {
             for(int j = 1; j <= 8; j++){
                 ChessPosition position = new ChessPosition(i, j);
                 if (board.occupiedByOppositeColor(position, teamColor)){
-                    combined.addAll(validMoves(position));
+                    combined.addAll(possibleMoves(position));
                 }
                 if(board.getPiece(position) == null){
                     continue;
@@ -190,6 +200,32 @@ public class ChessGame {
      * @param teamColor which team to check for checkmate
      * @return True if the specified team is in checkmate
      */
+    public boolean checkmatePostMove(TeamColor teamColor){
+        Collection<ChessMove> validEnemyMoves = new HashSet<>();
+        ChessPosition kingPosition = null;
+
+        for(int i = 1; i <= 8; i++){
+            for(int j = 1; j <= 8; j++){
+                ChessPosition position = new ChessPosition(i, j);
+                if (board.occupiedByOppositeColor(position, teamColor)){
+                    validEnemyMoves.addAll(possibleMoves(position));
+                }
+                if(board.getPiece(position) != null){
+                    if(board.getPiece(position).getPieceType() == ChessPiece.PieceType.KING && board.getPiece(position).getTeamColor() == teamColor){
+                        kingPosition = position;
+                    }
+                }
+            }
+        }
+        for(ChessMove enemyMove : validEnemyMoves) {
+            if (enemyMove.getEndPosition().equals(kingPosition)) {
+                return true;
+            }
+        }
+
+        return false;
+    }
+
     public boolean isInCheckmate(TeamColor teamColor) {
         // of all possible moves, is there a possibility for the enemy to take the king?
         // get all the possibilities for our team to move
@@ -207,7 +243,7 @@ public class ChessGame {
             for(int j = 1; j <= 8; j++){
                 ChessPosition position = new ChessPosition(i, j);
                 if (board.occupiedByOppositeColor(position, enemyColor)){
-                    validSelfMoves.addAll(validMoves(position));
+                    validSelfMoves.addAll(possibleMoves(position));
                 }
                 if(board.getPiece(position) == null){
                     continue;
@@ -236,7 +272,7 @@ public class ChessGame {
                 for(int j = 1; j <= 8; j++){
                     ChessPosition position = new ChessPosition(i, j);
                     if (board.occupiedByOppositeColor(position, teamColor)){
-                        validEnemyMoves.addAll(validMoves(position));
+                        validEnemyMoves.addAll(possibleMoves(position));
                     }
                 }
             }
@@ -278,7 +314,7 @@ public class ChessGame {
             for(int j = 1; j <= 8; j++){
                 ChessPosition position = new ChessPosition(i, j);
                 if (board.occupiedByOppositeColor(position, enemyColor)){
-                    combined.addAll(validMoves(position));
+                    combined.addAll(possibleMoves(position));
                 }
             }
         }
