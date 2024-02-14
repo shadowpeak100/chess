@@ -4,10 +4,7 @@
     <option name="autoReloadType" value="SELECTIVE" />
   </component>
   <component name="ChangeListManager">
-    <list default="true" id="cd6e1b2c-0683-4b74-b193-8a2e879ced1b" name="Changes" comment="everything except valid move tests">
-      <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/shared/src/main/java/chess/ChessGame.java" beforeDir="false" afterPath="$PROJECT_DIR$/shared/src/main/java/chess/ChessGame.java" afterDir="false" />
-    </list>
+    <list default="true" id="cd6e1b2c-0683-4b74-b193-8a2e879ced1b" name="Changes" comment="everything passes!" />
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
     <option name="HIGHLIGHT_NON_ACTIVE_CHANGELIST" value="false" />
@@ -39,7 +36,7 @@
   "keyToString": {
     "Downloaded.Files.Path.Enabled": "false",
     "JUnit.ChessBoardTests.executor": "Run",
-    "JUnit.ChessGameTests$ValidMoveTests.moveIntoCheck.executor": "Debug",
+    "JUnit.ChessGameTests$ValidMoveTests.moveIntoCheck.executor": "Run",
     "JUnit.ChessGameTests.blackCheck.executor": "Run",
     "JUnit.ChessGameTests.blackTeamPawnCheckmate.executor": "Debug",
     "JUnit.ChessGameTests.executor": "Run",
@@ -313,7 +310,15 @@
       <option name="project" value="LOCAL" />
       <updated>1707278901970</updated>
     </task>
-    <option name="localTasksCounter" value="17" />
+    <task id="LOCAL-00017" summary="everything passes!">
+      <option name="closed" value="true" />
+      <created>1707281223359</created>
+      <option name="number" value="00017" />
+      <option name="presentableId" value="LOCAL-00017" />
+      <option name="project" value="LOCAL" />
+      <updated>1707281223359</updated>
+    </task>
+    <option name="localTasksCounter" value="18" />
     <servers />
   </component>
   <component name="TypeScriptGeneratedFilesManager">
@@ -347,7 +352,8 @@
     <MESSAGE value="stalemate function" />
     <MESSAGE value="valid moves" />
     <MESSAGE value="everything except valid move tests" />
-    <option name="LAST_COMMIT_MESSAGE" value="everything except valid move tests" />
+    <MESSAGE value="everything passes!" />
+    <option name="LAST_COMMIT_MESSAGE" value="everything passes!" />
   </component>
   <component name="XDebuggerManager">
     <breakpoint-manager>
@@ -369,11 +375,6 @@
         </line-breakpoint>
         <line-breakpoint enabled="true" type="java-line">
           <url>file://$PROJECT_DIR$/shared/src/test/java/passoffTests/chessTests/ChessGameTests.java</url>
-          <line>682</line>
-          <option name="timeStamp" value="30" />
-        </line-breakpoint>
-        <line-breakpoint enabled="true" type="java-line">
-          <url>file://$PROJECT_DIR$/shared/src/test/java/passoffTests/chessTests/ChessGameTests.java</url>
           <line>777</line>
           <option name="timeStamp" value="38" />
         </line-breakpoint>
@@ -386,6 +387,21 @@
           <url>file://$PROJECT_DIR$/shared/src/main/java/chess/ChessGame.java</url>
           <line>94</line>
           <option name="timeStamp" value="45" />
+        </line-breakpoint>
+        <line-breakpoint enabled="true" type="java-line">
+          <url>file://$PROJECT_DIR$/shared/src/test/java/passoffTests/chessTests/ChessGameTests.java</url>
+          <line>682</line>
+          <option name="timeStamp" value="48" />
+        </line-breakpoint>
+        <line-breakpoint enabled="true" type="java-line">
+          <url>file://$PROJECT_DIR$/shared/src/main/java/chess/ChessGame.java</url>
+          <line>88</line>
+          <option name="timeStamp" value="49" />
+        </line-breakpoint>
+        <line-breakpoint enabled="true" type="java-line">
+          <url>file://$PROJECT_DIR$/shared/src/main/java/chess/ChessGame.java</url>
+          <line>219</line>
+          <option name="timeStamp" value="50" />
         </line-breakpoint>
       </breakpoints>
     </breakpoint-manager>
