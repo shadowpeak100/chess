@@ -4,7 +4,12 @@
     <option name="autoReloadType" value="SELECTIVE" />
   </component>
   <component name="ChangeListManager">
-    <list default="true" id="cd6e1b2c-0683-4b74-b193-8a2e879ced1b" name="Changes" comment="everything passes!" />
+    <list default="true" id="cd6e1b2c-0683-4b74-b193-8a2e879ced1b" name="Changes" comment="updated dependencies to include spark">
+      <change afterPath="$PROJECT_DIR$/shared/src/main/java/model/AuthData.java" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/shared/src/main/java/model/GameData.java" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/shared/src/main/java/model/UserData.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
+    </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
     <option name="HIGHLIGHT_NON_ACTIVE_CHANGELIST" value="false" />
@@ -63,7 +68,7 @@
     "node.js.selected.package.eslint": "(autodetect)",
     "node.js.selected.package.tslint": "(autodetect)",
     "nodejs_package_manager_path": "npm",
-    "settings.editor.selected.configurable": "inlay.hints",
+    "settings.editor.selected.configurable": "preferences.pluginManager",
     "vue.rearranger.settings.migration": "true"
   }
 }]]></component>
@@ -181,6 +186,8 @@
       <workItem from="1706286865850" duration="160000" />
       <workItem from="1706287095690" duration="9000" />
       <workItem from="1706853853592" duration="29970000" />
+      <workItem from="1707947208054" duration="691000" />
+      <workItem from="1708465397793" duration="2275000" />
     </task>
     <task id="LOCAL-00001" summary="ChessBoard, ChessPiece &amp; ChessPosition initial implementations">
       <option name="closed" value="true" />
@@ -318,7 +325,15 @@
       <option name="project" value="LOCAL" />
       <updated>1707281223359</updated>
     </task>
-    <option name="localTasksCounter" value="18" />
+    <task id="LOCAL-00018" summary="updated dependencies to include spark">
+      <option name="closed" value="true" />
+      <created>1707947295458</created>
+      <option name="number" value="00018" />
+      <option name="presentableId" value="LOCAL-00018" />
+      <option name="project" value="LOCAL" />
+      <updated>1707947295458</updated>
+    </task>
+    <option name="localTasksCounter" value="19" />
     <servers />
   </component>
   <component name="TypeScriptGeneratedFilesManager">
@@ -353,7 +368,8 @@
     <MESSAGE value="valid moves" />
     <MESSAGE value="everything except valid move tests" />
     <MESSAGE value="everything passes!" />
-    <option name="LAST_COMMIT_MESSAGE" value="everything passes!" />
+    <MESSAGE value="updated dependencies to include spark" />
+    <option name="LAST_COMMIT_MESSAGE" value="updated dependencies to include spark" />
   </component>
   <component name="XDebuggerManager">
     <breakpoint-manager>
@@ -405,5 +421,9 @@
         </line-breakpoint>
       </breakpoints>
     </breakpoint-manager>
+  </component>
+  <component name="XSLT-Support.FileAssociations.UIState">
+    <expand />
+    <select />
   </component>
 </project>
