@@ -4,11 +4,20 @@
     <option name="autoReloadType" value="SELECTIVE" />
   </component>
   <component name="ChangeListManager">
-    <list default="true" id="cd6e1b2c-0683-4b74-b193-8a2e879ced1b" name="Changes" comment="updated dependencies to include spark">
-      <change afterPath="$PROJECT_DIR$/shared/src/main/java/model/AuthData.java" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/shared/src/main/java/model/GameData.java" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/shared/src/main/java/model/UserData.java" afterDir="false" />
+    <list default="true" id="7f72768d-00d0-4037-a08d-33159cc5ebb4" name="Changes" comment="">
+      <change afterPath="$PROJECT_DIR$/.idea/libraries/slf4j_simple.xml" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/.idea/libraries/sparkjava_spark_core.xml" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/chess.iml" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/server/src/main/java/dataAccess/DataAccessException.java" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/server/src/test/java/passoffTests/serverTests/StandardAPITests.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/.idea/.name" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/.idea/misc.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/misc.xml" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/client/client.iml" beforeDir="false" afterPath="$PROJECT_DIR$/client/client.iml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/server/server.iml" beforeDir="false" afterPath="$PROJECT_DIR$/server/server.iml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/server/src/main/java/server/Server.java" beforeDir="false" afterPath="$PROJECT_DIR$/server/src/main/java/server/Server.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/shared/shared.iml" beforeDir="false" afterPath="$PROJECT_DIR$/shared/shared.iml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/shared/src/test/test.iml" beforeDir="false" afterPath="$PROJECT_DIR$/shared/src/test/test.iml" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -31,7 +40,7 @@
   <component name="ProjectColorInfo">{
   &quot;associatedIndex&quot;: 6
 }</component>
-  <component name="ProjectId" id="2b0427k8YGpqXdqRm5wRfRLgQrv" />
+  <component name="ProjectId" id="2ci1BwUjbjSSdtDQQoqfMxxYBxW" />
   <component name="ProjectViewState">
     <option name="hideEmptyMiddlePackages" value="true" />
     <option name="showLibraryContents" value="true" />
@@ -40,39 +49,37 @@
   <component name="PropertiesComponent"><![CDATA[{
   "keyToString": {
     "Downloaded.Files.Path.Enabled": "false",
+    "JUnit.All in test.executor": "Run",
     "JUnit.ChessBoardTests.executor": "Run",
-    "JUnit.ChessGameTests$ValidMoveTests.moveIntoCheck.executor": "Run",
-    "JUnit.ChessGameTests.blackCheck.executor": "Run",
-    "JUnit.ChessGameTests.blackTeamPawnCheckmate.executor": "Debug",
-    "JUnit.ChessGameTests.executor": "Run",
-    "JUnit.ChessGameTests.invalidMoves.executor": "Run",
-    "JUnit.ChessGameTests.makeValidMoves.executor": "Run",
-    "JUnit.ChessGameTests.promotionMoves.executor": "Run",
-    "JUnit.ChessGameTests.stalemate.executor": "Run",
-    "JUnit.ChessGameTests.whiteTeamCheckmate.executor": "Run",
-    "JUnit.ChessMoveTests.executor": "Run",
-    "JUnit.ChessPositionTests.executor": "Run",
-    "JUnit.passoffTests.chessTests.chessPieceTests in test.executor": "Run",
     "Repository.Attach.Annotations": "false",
     "Repository.Attach.JavaDocs": "false",
     "Repository.Attach.Sources": "false",
     "RunOnceActivity.OpenProjectViewOnStart": "true",
     "RunOnceActivity.ShowReadmeOnStart": "true",
     "SHARE_PROJECT_CONFIGURATION_FILES": "true",
-    "WebServerToolWindowFactoryState": "false",
     "git-widget-placeholder": "main",
     "kotlin-language-version-configured": "true",
-    "last_opened_file_path": "/Users/brayden/src/school/CS240/chess",
     "node.js.detected.package.eslint": "true",
     "node.js.detected.package.tslint": "true",
     "node.js.selected.package.eslint": "(autodetect)",
     "node.js.selected.package.tslint": "(autodetect)",
     "nodejs_package_manager_path": "npm",
-    "settings.editor.selected.configurable": "preferences.pluginManager",
+    "project.structure.last.edited": "Libraries",
+    "project.structure.proportion": "0.15",
+    "project.structure.side.proportion": "0.2",
+    "settings.editor.selected.configurable": "org.infernus.idea.checkstyle.CheckStyleConfigurable",
     "vue.rearranger.settings.migration": "true"
   }
 }]]></component>
-  <component name="RunManager" selected="JUnit.ChessGameTests">
+  <component name="RunManager" selected="JUnit.ChessBoardTests">
+    <configuration name="All in test" type="JUnit" factoryName="JUnit" temporary="true" nameIsGenerated="true">
+      <module name="test" />
+      <option name="PACKAGE_NAME" value="" />
+      <option name="TEST_OBJECT" value="package" />
+      <method v="2">
+        <option name="Make" enabled="true" />
+      </method>
+    </configuration>
     <configuration name="ChessBoardTests" type="JUnit" factoryName="JUnit" temporary="true" nameIsGenerated="true">
       <module name="test" />
       <extension name="coverage">
@@ -88,342 +95,34 @@
         <option name="Make" enabled="true" />
       </method>
     </configuration>
-    <configuration name="ChessGameTests$ValidMoveTests.moveIntoCheck" type="JUnit" factoryName="JUnit" temporary="true" nameIsGenerated="true">
-      <module name="test" />
-      <extension name="coverage">
-        <pattern>
-          <option name="PATTERN" value="passoffTests.chessTests.*" />
-          <option name="ENABLED" value="true" />
-        </pattern>
-      </extension>
-      <option name="PACKAGE_NAME" value="passoffTests.chessTests.ChessGameTests" />
-      <option name="MAIN_CLASS_NAME" value="passoffTests.chessTests.ChessGameTests$ValidMoveTests" />
-      <option name="METHOD_NAME" value="moveIntoCheck" />
-      <option name="TEST_OBJECT" value="method" />
-      <method v="2">
-        <option name="Make" enabled="true" />
-      </method>
-    </configuration>
-    <configuration name="ChessGameTests" type="JUnit" factoryName="JUnit" temporary="true" nameIsGenerated="true">
-      <module name="test" />
-      <extension name="coverage">
-        <pattern>
-          <option name="PATTERN" value="passoffTests.chessTests.*" />
-          <option name="ENABLED" value="true" />
-        </pattern>
-      </extension>
-      <option name="PACKAGE_NAME" value="passoffTests.chessTests" />
-      <option name="MAIN_CLASS_NAME" value="passoffTests.chessTests.ChessGameTests" />
-      <option name="TEST_OBJECT" value="class" />
-      <method v="2">
-        <option name="Make" enabled="true" />
-      </method>
-    </configuration>
-    <configuration name="ChessGameTests.promotionMoves" type="JUnit" factoryName="JUnit" temporary="true" nameIsGenerated="true">
-      <module name="test" />
-      <extension name="coverage">
-        <pattern>
-          <option name="PATTERN" value="passoffTests.chessTests.*" />
-          <option name="ENABLED" value="true" />
-        </pattern>
-      </extension>
-      <option name="PACKAGE_NAME" value="passoffTests.chessTests" />
-      <option name="MAIN_CLASS_NAME" value="passoffTests.chessTests.ChessGameTests" />
-      <option name="METHOD_NAME" value="promotionMoves(chess.ChessPiece$PieceType)" />
-      <option name="TEST_OBJECT" value="method" />
-      <method v="2">
-        <option name="Make" enabled="true" />
-      </method>
-    </configuration>
-    <configuration name="ChessGameTests.stalemate" type="JUnit" factoryName="JUnit" temporary="true" nameIsGenerated="true">
-      <module name="test" />
-      <extension name="coverage">
-        <pattern>
-          <option name="PATTERN" value="passoffTests.chessTests.*" />
-          <option name="ENABLED" value="true" />
-        </pattern>
-      </extension>
-      <option name="PACKAGE_NAME" value="passoffTests.chessTests" />
-      <option name="MAIN_CLASS_NAME" value="passoffTests.chessTests.ChessGameTests" />
-      <option name="METHOD_NAME" value="stalemate" />
-      <option name="TEST_OBJECT" value="method" />
-      <method v="2">
-        <option name="Make" enabled="true" />
-      </method>
-    </configuration>
-    <list>
-      <item itemvalue="JUnit.ChessBoardTests" />
-      <item itemvalue="JUnit.ChessGameTests$ValidMoveTests.moveIntoCheck" />
-      <item itemvalue="JUnit.ChessGameTests.promotionMoves" />
-      <item itemvalue="JUnit.ChessGameTests.stalemate" />
-      <item itemvalue="JUnit.ChessGameTests" />
-    </list>
     <recent_temporary>
       <list>
-        <item itemvalue="JUnit.ChessGameTests" />
-        <item itemvalue="JUnit.ChessGameTests$ValidMoveTests.moveIntoCheck" />
-        <item itemvalue="JUnit.ChessGameTests.promotionMoves" />
         <item itemvalue="JUnit.ChessBoardTests" />
-        <item itemvalue="JUnit.ChessGameTests.stalemate" />
+        <item itemvalue="JUnit.All in test" />
       </list>
     </recent_temporary>
+  </component>
+  <component name="SharedIndexes">
+    <attachedChunks>
+      <set>
+        <option value="jdk-21.0.1-openjdk-21.0.1-4caba194b151-9b16c6e2" />
+      </set>
+    </attachedChunks>
   </component>
   <component name="SpellCheckerSettings" RuntimeDictionaries="0" Folders="0" CustomDictionaries="0" DefaultDictionary="application-level" UseSingleDictionary="true" transferred="true" />
   <component name="TaskManager">
     <task active="true" id="Default" summary="Default task">
-      <changelist id="cd6e1b2c-0683-4b74-b193-8a2e879ced1b" name="Changes" comment="" />
-      <created>1705338454252</created>
+      <changelist id="7f72768d-00d0-4037-a08d-33159cc5ebb4" name="Changes" comment="" />
+      <created>1708579453825</created>
       <option name="number" value="Default" />
       <option name="presentableId" value="Default" />
-      <updated>1705338454252</updated>
-      <workItem from="1705338455468" duration="504000" />
-      <workItem from="1705338975436" duration="18695000" />
-      <workItem from="1705881497620" duration="32644000" />
-      <workItem from="1706218713475" duration="6480000" />
-      <workItem from="1706236709956" duration="12000" />
-      <workItem from="1706236732036" duration="172000" />
-      <workItem from="1706237083107" duration="256000" />
-      <workItem from="1706286865850" duration="160000" />
-      <workItem from="1706287095690" duration="9000" />
-      <workItem from="1706853853592" duration="29970000" />
-      <workItem from="1707947208054" duration="691000" />
-      <workItem from="1708465397793" duration="2275000" />
+      <updated>1708579453825</updated>
+      <workItem from="1708579455006" duration="226000" />
+      <workItem from="1708615987054" duration="3093000" />
     </task>
-    <task id="LOCAL-00001" summary="ChessBoard, ChessPiece &amp; ChessPosition initial implementations">
-      <option name="closed" value="true" />
-      <created>1705348604136</created>
-      <option name="number" value="00001" />
-      <option name="presentableId" value="LOCAL-00001" />
-      <option name="project" value="LOCAL" />
-      <updated>1705348604136</updated>
-    </task>
-    <task id="LOCAL-00002" summary="ChessMove, pawn movement and help functions on ChessBoard">
-      <option name="closed" value="true" />
-      <created>1705355495067</created>
-      <option name="number" value="00002" />
-      <option name="presentableId" value="LOCAL-00002" />
-      <option name="project" value="LOCAL" />
-      <updated>1705355495067</updated>
-    </task>
-    <task id="LOCAL-00003" summary="Queen movement">
-      <option name="closed" value="true" />
-      <created>1705357160767</created>
-      <option name="number" value="00003" />
-      <option name="presentableId" value="LOCAL-00003" />
-      <option name="project" value="LOCAL" />
-      <updated>1705357160767</updated>
-    </task>
-    <task id="LOCAL-00004" summary="Other piece movement, override equals and hashCode methods on comparable classes. (The &quot;I was in Mexico with no internet commit&quot;)">
-      <option name="closed" value="true" />
-      <created>1705967872396</created>
-      <option name="number" value="00004" />
-      <option name="presentableId" value="LOCAL-00004" />
-      <option name="project" value="LOCAL" />
-      <updated>1705967872396</updated>
-    </task>
-    <task id="LOCAL-00005" summary="pre-refactoring Pawn movement, some working test cases">
-      <option name="closed" value="true" />
-      <created>1705982067567</created>
-      <option name="number" value="00005" />
-      <option name="presentableId" value="LOCAL-00005" />
-      <option name="project" value="LOCAL" />
-      <updated>1705982067567</updated>
-    </task>
-    <task id="LOCAL-00006" summary="Pawn works! Eureka!">
-      <option name="closed" value="true" />
-      <created>1706081595601</created>
-      <option name="number" value="00006" />
-      <option name="presentableId" value="LOCAL-00006" />
-      <option name="project" value="LOCAL" />
-      <updated>1706081595601</updated>
-    </task>
-    <task id="LOCAL-00007" summary="Rook works now">
-      <option name="closed" value="true" />
-      <created>1706082317861</created>
-      <option name="number" value="00007" />
-      <option name="presentableId" value="LOCAL-00007" />
-      <option name="project" value="LOCAL" />
-      <updated>1706082317861</updated>
-    </task>
-    <task id="LOCAL-00008" summary="Knight moves">
-      <option name="closed" value="true" />
-      <created>1706112047455</created>
-      <option name="number" value="00008" />
-      <option name="presentableId" value="LOCAL-00008" />
-      <option name="project" value="LOCAL" />
-      <updated>1706112047455</updated>
-    </task>
-    <task id="LOCAL-00009" summary="Bishop Moves">
-      <option name="closed" value="true" />
-      <created>1706112253782</created>
-      <option name="number" value="00009" />
-      <option name="presentableId" value="LOCAL-00009" />
-      <option name="project" value="LOCAL" />
-      <updated>1706112253782</updated>
-    </task>
-    <task id="LOCAL-00010" summary="Queen moves">
-      <option name="closed" value="true" />
-      <created>1706127796776</created>
-      <option name="number" value="00010" />
-      <option name="presentableId" value="LOCAL-00010" />
-      <option name="project" value="LOCAL" />
-      <updated>1706127796776</updated>
-    </task>
-    <task id="LOCAL-00011" summary="Rest of the tests have passed">
-      <option name="closed" value="true" />
-      <created>1706132129080</created>
-      <option name="number" value="00011" />
-      <option name="presentableId" value="LOCAL-00011" />
-      <option name="project" value="LOCAL" />
-      <updated>1706132129080</updated>
-    </task>
-    <task id="LOCAL-00012" summary="Chess game tests">
-      <option name="closed" value="true" />
-      <created>1706854510874</created>
-      <option name="number" value="00012" />
-      <option name="presentableId" value="LOCAL-00012" />
-      <option name="project" value="LOCAL" />
-      <updated>1706854510874</updated>
-    </task>
-    <task id="LOCAL-00013" summary="Implemented getters/setters, part of valid moves">
-      <option name="closed" value="true" />
-      <created>1706939154920</created>
-      <option name="number" value="00013" />
-      <option name="presentableId" value="LOCAL-00013" />
-      <option name="project" value="LOCAL" />
-      <updated>1706939154920</updated>
-    </task>
-    <task id="LOCAL-00014" summary="stalemate function">
-      <option name="closed" value="true" />
-      <created>1707098679520</created>
-      <option name="number" value="00014" />
-      <option name="presentableId" value="LOCAL-00014" />
-      <option name="project" value="LOCAL" />
-      <updated>1707098679520</updated>
-    </task>
-    <task id="LOCAL-00015" summary="valid moves">
-      <option name="closed" value="true" />
-      <created>1707253199970</created>
-      <option name="number" value="00015" />
-      <option name="presentableId" value="LOCAL-00015" />
-      <option name="project" value="LOCAL" />
-      <updated>1707253199970</updated>
-    </task>
-    <task id="LOCAL-00016" summary="everything except valid move tests">
-      <option name="closed" value="true" />
-      <created>1707278901970</created>
-      <option name="number" value="00016" />
-      <option name="presentableId" value="LOCAL-00016" />
-      <option name="project" value="LOCAL" />
-      <updated>1707278901970</updated>
-    </task>
-    <task id="LOCAL-00017" summary="everything passes!">
-      <option name="closed" value="true" />
-      <created>1707281223359</created>
-      <option name="number" value="00017" />
-      <option name="presentableId" value="LOCAL-00017" />
-      <option name="project" value="LOCAL" />
-      <updated>1707281223359</updated>
-    </task>
-    <task id="LOCAL-00018" summary="updated dependencies to include spark">
-      <option name="closed" value="true" />
-      <created>1707947295458</created>
-      <option name="number" value="00018" />
-      <option name="presentableId" value="LOCAL-00018" />
-      <option name="project" value="LOCAL" />
-      <updated>1707947295458</updated>
-    </task>
-    <option name="localTasksCounter" value="19" />
     <servers />
   </component>
   <component name="TypeScriptGeneratedFilesManager">
     <option name="version" value="3" />
-  </component>
-  <component name="Vcs.Log.Tabs.Properties">
-    <option name="TAB_STATES">
-      <map>
-        <entry key="MAIN">
-          <value>
-            <State />
-          </value>
-        </entry>
-      </map>
-    </option>
-  </component>
-  <component name="VcsManagerConfiguration">
-    <MESSAGE value="ChessBoard, ChessPiece &amp; ChessPosition initial implementations" />
-    <MESSAGE value="ChessMove, pawn movement and help functions on ChessBoard" />
-    <MESSAGE value="Queen movement" />
-    <MESSAGE value="Other piece movement, override equals and hashCode methods on comparable classes. (The &quot;I was in Mexico with no internet commit&quot;)" />
-    <MESSAGE value="pre-refactoring Pawn movement, some working test cases" />
-    <MESSAGE value="Pawn works! Eureka!" />
-    <MESSAGE value="Rook works now" />
-    <MESSAGE value="Knight moves" />
-    <MESSAGE value="Bishop Moves" />
-    <MESSAGE value="Queen moves" />
-    <MESSAGE value="Rest of the tests have passed" />
-    <MESSAGE value="Chess game tests" />
-    <MESSAGE value="Implemented getters/setters, part of valid moves" />
-    <MESSAGE value="stalemate function" />
-    <MESSAGE value="valid moves" />
-    <MESSAGE value="everything except valid move tests" />
-    <MESSAGE value="everything passes!" />
-    <MESSAGE value="updated dependencies to include spark" />
-    <option name="LAST_COMMIT_MESSAGE" value="updated dependencies to include spark" />
-  </component>
-  <component name="XDebuggerManager">
-    <breakpoint-manager>
-      <breakpoints>
-        <line-breakpoint enabled="true" type="java-line">
-          <url>file://$PROJECT_DIR$/shared/src/test/java/passoffTests/chessTests/ChessGameTests.java</url>
-          <line>43</line>
-          <option name="timeStamp" value="2" />
-        </line-breakpoint>
-        <line-breakpoint enabled="true" type="java-line">
-          <url>file://$PROJECT_DIR$/shared/src/main/java/chess/ChessGame.java</url>
-          <line>135</line>
-          <option name="timeStamp" value="28" />
-        </line-breakpoint>
-        <line-breakpoint enabled="true" type="java-line">
-          <url>file://$PROJECT_DIR$/shared/src/test/java/passoffTests/chessTests/ChessGameTests.java</url>
-          <line>390</line>
-          <option name="timeStamp" value="29" />
-        </line-breakpoint>
-        <line-breakpoint enabled="true" type="java-line">
-          <url>file://$PROJECT_DIR$/shared/src/test/java/passoffTests/chessTests/ChessGameTests.java</url>
-          <line>777</line>
-          <option name="timeStamp" value="38" />
-        </line-breakpoint>
-        <line-breakpoint enabled="true" type="java-line">
-          <url>file://$PROJECT_DIR$/shared/src/test/java/passoffTests/chessTests/ChessGameTests.java</url>
-          <line>776</line>
-          <option name="timeStamp" value="39" />
-        </line-breakpoint>
-        <line-breakpoint enabled="true" type="java-line">
-          <url>file://$PROJECT_DIR$/shared/src/main/java/chess/ChessGame.java</url>
-          <line>94</line>
-          <option name="timeStamp" value="45" />
-        </line-breakpoint>
-        <line-breakpoint enabled="true" type="java-line">
-          <url>file://$PROJECT_DIR$/shared/src/test/java/passoffTests/chessTests/ChessGameTests.java</url>
-          <line>682</line>
-          <option name="timeStamp" value="48" />
-        </line-breakpoint>
-        <line-breakpoint enabled="true" type="java-line">
-          <url>file://$PROJECT_DIR$/shared/src/main/java/chess/ChessGame.java</url>
-          <line>88</line>
-          <option name="timeStamp" value="49" />
-        </line-breakpoint>
-        <line-breakpoint enabled="true" type="java-line">
-          <url>file://$PROJECT_DIR$/shared/src/main/java/chess/ChessGame.java</url>
-          <line>219</line>
-          <option name="timeStamp" value="50" />
-        </line-breakpoint>
-      </breakpoints>
-    </breakpoint-manager>
-  </component>
-  <component name="XSLT-Support.FileAssociations.UIState">
-    <expand />
-    <select />
   </component>
 </project>
