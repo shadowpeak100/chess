@@ -1,18 +1,26 @@
 package dataAccess;
 
+import java.util.HashMap;
+import java.util.UUID;
+
 public class MemoryAuthDAO implements AuthDAO{
-    @Override
-    public void createAuth() {
 
+    private final HashMap<String, String> authUserMap = new HashMap<>();
+
+    @Override
+    public String createAuth(String username) {
+        var authToken = UUID.randomUUID().toString();
+        authUserMap.put(authToken, username);
+        return authToken;
     }
 
     @Override
-    public void getAuth() {
-
+    public String getAuth(String authToken) {
+        return authUserMap.get(authToken);
     }
 
     @Override
-    public void deleteAuth() {
-
+    public void deleteAuth(String authToken) {
+        authUserMap.remove(authToken);
     }
 }

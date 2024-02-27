@@ -1,7 +1,7 @@
 package dataAccess;
 
 public interface GameDAO{
-    void clear();
+    void clear() throws DataAccessException;
     void getGame();
     void listGames();
     void updateGame();

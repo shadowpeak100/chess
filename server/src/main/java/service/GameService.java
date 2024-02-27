@@ -19,11 +19,14 @@ public class GameService {
     }
 
     public Object listGames(Request request, Response response) {
+        return "";
     }
 
     public Object createGame(Request request, Response response) {
+        return "";
     }
 
     public Object joinGame(Request request, Response response) {
+        return "";
     }
 }

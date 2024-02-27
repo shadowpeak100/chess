@@ -18,12 +18,18 @@ public class ClearService {
     }
 
     public Object clear(Request request, Response response) {
-        clearAll();
+        clearAll(response);
         response.status(200);
         return "";
     }
 
-    public void clearAll(){
-        this.gameDAO.clear();
+    public void clearAll(Response res){
+        try{
+            this.gameDAO.clear();
+        }catch (DataAccessException e){
+            //return if bad
+            res.status(500);
+            res.body(e.toString());
+        }
     }
 }
