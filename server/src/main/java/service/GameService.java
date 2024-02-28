@@ -1,10 +1,16 @@
 package service;
 
 import dataAccess.AuthDAO;
+import dataAccess.DataAccessException;
 import dataAccess.GameDAO;
 import dataAccess.UserDAO;
-import spark.Request;
-import spark.Response;
+import model.GameData;
+import model.UserData;
+import server.BadRequestException;
+import server.TakenException;
+import server.UnauthorizedException;
+
+import java.util.Objects;
 
 public class GameService {
 
@@ -18,15 +24,56 @@ public class GameService {
         this.userDAO = ud;
     }
 
-    public Object listGames(Request request, Response response) {
-        return "";
+    public GamesWrapper listGames(String AuthToken) throws UnauthorizedException {
+        String Username = authDAO.getUsernameWithAuth(AuthToken);
+        UserData user = userDAO.getUser(Username);
+        if(user == null){
+            throw new UnauthorizedException();
+        }else{
+            //wrap this in a games object, with a variable that maps to the games list, called games
+            return gameDAO.listGames();
+        }
     }
 
-    public Object createGame(Request request, Response response) {
-        return "";
+    public int createGame(String AuthToken, String gameName) throws BadRequestException, UnauthorizedException {
+        String Username = authDAO.getUsernameWithAuth(AuthToken);
+        if(Username == null){
+            throw new UnauthorizedException();
+        }else{
+            try{
+                return gameDAO.newGame(gameName);
+            }catch (DataAccessException e){
+                throw new BadRequestException();
+            }
+        }
     }
 
-    public Object joinGame(Request request, Response response) {
-        return "";
+    public void joinGame(String AuthToken, int gameID, String playerColor) throws UnauthorizedException, BadRequestException, TakenException {
+        String Username = authDAO.getUsernameWithAuth(AuthToken);
+        if(Username == null){
+            throw new UnauthorizedException();
+        }else{
+            try{
+                GameData game = gameDAO.getGame(gameID);
+                if(Objects.equals(playerColor, "WHITE") || Objects.equals(playerColor, "BLACK") || Objects.equals(playerColor, "")){
+                    if(playerColor.equals("WHITE")){
+                        if(game.getWhiteUsername() != null){
+                            throw new TakenException();
+                        }
+                        game.setWhiteUsername(Username);
+                    }else if (playerColor.equals("BLACK")){
+                        if(game.getBlackUsername() != null){
+                            throw new TakenException();
+                        }
+                        game.setBlackUsername(Username);
+                    }
+                }else{
+                    throw new BadRequestException();
+                }
+            }catch (DataAccessException e){
+                throw new BadRequestException();
+            }
+        }
+
     }
 }

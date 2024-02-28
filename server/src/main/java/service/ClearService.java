@@ -1,8 +1,9 @@
 package service;
 
+import com.google.gson.Gson;
 import dataAccess.*;
-import spark.Request;
-import spark.Response;
+import model.LoginDenial;
+import server.ResponseException;
 
 public class ClearService {
 
@@ -16,21 +17,13 @@ public class ClearService {
         this.userDAO = ud;
     }
 
-    public Object clear(Request request, Response response) {
-        clearAll(response);
-        response.status(200);
-        return "";
-    }
-
-    public void clearAll(Response res){
+    public void clearAll() throws ResponseException {
         try{
             this.gameDAO.clearAll();
             this.authDAO.clearAll();
-            this.gameDAO.clearAll();
+            this.userDAO.clearAll();
         }catch (DataAccessException e){
-            //return if bad
-            res.status(500);
-            res.body(e.toString());
+            throw new ResponseException(500, new Gson().toJson(new LoginDenial("Error: " + e.toString())));
         }
     }
 }

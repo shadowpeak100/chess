@@ -6,7 +6,7 @@ public class GameData {
     private int gameID;
     private String whiteUsername;
     private String blackUsername;
-    private String gamename;
+    private String gameName;
     private ChessGame game;
 
     //c'tors
@@ -14,15 +14,15 @@ public class GameData {
         this.gameID = gameId;
         this.whiteUsername = whiteUsername;
         this.blackUsername = blackUsername;
-        this.gamename = gamename;
+        this.gameName = gamename;
         this.game = game;
     }
 
     public GameData(){
         this.gameID = 0;
-        this.whiteUsername = "";
-        this.blackUsername = "";
-        this.gamename = "";
+        this.whiteUsername = null;
+        this.blackUsername = null;
+        this.gameName = null;
         this.game = new ChessGame();
     }
 
@@ -51,12 +51,12 @@ public class GameData {
         this.blackUsername = blackUsername;
     }
 
-    public String getGamename() {
-        return gamename;
+    public String getGameName() {
+        return gameName;
     }
 
-    public void setGamename(String gamename) {
-        this.gamename = gamename;
+    public void setGameName(String gameName) {
+        this.gameName = gameName;
     }
 
     public ChessGame getGame() {

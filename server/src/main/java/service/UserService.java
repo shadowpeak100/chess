@@ -8,6 +8,7 @@ import model.AuthData;
 import model.LoginDenial;
 import model.LoginSuccess;
 import model.UserData;
+import server.BadRequestException;
 import server.ResponseException;
 import server.TakenException;
 import server.UnauthorizedException;
@@ -32,8 +33,10 @@ public class UserService {
 //
 //    }
 
-    public Object register(UserData usrData) throws TakenException {
-
+    public Object register(UserData usrData) throws TakenException, BadRequestException {
+        if (usrData.getPassword() == ""){
+            throw new BadRequestException();
+        }
         //see if user exists first
         UserData user = userDAO.getUser(usrData.getUsername());
         if(user == null){
@@ -46,22 +49,13 @@ public class UserService {
         }
     }
 
-    public Object logout(Request request, Response response) {
-        var usrData = new Gson().fromJson(request.body(), AuthData.class);
-
-        String username = authDAO.getUsernameWithAuth(usrData.getAuthToken());
+    public void logout(String authToken) throws UnauthorizedException{
+        String username = authDAO.getUsernameWithAuth(authToken);
         if (username != null){
             //remove the auth token, the user is not deleted
-            authDAO.deleteAuth(usrData.getAuthToken());
-            response.status(200);
-            return "";
+            authDAO.deleteAuth(authToken);
         }else{
-            response.status(401);
-            var serializer = new Gson();
-            LoginDenial l = new LoginDenial("Error: unauthorized");
-            var json = serializer.toJson(l);
-            response.body(json);
-            return json;
+            throw new UnauthorizedException();
         }
     }
 

@@ -2,13 +2,9 @@ package server;
 
 import com.google.gson.Gson;
 import dataAccess.*;
-import model.LoginDenial;
-import model.LoginSuccess;
-import model.UserData;
+import model.*;
 import org.eclipse.jetty.server.Authentication;
-import service.ClearService;
-import service.GameService;
-import service.UserService;
+import service.*;
 import spark.*;
 
 public class Server {
@@ -32,17 +28,28 @@ public class Server {
         Spark.staticFiles.location("web");
 
         // Register your endpoints and handle exceptions here.
-        Spark.delete("/db", clearService::clear);
+        Spark.delete("/db", this::clear);
         Spark.post("/user", this::register);
         Spark.post("/session", this::login);
-        Spark.delete("/session", userService::logout);
-        Spark.get("/game", gameService::listGames);
-        Spark.post("/game", gameService::createGame);
-        Spark.put("/game", gameService::joinGame);
+        Spark.delete("/session", this::logout);
+        Spark.get("/game", this::listGames);
+        Spark.post("/game", this::createGame);
+        Spark.put("/game", this::joinGame);
         Spark.exception(DataAccessException.class, this::exceptionHandler);
 
         Spark.awaitInitialization();
         return Spark.port();
+    }
+
+    private Object clear(Request request, Response response){
+        try{
+            clearService.clearAll();
+            response.status(200);
+            return "";
+        }catch (ResponseException e){
+            response.status(e.statusCode);
+            return e.getMessage();
+        }
     }
 
     private Object register(Request request, Response response){
@@ -52,10 +59,9 @@ public class Server {
             response.status(200);
             var serializer = new Gson();
             var json = serializer.toJson(loginSuccess);
-            response.body(json);
             return json;
-        }catch (TakenException e){
-            response.status(403);
+        }catch (TakenException | BadRequestException e){
+            response.status(e.statusCode);
             return e.getMessage();
         }
     }
@@ -67,10 +73,66 @@ public class Server {
             var serializer = new Gson();
             var json = serializer.toJson(loginSuccess);
             response.status(200);
-            response.body(json);
             return json;
         }catch (UnauthorizedException e){
-            response.status(401);
+            response.status(e.statusCode);
+            return e.getMessage();
+        }
+    }
+
+    private Object logout(Request request, Response response){
+        String authToken = request.headers("authorization");
+        try{
+            userService.logout(authToken);
+            response.status(200);
+            return "";
+        }catch (UnauthorizedException e){
+            response.status(e.statusCode);
+            return e.getMessage();
+        }
+    }
+
+    private Object listGames(Request request, Response response){
+        String authToken = request.headers("authorization");
+        try{
+            GamesWrapper gamesObject = gameService.listGames(authToken);
+            var serializer = new Gson();
+            var json = serializer.toJson(gamesObject);
+            response.status(200);
+            return json;
+        }catch (UnauthorizedException e){
+            response.status(e.statusCode);
+            return e.getMessage();
+        }
+    }
+
+    private Object createGame(Request request, Response response){
+        String authToken = request.headers("authorization");
+        var gameData = new Gson().fromJson(request.body(), GameData.class);
+        try{
+            int id = gameService.createGame(authToken, gameData.getGameName());
+
+            GameData game = new GameData();
+            game.setGameID(id);
+            var serializer = new Gson();
+            var json = serializer.toJson(game);
+            response.status(200);
+            return json;
+        }catch (UnauthorizedException | BadRequestException e){
+            response.status(e.statusCode);
+            return e.getMessage();
+        }
+    }
+
+    private Object joinGame(Request request, Response response){
+        String authToken = request.headers("authorization");
+        var gameData = new Gson().fromJson(request.body(), GameJoinRequest.class);
+        try{
+            gameService.joinGame(authToken, gameData.gameID, gameData.playerColor);
+            response.status(200);
+            return "";
+        }catch (UnauthorizedException | BadRequestException | TakenException e){
+            response.status(e.statusCode);
             return e.getMessage();
         }
     }
