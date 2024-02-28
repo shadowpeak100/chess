@@ -68,22 +68,22 @@ public class ChessPiece {
 
         switch (type){
             case KING:
-                returnVal = KingMoves(board, myPosition);
+                returnVal = kingMoves(board, myPosition);
                 break;
             case QUEEN:
-                returnVal = QueenMoves(board, myPosition);
+                returnVal = queenMoves(board, myPosition);
                 break;
             case BISHOP:
-                returnVal = BishopMoves(board, myPosition);
+                returnVal = bishopMoves(board, myPosition);
                 break;
             case KNIGHT:
-                returnVal = KnightMoves(board, myPosition);
+                returnVal = knightMoves(board, myPosition);
                 break;
             case ROOK:
-                returnVal = RookMoves(board, myPosition);
+                returnVal = rookMoves(board, myPosition);
                 break;
             case PAWN:
-                returnVal = PawnMoves(board, myPosition, color);
+                returnVal = pawnMoves(board, myPosition, color);
                 break;
             default:
                 System.out.println("Invalid piece, cannot determine possible moves: " + type);
@@ -162,21 +162,21 @@ public class ChessPiece {
     public boolean handlePromotionWhite(ChessBoard board, ChessPosition currentPosition, ChessPosition proposedPosition, Collection<ChessMove> returnVal){
         if (proposedPosition.getRow() == 8) {
             if (!board.occupied(8, proposedPosition.getColumn())) {
-                returnVal.add(new ChessMove(currentPosition, new ChessPosition(8, proposedPosition.getColumn()), PieceType.QUEEN));
-                returnVal.add(new ChessMove(currentPosition, new ChessPosition(8, proposedPosition.getColumn()), PieceType.BISHOP));
-                returnVal.add(new ChessMove(currentPosition, new ChessPosition(8, proposedPosition.getColumn()), PieceType.KNIGHT));
-                returnVal.add(new ChessMove(currentPosition, new ChessPosition(8, proposedPosition.getColumn()), PieceType.ROOK));
-                return true;
+                return pawnAddPromotions(currentPosition, proposedPosition, returnVal);
             }
             if (board.occupiedByOppositeColor(8, proposedPosition.getColumn(), ChessGame.TeamColor.WHITE)) {
-                returnVal.add(new ChessMove(currentPosition, new ChessPosition(8, proposedPosition.getColumn()), PieceType.QUEEN));
-                returnVal.add(new ChessMove(currentPosition, new ChessPosition(8, proposedPosition.getColumn()), PieceType.BISHOP));
-                returnVal.add(new ChessMove(currentPosition, new ChessPosition(8, proposedPosition.getColumn()), PieceType.KNIGHT));
-                returnVal.add(new ChessMove(currentPosition, new ChessPosition(8, proposedPosition.getColumn()), PieceType.ROOK));
-                return true;
+                return pawnAddPromotions(currentPosition, proposedPosition, returnVal);
             }
         }
         return false;
+    }
+
+    private boolean pawnAddPromotions(ChessPosition currentPosition, ChessPosition proposedPosition, Collection<ChessMove> returnVal) {
+        returnVal.add(new ChessMove(currentPosition, new ChessPosition(8, proposedPosition.getColumn()), PieceType.QUEEN));
+        returnVal.add(new ChessMove(currentPosition, new ChessPosition(8, proposedPosition.getColumn()), PieceType.BISHOP));
+        returnVal.add(new ChessMove(currentPosition, new ChessPosition(8, proposedPosition.getColumn()), PieceType.KNIGHT));
+        returnVal.add(new ChessMove(currentPosition, new ChessPosition(8, proposedPosition.getColumn()), PieceType.ROOK));
+        return true;
     }
 
     public boolean handlePromotionBlack(ChessBoard board, ChessPosition currentPosition, ChessPosition proposedPosition, Collection<ChessMove> returnVal){
@@ -194,7 +194,7 @@ public class ChessPiece {
 
 
 
-    public Collection<ChessMove> PawnMoves(ChessBoard board, ChessPosition position, ChessGame.TeamColor color){
+    public Collection<ChessMove> pawnMoves(ChessBoard board, ChessPosition position, ChessGame.TeamColor color){
         // may move 2 squares on it's first move
         // may move 1 square otherwise
         // capture diagonally
@@ -233,7 +233,7 @@ public class ChessPiece {
         return returnVal;
     }
 
-    public Collection<ChessMove> RookMoves(ChessBoard board, ChessPosition position){
+    public Collection<ChessMove> rookMoves(ChessBoard board, ChessPosition position){
 
         Collection<ChessMove> returnVal = new HashSet<>();
         // get current position
@@ -314,7 +314,17 @@ public class ChessPiece {
         return returnVal;
     }
 
-    public Collection<ChessMove> KnightMoves(ChessBoard board, ChessPosition position){
+    private Collection<ChessMove> knightMovesHelper(ChessPosition proposedPosition, ChessPosition position, ChessBoard board, Collection<ChessMove> returnVal){
+        if(board.validMove(proposedPosition) && !board.occupied(proposedPosition)){
+            returnVal.add(new ChessMove(position, proposedPosition, null));
+        }
+        if(board.validMove(proposedPosition) && board.occupiedByOppositeColor(proposedPosition, color)){
+            returnVal.add(new ChessMove(position, proposedPosition, null));
+        }
+        return returnVal;
+    }
+
+    public Collection<ChessMove> knightMoves(ChessBoard board, ChessPosition position){
         // 8 possible moves
         Collection<ChessMove> returnVal = new HashSet<>();
         int row = position.getRow();
@@ -329,159 +339,97 @@ public class ChessPiece {
         proposedCol = col + 1;
         proposedRow = row + 2;
         proposedPosition = new ChessPosition(proposedRow, proposedCol);
-        if(board.validMove(proposedPosition) && !board.occupied(proposedPosition)){
-            returnVal.add(new ChessMove(position, proposedPosition, null));
-        }
-        if(board.validMove(proposedPosition) && board.occupiedByOppositeColor(proposedPosition, color)){
-            returnVal.add(new ChessMove(position, proposedPosition, null));
-        }
+        knightMovesHelper(proposedPosition, position, board, returnVal);
 
         proposedCol = col + 2;
         proposedRow = row + 1;
         proposedPosition = new ChessPosition(proposedRow, proposedCol);
-        if(board.validMove(proposedPosition) && !board.occupied(proposedPosition)){
-            returnVal.add(new ChessMove(position, proposedPosition, null));
-        }
-        if(board.validMove(proposedPosition) && board.occupiedByOppositeColor(proposedPosition, color)){
-            returnVal.add(new ChessMove(position, proposedPosition, null));
-        }
+        knightMovesHelper(proposedPosition, position, board, returnVal);
 
         //quadrant 2
         proposedCol = col + 2;
         proposedRow = row - 1;
         proposedPosition = new ChessPosition(proposedRow, proposedCol);
-        if(board.validMove(proposedPosition) && !board.occupied(proposedPosition)){
-            returnVal.add(new ChessMove(position, proposedPosition, null));
-        }
-        if(board.validMove(proposedPosition) && board.occupiedByOppositeColor(proposedPosition, color)){
-            returnVal.add(new ChessMove(position, proposedPosition, null));
-        }
+        knightMovesHelper(proposedPosition, position, board, returnVal);
 
         proposedCol = col + 1;
         proposedRow = row - 2;
         proposedPosition = new ChessPosition(proposedRow, proposedCol);
-        if(board.validMove(proposedPosition) && !board.occupied(proposedPosition)){
-            returnVal.add(new ChessMove(position, proposedPosition, null));
-        }
-        if(board.validMove(proposedPosition) && board.occupiedByOppositeColor(proposedPosition, color)){
-            returnVal.add(new ChessMove(position, proposedPosition, null));
-        }
+        knightMovesHelper(proposedPosition, position, board, returnVal);
 
         //quadrant 3
         proposedCol = col - 1;
         proposedRow = row - 2;
         proposedPosition = new ChessPosition(proposedRow, proposedCol);
-        if(board.validMove(proposedPosition) && !board.occupied(proposedPosition)){
-            returnVal.add(new ChessMove(position, proposedPosition, null));
-        }
-        if(board.validMove(proposedPosition) && board.occupiedByOppositeColor(proposedPosition, color)){
-            returnVal.add(new ChessMove(position, proposedPosition, null));
-        }
+        knightMovesHelper(proposedPosition, position, board, returnVal);
 
         proposedCol = col - 2;
         proposedRow = row - 1;
         proposedPosition = new ChessPosition(proposedRow, proposedCol);
-        if(board.validMove(proposedPosition) && !board.occupied(proposedPosition)){
-            returnVal.add(new ChessMove(position, proposedPosition, null));
-        }
-        if(board.validMove(proposedPosition) && board.occupiedByOppositeColor(proposedPosition, color)){
-            returnVal.add(new ChessMove(position, proposedPosition, null));
-        }
+        knightMovesHelper(proposedPosition, position, board, returnVal);
 
         //quadrant 4
         proposedCol = col - 2;
         proposedRow = row + 1;
         proposedPosition = new ChessPosition(proposedRow, proposedCol);
-        if(board.validMove(proposedPosition) && !board.occupied(proposedPosition)){
-            returnVal.add(new ChessMove(position, proposedPosition, null));
-        }
-        if(board.validMove(proposedPosition) && board.occupiedByOppositeColor(proposedPosition, color)){
-            returnVal.add(new ChessMove(position, proposedPosition, null));
-        }
+        knightMovesHelper(proposedPosition, position, board, returnVal);
 
         proposedCol = col - 1;
         proposedRow = row + 2;
         proposedPosition = new ChessPosition(proposedRow, proposedCol);
-        if(board.validMove(proposedPosition) && !board.occupied(proposedPosition)){
-            returnVal.add(new ChessMove(position, proposedPosition, null));
-        }
-        if(board.validMove(proposedPosition) && board.occupiedByOppositeColor(proposedPosition, color)){
-            returnVal.add(new ChessMove(position, proposedPosition, null));
-        }
+        knightMovesHelper(proposedPosition, position, board, returnVal);
 
         return returnVal;
     }
 
-    public Collection<ChessMove> BishopMoves(ChessBoard board, ChessPosition position){
+    public Collection<ChessMove> bishopMoves(ChessBoard board, ChessPosition position){
         // all moves in quadrant 1 direction
         Collection<ChessMove> returnVal = new HashSet<>();
 
         for(int i = 1; i <= 7; i++){
             ChessPosition proposedPosition = new ChessPosition(position.getRow() + i, position.getColumn() + i);
-            if(board.validMove(proposedPosition) && !board.occupied(proposedPosition)){
-                returnVal.add(new ChessMove(position, proposedPosition, null));
-            }
-            if(board.validMove(proposedPosition) && board.occupiedByOppositeColor(proposedPosition, color)){
-                returnVal.add(new ChessMove(position, proposedPosition, null));
-                break;
-            }
-            if(!board.validMove(proposedPosition) || board.occupied(proposedPosition)){
-                break;
-            }
+            if (bishopMoveHelper(board, position, returnVal, proposedPosition)) break;
         }
 
         // all moves in quadrant 2 direction
         for(int i = 1; i <= 7; i++){
             ChessPosition proposedPosition = new ChessPosition(position.getRow() + i, position.getColumn() - i);
-            if(board.validMove(proposedPosition) && !board.occupied(proposedPosition)){
-                returnVal.add(new ChessMove(position, proposedPosition, null));
-            }
-            if(board.validMove(proposedPosition) && board.occupiedByOppositeColor(proposedPosition, color)){
-                returnVal.add(new ChessMove(position, proposedPosition, null));
-                break;
-            }
-            if(!board.validMove(proposedPosition) || board.occupied(proposedPosition)){
-                break;
-            }
+            if (bishopMoveHelper(board, position, returnVal, proposedPosition)) break;
         }
 
         // all moves in quadrant 3 direction
         for(int i = 1; i <= 7; i++){
             ChessPosition proposedPosition = new ChessPosition(position.getRow() - i, position.getColumn() - i);
-            if(board.validMove(proposedPosition) && !board.occupied(proposedPosition)){
-                returnVal.add(new ChessMove(position, proposedPosition, null));
-            }
-            if(board.validMove(proposedPosition) && board.occupiedByOppositeColor(proposedPosition, color)){
-                returnVal.add(new ChessMove(position, proposedPosition, null));
-                break;
-            }
-            if(!board.validMove(proposedPosition) || board.occupied(proposedPosition)){
-                break;
-            }
+            if (bishopMoveHelper(board, position, returnVal, proposedPosition)) break;
         }
 
         // all moves in quadrant 4 direction
         for(int i = 1; i <= 7; i++){
             ChessPosition proposedPosition = new ChessPosition(position.getRow() - i, position.getColumn() + i);
-            if(board.validMove(proposedPosition) && !board.occupied(proposedPosition)){
-                returnVal.add(new ChessMove(position, proposedPosition, null));
-            }
-            if(board.validMove(proposedPosition) && board.occupiedByOppositeColor(proposedPosition, color)){
-                returnVal.add(new ChessMove(position, proposedPosition, null));
-                break;
-            }
-            if(!board.validMove(proposedPosition) || board.occupied(proposedPosition)){
-                break;
-            }
+            if (bishopMoveHelper(board, position, returnVal, proposedPosition)) break;
         }
 
         return returnVal;
     }
 
-    public Collection<ChessMove> QueenMoves(ChessBoard board, ChessPosition position){
+    private boolean bishopMoveHelper(ChessBoard board, ChessPosition position, Collection<ChessMove> returnVal, ChessPosition proposedPosition) {
+        if(board.validMove(proposedPosition) && !board.occupied(proposedPosition)){
+            returnVal.add(new ChessMove(position, proposedPosition, null));
+        }
+        if(board.validMove(proposedPosition) && board.occupiedByOppositeColor(proposedPosition, color)){
+            returnVal.add(new ChessMove(position, proposedPosition, null));
+            return true;
+        }
+        if(!board.validMove(proposedPosition) || board.occupied(proposedPosition)){
+            return true;
+        }
+        return false;
+    }
+
+    public Collection<ChessMove> queenMoves(ChessBoard board, ChessPosition position){
         // could combine getting the moves for a bishop and rook - but must change all types to queen
-        Collection<ChessMove> rookMoves = RookMoves(board, position);
-        Collection<ChessMove> bishopMoves = BishopMoves(board, position);
+        Collection<ChessMove> rookMoves = rookMoves(board, position);
+        Collection<ChessMove> bishopMoves = bishopMoves(board, position);
         Collection<ChessMove> combined = new HashSet<>();
 
         combined.addAll(rookMoves);
@@ -490,7 +438,7 @@ public class ChessPiece {
         return combined;
     }
 
-    public Collection<ChessMove> KingMoves(ChessBoard board, ChessPosition position){
+    public Collection<ChessMove> kingMoves(ChessBoard board, ChessPosition position){
         // dumb and lazy. But important. Move in any direction 1 space
         Collection<ChessMove> returnVal = new HashSet<>();
         int row = position.getRow();
@@ -500,76 +448,41 @@ public class ChessPiece {
 
         proposedCol = col;
         proposedRow = row + 1;
-        ChessPosition proposedPosition = new ChessPosition(proposedRow, proposedCol);
-        if(board.validMove(proposedPosition) && !board.occupied(proposedPosition)){
-            returnVal.add(new ChessMove(position, proposedPosition, null));
-        }
-        if(board.validMove(proposedPosition) && board.occupiedByOppositeColor(proposedPosition, color)){
-            returnVal.add(new ChessMove(position, proposedPosition, null));
-        }
+        kingMoveHelper(board, position, returnVal, row, proposedCol, proposedRow);
 
         proposedCol = col + 1;
         proposedRow = row + 1;
-        proposedPosition = new ChessPosition(proposedRow, proposedCol);
-        if(board.validMove(proposedPosition) && !board.occupied(proposedPosition)){
-            returnVal.add(new ChessMove(position, proposedPosition, null));
-        }
-        if(board.validMove(proposedPosition) && board.occupiedByOppositeColor(proposedPosition, color)){
-            returnVal.add(new ChessMove(position, proposedPosition, null));
-        }
+        kingMoveHelper(board, position, returnVal, row, proposedCol, proposedRow);
 
         proposedCol = col + 1;
         proposedRow = row;
-        proposedPosition = new ChessPosition(proposedRow, proposedCol);
-        if(board.validMove(proposedPosition) && !board.occupied(proposedPosition)){
-            returnVal.add(new ChessMove(position, proposedPosition, null));
-        }
-        if(board.validMove(proposedPosition) && board.occupiedByOppositeColor(proposedPosition, color)){
-            returnVal.add(new ChessMove(position, proposedPosition, null));
-        }
+        kingMoveHelper(board, position, returnVal, row, proposedCol, proposedRow);
 
         proposedCol = col + 1;
         proposedRow = row - 1;
-        proposedPosition = new ChessPosition(proposedRow, proposedCol);
-        if(board.validMove(proposedPosition) && !board.occupied(proposedPosition)){
-            returnVal.add(new ChessMove(position, proposedPosition, null));
-        }
-        if(board.validMove(proposedPosition) && board.occupiedByOppositeColor(proposedPosition, color)){
-            returnVal.add(new ChessMove(position, proposedPosition, null));
-        }
+        kingMoveHelper(board, position, returnVal, row, proposedCol, proposedRow);
 
         proposedCol = col;
         proposedRow = row - 1;
-        proposedPosition = new ChessPosition(proposedRow, proposedCol);
-        if(board.validMove(proposedPosition) && !board.occupied(proposedPosition)){
-            returnVal.add(new ChessMove(position, proposedPosition, null));
-        }
-        if(board.validMove(proposedPosition) && board.occupiedByOppositeColor(proposedPosition, color)){
-            returnVal.add(new ChessMove(position, proposedPosition, null));
-        }
+        kingMoveHelper(board, position, returnVal, row, proposedCol, proposedRow);
 
         proposedCol = col - 1;
         proposedRow = row - 1;
-        proposedPosition = new ChessPosition(proposedRow, proposedCol);
-        if(board.validMove(proposedPosition) && !board.occupied(proposedPosition)){
-            returnVal.add(new ChessMove(position, proposedPosition, null));
-        }
-        if(board.validMove(proposedPosition) && board.occupiedByOppositeColor(proposedPosition, color)){
-            returnVal.add(new ChessMove(position, proposedPosition, null));
-        }
+        kingMoveHelper(board, position, returnVal, row, proposedCol, proposedRow);
 
         proposedCol = col - 1;
         proposedRow = row;
-        proposedPosition = new ChessPosition(proposedRow, proposedCol);
-        if(board.validMove(proposedPosition) && !board.occupied(proposedPosition)){
-            returnVal.add(new ChessMove(position, proposedPosition, null));
-        }
-        if(board.validMove(proposedPosition) && board.occupiedByOppositeColor(proposedPosition, color)){
-            returnVal.add(new ChessMove(position, proposedPosition, null));
-        }
+        kingMoveHelper(board, position, returnVal, row, proposedCol, proposedRow);
 
         proposedCol = col - 1;
         proposedRow = row + 1;
+        kingMoveHelper(board, position, returnVal, row, proposedCol, proposedRow);
+
+        return returnVal;
+    }
+
+    private void kingMoveHelper(ChessBoard board, ChessPosition position, Collection<ChessMove> returnVal, int row, int proposedCol, int proposedRow) {
+        ChessPosition proposedPosition;
         proposedPosition = new ChessPosition(proposedRow, proposedCol);
         if(board.validMove(proposedPosition) && !board.occupied(proposedPosition)){
             returnVal.add(new ChessMove(position, proposedPosition, null));
@@ -577,7 +490,5 @@ public class ChessPiece {
         if(board.validMove(proposedPosition) && board.occupiedByOppositeColor(proposedPosition, color)){
             returnVal.add(new ChessMove(position, proposedPosition, null));
         }
-
-        return returnVal;
     }
 }

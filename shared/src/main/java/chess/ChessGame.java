@@ -116,7 +116,7 @@ public class ChessGame {
         boolean check = isInCheck(getTeamTurn());
         //would our move get us out of check? If we are in checkmate, it's game over.
 
-        if(move.ContainedWithin(possibleMoves)){
+        if(move.containedWithin(possibleMoves)){
             //make move
 
             //see if this would put us in checkmate then don't do it
@@ -150,7 +150,7 @@ public class ChessGame {
     public void makeMockMove(ChessMove move) throws InvalidMoveException {
         Collection<ChessMove> possibleMoves = possibleMoves(move.getStartPosition());
 
-        if(move.ContainedWithin(possibleMoves)){
+        if(move.containedWithin(possibleMoves)){
             this.board.setBoard(move.getEndPosition().getRow(),move.getEndPosition().getColumn(), this.board.getPiece(move.getStartPosition()));
             this.board.setBoard(move.getStartPosition().getRow(), move.getStartPosition().getColumn(), null);
         }else{

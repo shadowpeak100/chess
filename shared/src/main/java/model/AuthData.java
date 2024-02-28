@@ -16,9 +16,6 @@ public class AuthData {
     }
 
     //getters
-    public String getAuthToken() {
-        return authToken;
-    }
 
     public String getUsername(){
         return username;
@@ -29,7 +26,4 @@ public class AuthData {
         this.username = username;
     }
 
-    public void setAuthToken(String authToken){
-        this.authToken = authToken;
-    }
 }

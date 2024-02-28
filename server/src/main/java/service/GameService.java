@@ -25,8 +25,8 @@ public class GameService {
     }
 
     public GamesWrapper listGames(String AuthToken) throws UnauthorizedException {
-        String Username = authDAO.getUsernameWithAuth(AuthToken);
-        UserData user = userDAO.getUser(Username);
+        String username = authDAO.getUsernameWithAuth(AuthToken);
+        UserData user = userDAO.getUser(username);
         if(user == null){
             throw new UnauthorizedException();
         }else{
@@ -36,8 +36,8 @@ public class GameService {
     }
 
     public int createGame(String AuthToken, String gameName) throws BadRequestException, UnauthorizedException {
-        String Username = authDAO.getUsernameWithAuth(AuthToken);
-        if(Username == null){
+        String username = authDAO.getUsernameWithAuth(AuthToken);
+        if(username == null){
             throw new UnauthorizedException();
         }else{
             try{
@@ -49,8 +49,8 @@ public class GameService {
     }
 
     public void joinGame(String AuthToken, int gameID, String playerColor) throws UnauthorizedException, BadRequestException, TakenException {
-        String Username = authDAO.getUsernameWithAuth(AuthToken);
-        if(Username == null){
+        String username = authDAO.getUsernameWithAuth(AuthToken);
+        if(username == null){
             throw new UnauthorizedException();
         }else{
             try{
@@ -60,12 +60,12 @@ public class GameService {
                         if(game.getWhiteUsername() != null){
                             throw new TakenException();
                         }
-                        game.setWhiteUsername(Username);
+                        game.setWhiteUsername(username);
                     }else if (playerColor.equals("BLACK")){
                         if(game.getBlackUsername() != null){
                             throw new TakenException();
                         }
-                        game.setBlackUsername(Username);
+                        game.setBlackUsername(username);
                     }
                 }else{
                     throw new BadRequestException();

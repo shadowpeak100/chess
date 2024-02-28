@@ -39,7 +39,7 @@ public class GameServiceTest {
             var serializer = new Gson();
             var json = serializer.toJson(gamesObject);
             String x = json;
-            assertEquals("{\"games\":[{\"gameID\":" + id + ",\"gameName\":\"testGame\",\"game\":{\"board\":{\"Board\":[[null,null,null,null,null,null,null,null],[null,null,null,null,null,null,null,null],[null,null,null,null,null,null,null,null],[null,null,null,null,null,null,null,null],[null,null,null,null,null,null,null,null],[null,null,null,null,null,null,null,null],[null,null,null,null,null,null,null,null],[null,null,null,null,null,null,null,null]]},\"currentTurn\":\"WHITE\"}}]}",json);
+            assertEquals("{\"games\":[{\"gameID\":" + id + ",\"gameName\":\"testGame\",\"game\":{\"board\":{\"board\":[[null,null,null,null,null,null,null,null],[null,null,null,null,null,null,null,null],[null,null,null,null,null,null,null,null],[null,null,null,null,null,null,null,null],[null,null,null,null,null,null,null,null],[null,null,null,null,null,null,null,null],[null,null,null,null,null,null,null,null],[null,null,null,null,null,null,null,null]]},\"currentTurn\":\"WHITE\"}}]}",json);
         }catch (UnauthorizedException ignored){
 
         }

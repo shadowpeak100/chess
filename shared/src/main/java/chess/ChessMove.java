@@ -34,7 +34,7 @@ public class ChessMove {
         promotion = promotionPiece;
     }
 
-    public boolean ContainedWithin(Collection<ChessMove> set){
+    public boolean containedWithin(Collection<ChessMove> set){
         if(set == null){
             return false;
         }

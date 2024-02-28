@@ -44,9 +44,9 @@ public class MemoryGameDAO implements GameDAO{
     }
 
     @Override
-    public int newGame(String GameName) throws DataAccessException{
+    public int newGame(String gameName) throws DataAccessException{
         int gameID = Math.abs(UUID.randomUUID().hashCode());
-        GameData game = new GameData(gameID, null, null , GameName, new ChessGame());
+        GameData game = new GameData(gameID, null, null , gameName, new ChessGame());
         games.add(game);
         gameIDtoIndexMap.put(gameID, count);
         this.count ++;
