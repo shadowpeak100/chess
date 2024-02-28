@@ -9,7 +9,7 @@ public class MemoryGameDAO implements GameDAO{
     final private HashMap<Integer, ChessGame> games = new HashMap<>();
 
     @Override
-    public void clear() throws DataAccessException {
+    public void clearAll() throws DataAccessException {
         games.clear();
     }
 

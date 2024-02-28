@@ -5,6 +5,7 @@ import java.util.UUID;
 
 public class MemoryAuthDAO implements AuthDAO{
 
+    //auth tokens to usernames
     private final HashMap<String, String> authUserMap = new HashMap<>();
 
     @Override
@@ -15,12 +16,16 @@ public class MemoryAuthDAO implements AuthDAO{
     }
 
     @Override
-    public String getAuth(String authToken) {
+    public String getUsernameWithAuth(String authToken) {
         return authUserMap.get(authToken);
     }
 
     @Override
     public void deleteAuth(String authToken) {
         authUserMap.remove(authToken);
+    }
+
+    public void clearAll(){
+        authUserMap.clear();
     }
 }

@@ -4,13 +4,17 @@ import com.google.gson.Gson;
 import dataAccess.AuthDAO;
 import dataAccess.GameDAO;
 import dataAccess.UserDAO;
+import model.AuthData;
+import model.LoginDenial;
+import model.LoginSuccess;
 import model.UserData;
+import server.ResponseException;
+import server.TakenException;
+import server.UnauthorizedException;
 import spark.Request;
 import spark.Response;
 
-import java.util.Map;
 import java.util.Objects;
-import java.util.UUID;
 
 public class UserService {
 
@@ -24,49 +28,51 @@ public class UserService {
         this.userDAO = ud;
     }
 
-    public Object register(Request request, Response response) {
-        var usrData = new Gson().fromJson(request.body(), UserData.class);
-        return "";
+//    public record LoginDen(String message){
+//
+//    }
+
+    public Object register(UserData usrData) throws TakenException {
+
+        //see if user exists first
+        UserData user = userDAO.getUser(usrData.getUsername());
+        if(user == null){
+            userDAO.createUser(usrData.getUsername(), usrData.getPassword(), usrData.getEmail());
+            String auth = authDAO.createAuth(usrData.getUsername());
+
+            return new LoginSuccess(usrData.getUsername(), auth);
+        }else{
+            throw new TakenException();
+        }
     }
 
     public Object logout(Request request, Response response) {
-        var usrData = new Gson().fromJson(request.body(), UserData.class);
-        return "";
-    }
+        var usrData = new Gson().fromJson(request.body(), AuthData.class);
 
-    public class loginSuccess{
-        public String username;
-        public String authToken;
-
-        public loginSuccess(String Username, String AuthToken){
-            this.username = Username;
-            this.authToken = AuthToken;
-        }
-    }
-
-    public Object login(Request request, Response response) {
-        var usrData = new Gson().fromJson(request.body(), UserData.class);
-
-        UserData user = userDAO.getUser(usrData.getUsername());
-
-        if(!Objects.equals(user.getPassword(), usrData.getPassword())){
-            //Throw exception?
-            response.status(401);
-            System.out.println("invalid password");
+        String username = authDAO.getUsernameWithAuth(usrData.getAuthToken());
+        if (username != null){
+            //remove the auth token, the user is not deleted
+            authDAO.deleteAuth(usrData.getAuthToken());
+            response.status(200);
+            return "";
         }else{
-            String auth = authDAO.createAuth(user.getUsername());
-            loginSuccess l = new loginSuccess();
-            l.setAuthToken(auth);
-            l.setUsername(user.getUsername());
-
+            response.status(401);
             var serializer = new Gson();
+            LoginDenial l = new LoginDenial("Error: unauthorized");
             var json = serializer.toJson(l);
-
             response.body(json);
             return json;
         }
+    }
 
+    public Object login(UserData usrData) throws UnauthorizedException {
+        UserData user = userDAO.getUser(usrData.getUsername());
 
-        return "";
+        if(user == null || !Objects.equals(user.getPassword(), usrData.getPassword())){
+            throw new UnauthorizedException();
+        }else{
+            String auth = authDAO.createAuth(user.getUsername());
+            return new LoginSuccess(user.getUsername(), auth);
+        }
     }
 }

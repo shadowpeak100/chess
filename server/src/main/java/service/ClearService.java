@@ -1,7 +1,6 @@
 package service;
 
 import dataAccess.*;
-import org.eclipse.jetty.server.Authentication;
 import spark.Request;
 import spark.Response;
 
@@ -25,7 +24,9 @@ public class ClearService {
 
     public void clearAll(Response res){
         try{
-            this.gameDAO.clear();
+            this.gameDAO.clearAll();
+            this.authDAO.clearAll();
+            this.gameDAO.clearAll();
         }catch (DataAccessException e){
             //return if bad
             res.status(500);

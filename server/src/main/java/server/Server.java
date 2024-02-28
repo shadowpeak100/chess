@@ -1,6 +1,10 @@
 package server;
 
+import com.google.gson.Gson;
 import dataAccess.*;
+import model.LoginDenial;
+import model.LoginSuccess;
+import model.UserData;
 import org.eclipse.jetty.server.Authentication;
 import service.ClearService;
 import service.GameService;
@@ -29,8 +33,8 @@ public class Server {
 
         // Register your endpoints and handle exceptions here.
         Spark.delete("/db", clearService::clear);
-        Spark.post("/user", userService::register);
-        Spark.post("/session", userService::login);
+        Spark.post("/user", this::register);
+        Spark.post("/session", this::login);
         Spark.delete("/session", userService::logout);
         Spark.get("/game", gameService::listGames);
         Spark.post("/game", gameService::createGame);
@@ -39,6 +43,36 @@ public class Server {
 
         Spark.awaitInitialization();
         return Spark.port();
+    }
+
+    private Object register(Request request, Response response){
+        var usrData = new Gson().fromJson(request.body(), UserData.class);
+        try{
+            Object loginSuccess = userService.register(usrData);
+            response.status(200);
+            var serializer = new Gson();
+            var json = serializer.toJson(loginSuccess);
+            response.body(json);
+            return json;
+        }catch (TakenException e){
+            response.status(403);
+            return e.getMessage();
+        }
+    }
+
+    private Object login(Request request, Response response){
+        var usrData = new Gson().fromJson(request.body(), UserData.class);
+        try{
+            Object loginSuccess = userService.login(usrData);
+            var serializer = new Gson();
+            var json = serializer.toJson(loginSuccess);
+            response.status(200);
+            response.body(json);
+            return json;
+        }catch (UnauthorizedException e){
+            response.status(401);
+            return e.getMessage();
+        }
     }
 
     private void exceptionHandler(DataAccessException ex, Request req, Response res) {

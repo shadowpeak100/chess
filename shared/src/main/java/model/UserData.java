@@ -6,13 +6,13 @@ public class UserData {
     private String email;
 
     //c'tors
-    UserData(String username, String password, String email){
+    public UserData(String username, String password, String email){
         this.username = username;
         this.password = password;
         this.email = email;
     }
 
-    UserData(){
+    public UserData(){
         this.username = "";
         this.password = "";
         this.email = "";

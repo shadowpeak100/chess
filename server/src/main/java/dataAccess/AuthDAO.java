@@ -2,6 +2,7 @@ package dataAccess;
 
 public interface AuthDAO{
     String createAuth(String username);
-    String getAuth(String authToken);
+    String getUsernameWithAuth(String authToken);
     void deleteAuth(String authToken);
+    void clearAll();
 }
