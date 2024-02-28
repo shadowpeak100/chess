@@ -32,15 +32,6 @@ public class ChessBoard {
         Board = t;
     }
 
-    public ChessBoard boardDeepCopy() {
-        ChessPiece[][] copy = new ChessPiece[getBoard().length][];
-        for (int i = 0; i < getBoard().length; i++) {
-            copy[i] = new ChessPiece[getBoard()[i].length];
-            System.arraycopy(getBoard()[i], 0, copy[i], 0, getBoard()[i].length);
-        }
-        return new ChessBoard(copy);
-    }
-
     /**
      * Adds a chess piece to the chessboard
      *
@@ -101,16 +92,6 @@ public class ChessBoard {
     public boolean validMove(ChessPosition position){
         if(position.getRow() > 0 && position.getRow() <= 8){
             if(position.getColumn() > 0 && position.getColumn() <= 8){
-                return true;
-            }
-            return false;
-        }
-        return false;
-    }
-
-    public boolean validMove(int row, int col){
-        if(row > 0 && row <= 8){
-            if(col > 0 && col <= 8){
                 return true;
             }
             return false;
