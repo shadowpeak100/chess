@@ -20,10 +20,4 @@ public class AuthData {
     public String getUsername(){
         return username;
     }
-
-    //setters
-    public void setUsername(String username){
-        this.username = username;
-    }
-
 }

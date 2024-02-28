@@ -4,20 +4,7 @@
     <option name="autoReloadType" value="SELECTIVE" />
   </component>
   <component name="ChangeListManager">
-    <list default="true" id="7f72768d-00d0-4037-a08d-33159cc5ebb4" name="Changes" comment="got rid of code that was not being run">
-      <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/server/src/main/java/dataAccess/DataAccess.java" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/server/src/main/java/dataAccess/SQLAuthDAO.java" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/server/src/main/java/dataAccess/SQLGameDAO.java" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/server/src/main/java/dataAccess/SQLUsersDAO.java" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/server/src/main/java/server/ResponseException.java" beforeDir="false" afterPath="$PROJECT_DIR$/server/src/main/java/server/ResponseException.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/server/src/main/java/service/GameService.java" beforeDir="false" afterPath="$PROJECT_DIR$/server/src/main/java/service/GameService.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/shared/src/main/java/chess/ChessBoard.java" beforeDir="false" afterPath="$PROJECT_DIR$/shared/src/main/java/chess/ChessBoard.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/shared/src/main/java/chess/ChessGame.java" beforeDir="false" afterPath="$PROJECT_DIR$/shared/src/main/java/chess/ChessGame.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/shared/src/main/java/chess/ChessMove.java" beforeDir="false" afterPath="$PROJECT_DIR$/shared/src/main/java/chess/ChessMove.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/shared/src/main/java/chess/ChessPiece.java" beforeDir="false" afterPath="$PROJECT_DIR$/shared/src/main/java/chess/ChessPiece.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/shared/src/main/java/model/AuthData.java" beforeDir="false" afterPath="$PROJECT_DIR$/shared/src/main/java/model/AuthData.java" afterDir="false" />
-    </list>
+    <list default="true" id="7f72768d-00d0-4037-a08d-33159cc5ebb4" name="Changes" comment="Code quality rules..." />
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
     <option name="HIGHLIGHT_NON_ACTIVE_CHANGELIST" value="false" />
@@ -66,6 +53,7 @@
     "JUnit.GameServiceTest.testJoinGameUnsuccessful.executor": "Run",
     "JUnit.GameServiceTest.testListGames.executor": "Run",
     "JUnit.GameServiceTest.testListGamesNoUser.executor": "Run",
+    "JUnit.GameServiceTest.testListGamesPositive.executor": "Run",
     "JUnit.StandardAPITests.badColorJoin.executor": "Run",
     "JUnit.StandardAPITests.badGameIDWatch.executor": "Debug",
     "JUnit.StandardAPITests.clearData.executor": "Debug",
@@ -202,7 +190,7 @@
       <workItem from="1708579455006" duration="226000" />
       <workItem from="1708615987054" duration="4274000" />
       <workItem from="1708656499291" duration="17019000" />
-      <workItem from="1709063041795" duration="30689000" />
+      <workItem from="1709063041795" duration="31028000" />
     </task>
     <task id="LOCAL-00001" summary="more setup for server tests and web resources">
       <option name="closed" value="true" />
@@ -268,7 +256,15 @@
       <option name="project" value="LOCAL" />
       <updated>1709100481093</updated>
     </task>
-    <option name="localTasksCounter" value="9" />
+    <task id="LOCAL-00009" summary="Code quality rules...">
+      <option name="closed" value="true" />
+      <created>1709102388738</created>
+      <option name="number" value="00009" />
+      <option name="presentableId" value="LOCAL-00009" />
+      <option name="project" value="LOCAL" />
+      <updated>1709102388738</updated>
+    </task>
+    <option name="localTasksCounter" value="10" />
     <servers />
   </component>
   <component name="TypeScriptGeneratedFilesManager">
@@ -294,7 +290,8 @@
     <MESSAGE value="passing all tests, new unit tests" />
     <MESSAGE value="slimmed down unit tests" />
     <MESSAGE value="got rid of code that was not being run" />
-    <option name="LAST_COMMIT_MESSAGE" value="got rid of code that was not being run" />
+    <MESSAGE value="Code quality rules..." />
+    <option name="LAST_COMMIT_MESSAGE" value="Code quality rules..." />
   </component>
   <component name="XDebuggerManager">
     <breakpoint-manager>

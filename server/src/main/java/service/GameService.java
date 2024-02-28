@@ -24,8 +24,8 @@ public class GameService {
         this.userDAO = ud;
     }
 
-    public GamesWrapper listGames(String AuthToken) throws UnauthorizedException {
-        String username = authDAO.getUsernameWithAuth(AuthToken);
+    public GamesWrapper listGames(String authToken) throws UnauthorizedException {
+        String username = authDAO.getUsernameWithAuth(authToken);
         UserData user = userDAO.getUser(username);
         if(user == null){
             throw new UnauthorizedException();
@@ -35,8 +35,8 @@ public class GameService {
         }
     }
 
-    public int createGame(String AuthToken, String gameName) throws BadRequestException, UnauthorizedException {
-        String username = authDAO.getUsernameWithAuth(AuthToken);
+    public int createGame(String authToken, String gameName) throws BadRequestException, UnauthorizedException {
+        String username = authDAO.getUsernameWithAuth(authToken);
         if(username == null){
             throw new UnauthorizedException();
         }else{
