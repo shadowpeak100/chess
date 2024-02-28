@@ -48,8 +48,8 @@ public class GameService {
         }
     }
 
-    public void joinGame(String AuthToken, int gameID, String playerColor) throws UnauthorizedException, BadRequestException, TakenException {
-        String username = authDAO.getUsernameWithAuth(AuthToken);
+    public void joinGame(String authToken, int gameID, String playerColor) throws UnauthorizedException, BadRequestException, TakenException {
+        String username = authDAO.getUsernameWithAuth(authToken);
         if(username == null){
             throw new UnauthorizedException();
         }else{
