@@ -14,12 +14,7 @@ public class ClearServiceTest {
         GameDAO gd = new MemoryGameDAO();
         AuthDAO ad = new MemoryAuthDAO();
         UserDAO ud = new MemoryUsersDAO();
-        int id;
-        try{
-            id = gd.newGame("testGame");
-        }catch (DataAccessException ignored){
 
-        }
         ad.createAuth("jimmy");
         ud.createUser("testPerson", "password", "b@g.c");
 

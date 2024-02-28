@@ -102,11 +102,41 @@
     "vue.rearranger.settings.migration": "true"
   }
 }]]></component>
-  <component name="RunManager" selected="JUnit.All in server">
+  <component name="RunManager" selected="JUnit.GameServiceTest">
     <configuration name="All in server" type="JUnit" factoryName="JUnit" temporary="true" nameIsGenerated="true">
       <module name="server" />
       <option name="PACKAGE_NAME" value="" />
       <option name="TEST_OBJECT" value="package" />
+      <method v="2">
+        <option name="Make" enabled="true" />
+      </method>
+    </configuration>
+    <configuration name="ClearServiceTest" type="JUnit" factoryName="JUnit" temporary="true" nameIsGenerated="true">
+      <module name="server" />
+      <extension name="coverage">
+        <pattern>
+          <option name="PATTERN" value="serviceTests.*" />
+          <option name="ENABLED" value="true" />
+        </pattern>
+      </extension>
+      <option name="PACKAGE_NAME" value="serviceTests" />
+      <option name="MAIN_CLASS_NAME" value="serviceTests.ClearServiceTest" />
+      <option name="TEST_OBJECT" value="class" />
+      <method v="2">
+        <option name="Make" enabled="true" />
+      </method>
+    </configuration>
+    <configuration name="GameServiceTest" type="JUnit" factoryName="JUnit" temporary="true" nameIsGenerated="true">
+      <module name="server" />
+      <extension name="coverage">
+        <pattern>
+          <option name="PATTERN" value="serviceTests.*" />
+          <option name="ENABLED" value="true" />
+        </pattern>
+      </extension>
+      <option name="PACKAGE_NAME" value="serviceTests" />
+      <option name="MAIN_CLASS_NAME" value="serviceTests.GameServiceTest" />
+      <option name="TEST_OBJECT" value="class" />
       <method v="2">
         <option name="Make" enabled="true" />
       </method>
@@ -143,45 +173,13 @@
         <option name="Make" enabled="true" />
       </method>
     </configuration>
-    <configuration name="UserServiceTest.testLogoutTwice" type="JUnit" factoryName="JUnit" temporary="true" nameIsGenerated="true">
-      <module name="server" />
-      <extension name="coverage">
-        <pattern>
-          <option name="PATTERN" value="serviceTests.*" />
-          <option name="ENABLED" value="true" />
-        </pattern>
-      </extension>
-      <option name="PACKAGE_NAME" value="serviceTests" />
-      <option name="MAIN_CLASS_NAME" value="serviceTests.UserServiceTest" />
-      <option name="METHOD_NAME" value="testLogoutTwice" />
-      <option name="TEST_OBJECT" value="method" />
-      <method v="2">
-        <option name="Make" enabled="true" />
-      </method>
-    </configuration>
-    <configuration name="UserServiceTest.testSuccessfulLogout" type="JUnit" factoryName="JUnit" temporary="true" nameIsGenerated="true">
-      <module name="server" />
-      <extension name="coverage">
-        <pattern>
-          <option name="PATTERN" value="serviceTests.*" />
-          <option name="ENABLED" value="true" />
-        </pattern>
-      </extension>
-      <option name="PACKAGE_NAME" value="serviceTests" />
-      <option name="MAIN_CLASS_NAME" value="serviceTests.UserServiceTest" />
-      <option name="METHOD_NAME" value="testSuccessfulLogout" />
-      <option name="TEST_OBJECT" value="method" />
-      <method v="2">
-        <option name="Make" enabled="true" />
-      </method>
-    </configuration>
     <recent_temporary>
       <list>
+        <item itemvalue="JUnit.GameServiceTest" />
+        <item itemvalue="JUnit.ClearServiceTest" />
         <item itemvalue="JUnit.All in server" />
         <item itemvalue="JUnit.UserServiceTest.testLoginUnsuccessful" />
         <item itemvalue="JUnit.UserServiceTest.testLoginSuccessful" />
-        <item itemvalue="JUnit.UserServiceTest.testLogoutTwice" />
-        <item itemvalue="JUnit.UserServiceTest.testSuccessfulLogout" />
       </list>
     </recent_temporary>
   </component>

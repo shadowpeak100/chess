@@ -50,12 +50,6 @@ public class GameServiceTest {
         GameDAO gd = new MemoryGameDAO();
         AuthDAO ad = new MemoryAuthDAO();
         UserDAO ud = new MemoryUsersDAO();
-        int id = 0;
-        try{
-            id = gd.newGame("testGame");
-        }catch (DataAccessException ignored){
-
-        }
 
         String token = ad.createAuth("Hammy");
 
@@ -94,14 +88,7 @@ public class GameServiceTest {
         GameDAO gd = new MemoryGameDAO();
         AuthDAO ad = new MemoryAuthDAO();
         UserDAO ud = new MemoryUsersDAO();
-        int id = 0;
-        try{
-            id = gd.newGame("testGame");
-        }catch (DataAccessException ignored){
 
-        }
-
-        //no user
         GameService gameService = new GameService(gd, ad, ud);
 
         assertThrows(UnauthorizedException.class, () -> {
@@ -122,7 +109,6 @@ public class GameServiceTest {
         }
 
         String tok = ad.createAuth("gzs");
-        //no user
         GameService gameService = new GameService(gd, ad, ud);
 
         int finalId = id;
@@ -136,12 +122,6 @@ public class GameServiceTest {
         GameDAO gd = new MemoryGameDAO();
         AuthDAO ad = new MemoryAuthDAO();
         UserDAO ud = new MemoryUsersDAO();
-        int id = 0;
-        try{
-            id = gd.newGame("testGame");
-        }catch (DataAccessException ignored){
-
-        }
 
         String tok = ad.createAuth("gzs");
         //no game ID
