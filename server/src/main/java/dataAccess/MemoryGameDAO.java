@@ -6,25 +6,34 @@ import service.GamesWrapper;
 
 import javax.xml.crypto.Data;
 import java.lang.reflect.Array;
-import java.util.ArrayList;
+import java.util.*;
 
 public class MemoryGameDAO implements GameDAO{
 
     //maybe use an array list - must implement list interface
-    private final ArrayList<GameData> games = new ArrayList<GameData>();
+    private final ArrayList<GameData> games;
     int count;
+    private final Map<Integer, Integer> gameIDtoIndexMap = new HashMap<>();
+
+
+    public MemoryGameDAO(){
+        count = 0;
+        games = new ArrayList<GameData>();
+    }
 
     @Override
     public void clearAll() throws DataAccessException {
         games.clear();
+        count = 0;
     }
 
     @Override
     public GameData getGame(int gameID) throws DataAccessException{
-        GameData returnVal = games.get(gameID);
-        if(returnVal == null){
+        if(!gameIDtoIndexMap.containsKey(gameID)){
             throw new DataAccessException("");
         }else{
+            int gameIndex = gameIDtoIndexMap.get(gameID);
+            GameData returnVal = games.get(gameIndex);
             return returnVal;
         }
     }
@@ -35,14 +44,11 @@ public class MemoryGameDAO implements GameDAO{
     }
 
     @Override
-    public void updateGame() {
-
-    }
-
-    @Override
-    public int newGame(String GameName) throws DataAccessException {
-        GameData game = new GameData(count, null, null , GameName, new ChessGame());
+    public int newGame(String GameName) throws DataAccessException{
+        int gameID = Math.abs(UUID.randomUUID().hashCode());
+        GameData game = new GameData(gameID, null, null , GameName, new ChessGame());
         games.add(game);
+        gameIDtoIndexMap.put(gameID, count);
         this.count ++;
         return game.getGameID();
     }

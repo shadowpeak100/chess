@@ -4,20 +4,14 @@
     <option name="autoReloadType" value="SELECTIVE" />
   </component>
   <component name="ChangeListManager">
-    <list default="true" id="7f72768d-00d0-4037-a08d-33159cc5ebb4" name="Changes" comment="login and auth working, splitting responsibilities">
-      <change afterPath="$PROJECT_DIR$/server/src/main/java/service/GameJoinRequest.java" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/server/src/main/java/service/GamesWrapper.java" afterDir="false" />
+    <list default="true" id="7f72768d-00d0-4037-a08d-33159cc5ebb4" name="Changes" comment="allow watchers for chess games">
+      <change afterPath="$PROJECT_DIR$/server/src/test/java/serviceTests/ClearServiceTest.java" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/server/src/test/java/serviceTests/GameServiceTest.java" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/server/src/test/java/serviceTests/UserServiceTest.java" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/server/src/main/java/dataAccess/GameDAO.java" beforeDir="false" afterPath="$PROJECT_DIR$/server/src/main/java/dataAccess/GameDAO.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/server/src/main/java/dataAccess/MemoryAuthDAO.java" beforeDir="false" afterPath="$PROJECT_DIR$/server/src/main/java/dataAccess/MemoryAuthDAO.java" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/server/src/main/java/dataAccess/MemoryGameDAO.java" beforeDir="false" afterPath="$PROJECT_DIR$/server/src/main/java/dataAccess/MemoryGameDAO.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/server/src/main/java/server/BadRequestException.java" beforeDir="false" afterPath="$PROJECT_DIR$/server/src/main/java/server/BadRequestException.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/server/src/main/java/server/Server.java" beforeDir="false" afterPath="$PROJECT_DIR$/server/src/main/java/server/Server.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/server/src/main/java/service/ClearService.java" beforeDir="false" afterPath="$PROJECT_DIR$/server/src/main/java/service/ClearService.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/server/src/main/java/service/GameService.java" beforeDir="false" afterPath="$PROJECT_DIR$/server/src/main/java/service/GameService.java" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/server/src/main/java/service/UserService.java" beforeDir="false" afterPath="$PROJECT_DIR$/server/src/main/java/service/UserService.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/shared/src/main/java/model/GameData.java" beforeDir="false" afterPath="$PROJECT_DIR$/shared/src/main/java/model/GameData.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/shared/src/main/java/model/UserData.java" beforeDir="false" afterPath="$PROJECT_DIR$/shared/src/main/java/model/UserData.java" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -57,17 +51,37 @@
     "Downloaded.Files.Path.Enabled": "false",
     "JUnit.All in test.executor": "Run",
     "JUnit.ChessBoardTests.executor": "Run",
+    "JUnit.ClearServiceTest.testClearAll.executor": "Run",
+    "JUnit.GameServiceTest.testCreateGameSuccessful.executor": "Run",
+    "JUnit.GameServiceTest.testCreateGameUnsuccessful.executor": "Run",
+    "JUnit.GameServiceTest.testJoinGameSuccessful.executor": "Run",
+    "JUnit.GameServiceTest.testJoinGameUnsuccessful.executor": "Run",
+    "JUnit.GameServiceTest.testListGames.executor": "Run",
+    "JUnit.GameServiceTest.testListGamesNoUser.executor": "Run",
+    "JUnit.StandardAPITests.badColorJoin.executor": "Run",
+    "JUnit.StandardAPITests.badGameIDWatch.executor": "Debug",
     "JUnit.StandardAPITests.clearData.executor": "Debug",
-    "JUnit.StandardAPITests.executor": "Debug",
+    "JUnit.StandardAPITests.executor": "Run",
     "JUnit.StandardAPITests.failRegister.executor": "Run",
+    "JUnit.StandardAPITests.gamesList.executor": "Run",
+    "JUnit.StandardAPITests.goodCreate.executor": "Debug",
+    "JUnit.StandardAPITests.goodJoin.executor": "Run",
     "JUnit.StandardAPITests.goodWatch.executor": "Run",
     "JUnit.StandardAPITests.loginInvalidUser.executor": "Run",
     "JUnit.StandardAPITests.loginWrongPassword.executor": "Run",
+    "JUnit.StandardAPITests.manyWatch.executor": "Run",
     "JUnit.StandardAPITests.staticFiles.executor": "Run",
     "JUnit.StandardAPITests.successLogin.executor": "Run",
     "JUnit.StandardAPITests.successLogout.executor": "Run",
     "JUnit.StandardAPITests.successRegister.executor": "Run",
     "JUnit.StandardAPITests.uniqueAuthorizationTokens.executor": "Debug",
+    "JUnit.UserServiceTest.executor": "Run",
+    "JUnit.UserServiceTest.testLoginSuccessful.executor": "Run",
+    "JUnit.UserServiceTest.testLoginUnsuccessful.executor": "Run",
+    "JUnit.UserServiceTest.testLogoutTwice.executor": "Run",
+    "JUnit.UserServiceTest.testRegister.executor": "Run",
+    "JUnit.UserServiceTest.testRegisterTakenName.executor": "Run",
+    "JUnit.UserServiceTest.testSuccessfulLogout.executor": "Run",
     "Repository.Attach.Annotations": "false",
     "Repository.Attach.JavaDocs": "false",
     "Repository.Attach.Sources": "false",
@@ -88,81 +102,74 @@
     "vue.rearranger.settings.migration": "true"
   }
 }]]></component>
-  <component name="RunManager" selected="JUnit.StandardAPITests">
-    <configuration name="StandardAPITests" type="JUnit" factoryName="JUnit" temporary="true" nameIsGenerated="true">
+  <component name="RunManager" selected="JUnit.All in server">
+    <configuration name="All in server" type="JUnit" factoryName="JUnit" temporary="true" nameIsGenerated="true">
       <module name="server" />
-      <extension name="coverage">
-        <pattern>
-          <option name="PATTERN" value="passoffTests.serverTests.*" />
-          <option name="ENABLED" value="true" />
-        </pattern>
-      </extension>
-      <option name="PACKAGE_NAME" value="passoffTests.serverTests" />
-      <option name="MAIN_CLASS_NAME" value="passoffTests.serverTests.StandardAPITests" />
-      <option name="TEST_OBJECT" value="class" />
+      <option name="PACKAGE_NAME" value="" />
+      <option name="TEST_OBJECT" value="package" />
       <method v="2">
         <option name="Make" enabled="true" />
       </method>
     </configuration>
-    <configuration name="StandardAPITests.failRegister" type="JUnit" factoryName="JUnit" temporary="true" nameIsGenerated="true">
+    <configuration name="UserServiceTest.testLoginSuccessful" type="JUnit" factoryName="JUnit" temporary="true" nameIsGenerated="true">
       <module name="server" />
       <extension name="coverage">
         <pattern>
-          <option name="PATTERN" value="passoffTests.serverTests.*" />
+          <option name="PATTERN" value="serviceTests.*" />
           <option name="ENABLED" value="true" />
         </pattern>
       </extension>
-      <option name="PACKAGE_NAME" value="passoffTests.serverTests" />
-      <option name="MAIN_CLASS_NAME" value="passoffTests.serverTests.StandardAPITests" />
-      <option name="METHOD_NAME" value="failRegister" />
+      <option name="PACKAGE_NAME" value="serviceTests" />
+      <option name="MAIN_CLASS_NAME" value="serviceTests.UserServiceTest" />
+      <option name="METHOD_NAME" value="testLoginSuccessful" />
       <option name="TEST_OBJECT" value="method" />
       <method v="2">
         <option name="Make" enabled="true" />
       </method>
     </configuration>
-    <configuration name="StandardAPITests.goodWatch" type="JUnit" factoryName="JUnit" temporary="true" nameIsGenerated="true">
+    <configuration name="UserServiceTest.testLoginUnsuccessful" type="JUnit" factoryName="JUnit" temporary="true" nameIsGenerated="true">
       <module name="server" />
       <extension name="coverage">
         <pattern>
-          <option name="PATTERN" value="passoffTests.serverTests.*" />
+          <option name="PATTERN" value="serviceTests.*" />
           <option name="ENABLED" value="true" />
         </pattern>
       </extension>
-      <option name="PACKAGE_NAME" value="passoffTests.serverTests" />
-      <option name="MAIN_CLASS_NAME" value="passoffTests.serverTests.StandardAPITests" />
-      <option name="METHOD_NAME" value="goodWatch" />
+      <option name="PACKAGE_NAME" value="serviceTests" />
+      <option name="MAIN_CLASS_NAME" value="serviceTests.UserServiceTest" />
+      <option name="METHOD_NAME" value="testLoginUnsuccessful" />
       <option name="TEST_OBJECT" value="method" />
       <method v="2">
         <option name="Make" enabled="true" />
       </method>
     </configuration>
-    <configuration name="StandardAPITests.successLogout" type="JUnit" factoryName="JUnit" temporary="true" nameIsGenerated="true">
+    <configuration name="UserServiceTest.testLogoutTwice" type="JUnit" factoryName="JUnit" temporary="true" nameIsGenerated="true">
       <module name="server" />
       <extension name="coverage">
         <pattern>
-          <option name="PATTERN" value="passoffTests.serverTests.*" />
+          <option name="PATTERN" value="serviceTests.*" />
           <option name="ENABLED" value="true" />
         </pattern>
       </extension>
-      <option name="PACKAGE_NAME" value="passoffTests.serverTests" />
-      <option name="MAIN_CLASS_NAME" value="passoffTests.serverTests.StandardAPITests" />
-      <option name="METHOD_NAME" value="successLogout" />
+      <option name="PACKAGE_NAME" value="serviceTests" />
+      <option name="MAIN_CLASS_NAME" value="serviceTests.UserServiceTest" />
+      <option name="METHOD_NAME" value="testLogoutTwice" />
       <option name="TEST_OBJECT" value="method" />
       <method v="2">
         <option name="Make" enabled="true" />
       </method>
     </configuration>
-    <configuration name="StandardAPITests.uniqueAuthorizationTokens" type="JUnit" factoryName="JUnit" temporary="true" nameIsGenerated="true">
+    <configuration name="UserServiceTest.testSuccessfulLogout" type="JUnit" factoryName="JUnit" temporary="true" nameIsGenerated="true">
       <module name="server" />
       <extension name="coverage">
         <pattern>
-          <option name="PATTERN" value="passoffTests.serverTests.*" />
+          <option name="PATTERN" value="serviceTests.*" />
           <option name="ENABLED" value="true" />
         </pattern>
       </extension>
-      <option name="PACKAGE_NAME" value="passoffTests.serverTests" />
-      <option name="MAIN_CLASS_NAME" value="passoffTests.serverTests.StandardAPITests" />
-      <option name="METHOD_NAME" value="uniqueAuthorizationTokens" />
+      <option name="PACKAGE_NAME" value="serviceTests" />
+      <option name="MAIN_CLASS_NAME" value="serviceTests.UserServiceTest" />
+      <option name="METHOD_NAME" value="testSuccessfulLogout" />
       <option name="TEST_OBJECT" value="method" />
       <method v="2">
         <option name="Make" enabled="true" />
@@ -170,11 +177,11 @@
     </configuration>
     <recent_temporary>
       <list>
-        <item itemvalue="JUnit.StandardAPITests" />
-        <item itemvalue="JUnit.StandardAPITests.goodWatch" />
-        <item itemvalue="JUnit.StandardAPITests.failRegister" />
-        <item itemvalue="JUnit.StandardAPITests.uniqueAuthorizationTokens" />
-        <item itemvalue="JUnit.StandardAPITests.successLogout" />
+        <item itemvalue="JUnit.All in server" />
+        <item itemvalue="JUnit.UserServiceTest.testLoginUnsuccessful" />
+        <item itemvalue="JUnit.UserServiceTest.testLoginSuccessful" />
+        <item itemvalue="JUnit.UserServiceTest.testLogoutTwice" />
+        <item itemvalue="JUnit.UserServiceTest.testSuccessfulLogout" />
       </list>
     </recent_temporary>
   </component>
@@ -196,7 +203,7 @@
       <workItem from="1708579455006" duration="226000" />
       <workItem from="1708615987054" duration="4274000" />
       <workItem from="1708656499291" duration="17019000" />
-      <workItem from="1709063041795" duration="23009000" />
+      <workItem from="1709063041795" duration="28532000" />
     </task>
     <task id="LOCAL-00001" summary="more setup for server tests and web resources">
       <option name="closed" value="true" />
@@ -230,7 +237,15 @@
       <option name="project" value="LOCAL" />
       <updated>1709083386475</updated>
     </task>
-    <option name="localTasksCounter" value="5" />
+    <task id="LOCAL-00005" summary="allow watchers for chess games">
+      <option name="closed" value="true" />
+      <created>1709094601398</created>
+      <option name="number" value="00005" />
+      <option name="presentableId" value="LOCAL-00005" />
+      <option name="project" value="LOCAL" />
+      <updated>1709094601398</updated>
+    </task>
+    <option name="localTasksCounter" value="6" />
     <servers />
   </component>
   <component name="TypeScriptGeneratedFilesManager">
@@ -252,20 +267,26 @@
     <MESSAGE value="implementing clear operation across data access objects" />
     <MESSAGE value="work on getting login and clear functional" />
     <MESSAGE value="login and auth working, splitting responsibilities" />
-    <option name="LAST_COMMIT_MESSAGE" value="login and auth working, splitting responsibilities" />
+    <MESSAGE value="allow watchers for chess games" />
+    <option name="LAST_COMMIT_MESSAGE" value="allow watchers for chess games" />
   </component>
   <component name="XDebuggerManager">
     <breakpoint-manager>
       <breakpoints>
         <line-breakpoint enabled="true" type="java-line">
-          <url>file://$PROJECT_DIR$/server/src/main/java/server/Server.java</url>
-          <line>127</line>
-          <option name="timeStamp" value="32" />
+          <url>file://$PROJECT_DIR$/server/src/test/java/serviceTests/ClearServiceTest.java</url>
+          <line>32</line>
+          <option name="timeStamp" value="47" />
         </line-breakpoint>
         <line-breakpoint enabled="true" type="java-line">
-          <url>file://$PROJECT_DIR$/server/src/test/java/passoffTests/serverTests/StandardAPITests.java</url>
-          <line>368</line>
-          <option name="timeStamp" value="34" />
+          <url>file://$PROJECT_DIR$/server/src/test/java/serviceTests/GameServiceTest.java</url>
+          <line>41</line>
+          <option name="timeStamp" value="48" />
+        </line-breakpoint>
+        <line-breakpoint enabled="true" type="java-line">
+          <url>file://$PROJECT_DIR$/server/src/test/java/serviceTests/GameServiceTest.java</url>
+          <line>37</line>
+          <option name="timeStamp" value="49" />
         </line-breakpoint>
       </breakpoints>
     </breakpoint-manager>

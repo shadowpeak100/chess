@@ -29,10 +29,6 @@ public class UserService {
         this.userDAO = ud;
     }
 
-//    public record LoginDen(String message){
-//
-//    }
-
     public Object register(UserData usrData) throws TakenException, BadRequestException {
         if (usrData.getPassword() == ""){
             throw new BadRequestException();
