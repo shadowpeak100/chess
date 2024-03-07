@@ -3,7 +3,6 @@ package server;
 import com.google.gson.Gson;
 import dataAccess.*;
 import model.*;
-import org.eclipse.jetty.server.Authentication;
 import service.*;
 import spark.*;
 
@@ -14,15 +13,23 @@ public class Server {
     private final GameService gameService;
 
     public Server(){
-        GameDAO gd = new MemoryGameDAO();
-        AuthDAO ad = new MemoryAuthDAO();
-        UserDAO ud = new MemoryUsersDAO();
+        DatabaseManager manager = null;
+        try{
+            manager = new DatabaseManager();
+        }catch (DataAccessException ignored){
+
+        }
+
+        GameDAO gd = new SQLGameDAO(manager);
+        AuthDAO ad = new SQLAuthDAO(manager);
+        UserDAO ud = new SQLUsersDAO(manager);
         this.clearService = new ClearService(gd, ad, ud);
         this.userService = new UserService(gd, ad, ud);
         this.gameService = new GameService(gd, ad, ud);
     }
 
     public int run(int desiredPort) {
+
         Spark.port(desiredPort);
 
         Spark.staticFiles.location("web");

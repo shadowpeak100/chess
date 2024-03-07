@@ -4,8 +4,12 @@
     <option name="autoReloadType" value="SELECTIVE" />
   </component>
   <component name="ChangeListManager">
-    <list default="true" id="7f72768d-00d0-4037-a08d-33159cc5ebb4" name="Changes" comment="whack-a-mole with &quot;AuthToken&quot; becoming &quot;authToken&quot;">
-      <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
+    <list default="true" id="7f72768d-00d0-4037-a08d-33159cc5ebb4" name="Changes" comment="SQL Dao classes">
+      <change beforePath="$PROJECT_DIR$/server/src/main/java/dataAccess/DatabaseManager.java" beforeDir="false" afterPath="$PROJECT_DIR$/server/src/main/java/dataAccess/DatabaseManager.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/server/src/main/java/dataAccess/SQLAuthDAO.java" beforeDir="false" afterPath="$PROJECT_DIR$/server/src/main/java/dataAccess/SQLAuthDAO.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/server/src/main/java/dataAccess/SQLGameDAO.java" beforeDir="false" afterPath="$PROJECT_DIR$/server/src/main/java/dataAccess/SQLGameDAO.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/server/src/main/java/dataAccess/SQLUsersDAO.java" beforeDir="false" afterPath="$PROJECT_DIR$/server/src/main/java/dataAccess/SQLUsersDAO.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/server/src/main/java/server/Server.java" beforeDir="false" afterPath="$PROJECT_DIR$/server/src/main/java/server/Server.java" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -97,6 +101,11 @@
     &quot;vue.rearranger.settings.migration&quot;: &quot;true&quot;
   }
 }</component>
+  <component name="RecentsManager">
+    <key name="MoveFile.RECENT_KEYS">
+      <recent name="$PROJECT_DIR$/server/src/main/java/resources" />
+    </key>
+  </component>
   <component name="RunManager" selected="JUnit.All in server">
     <configuration name="All in server" type="JUnit" factoryName="JUnit" temporary="true" nameIsGenerated="true">
       <module name="server" />
@@ -189,6 +198,7 @@
       <workItem from="1708656499291" duration="17019000" />
       <workItem from="1709063041795" duration="31834000" />
       <workItem from="1709154309562" duration="4329000" />
+      <workItem from="1709619847438" duration="13674000" />
     </task>
     <task id="LOCAL-00001" summary="more setup for server tests and web resources">
       <option name="closed" value="true" />
@@ -278,7 +288,23 @@
       <option name="project" value="LOCAL" />
       <updated>1709102642201</updated>
     </task>
-    <option name="localTasksCounter" value="12" />
+    <task id="LOCAL-00012" summary="getting started files in place">
+      <option name="closed" value="true" />
+      <created>1709620874970</created>
+      <option name="number" value="00012" />
+      <option name="presentableId" value="LOCAL-00012" />
+      <option name="project" value="LOCAL" />
+      <updated>1709620874970</updated>
+    </task>
+    <task id="LOCAL-00013" summary="SQL Dao classes">
+      <option name="closed" value="true" />
+      <created>1709707340038</created>
+      <option name="number" value="00013" />
+      <option name="presentableId" value="LOCAL-00013" />
+      <option name="project" value="LOCAL" />
+      <updated>1709707340038</updated>
+    </task>
+    <option name="localTasksCounter" value="14" />
     <servers />
   </component>
   <component name="TypeScriptGeneratedFilesManager">
@@ -307,7 +333,9 @@
     <MESSAGE value="Code quality rules..." />
     <MESSAGE value="A few more code quality things" />
     <MESSAGE value="whack-a-mole with &quot;AuthToken&quot; becoming &quot;authToken&quot;" />
-    <option name="LAST_COMMIT_MESSAGE" value="whack-a-mole with &quot;AuthToken&quot; becoming &quot;authToken&quot;" />
+    <MESSAGE value="getting started files in place" />
+    <MESSAGE value="SQL Dao classes" />
+    <option name="LAST_COMMIT_MESSAGE" value="SQL Dao classes" />
   </component>
   <component name="XDebuggerManager">
     <breakpoint-manager>
@@ -330,7 +358,7 @@
         <line-breakpoint enabled="true" type="java-line">
           <condition expression="authToken == null || authToken == &quot;&quot;" language="JAVA" />
           <url>file://$PROJECT_DIR$/server/src/main/java/server/Server.java</url>
-          <line>85</line>
+          <line>92</line>
           <option name="timeStamp" value="52" />
         </line-breakpoint>
       </breakpoints>

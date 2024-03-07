@@ -43,5 +43,7 @@
     <orderEntry type="library" name="chess" level="project" />
     <orderEntry type="library" name="passoff-dependencies" level="project" />
     <orderEntry type="library" exported="" name="google.code.gson" level="project" />
+    <orderEntry type="library" exported="" name="mysql.connector.java" level="project" />
+    <orderEntry type="library" exported="" name="springframework.security.spring.core" level="project" />
   </component>
 </module>
