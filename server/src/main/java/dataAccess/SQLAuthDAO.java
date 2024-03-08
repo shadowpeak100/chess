@@ -38,7 +38,7 @@ public class SQLAuthDAO implements AuthDAO{
                 preparedStatement.setString(1, authToken);
                 try (ResultSet resultSet = preparedStatement.executeQuery()) {
                     if (resultSet.next()) {
-                        username = resultSet.getString("username"); // Retrieve the username from the result set
+                        username = resultSet.getString("username");
                     }
                 }
             }
@@ -59,7 +59,7 @@ public class SQLAuthDAO implements AuthDAO{
         try (var conn = DatabaseManager.getConnection();
              var preparedStatement = conn.prepareStatement(deleteStatement)) {
             preparedStatement.setString(1, authToken);
-            preparedStatement.executeUpdate(); // Execute the delete statement
+            preparedStatement.executeUpdate();
         } catch (SQLException | DataAccessException ex) {
             throw new DataAccessException(String.format("Unable to delete row by auth token: %s", ex.getMessage()));
         }
@@ -71,7 +71,7 @@ public class SQLAuthDAO implements AuthDAO{
 
         try (var conn = DatabaseManager.getConnection();
              var preparedStatement = conn.prepareStatement(deleteStatement)) {
-            preparedStatement.executeUpdate(); // Execute the delete statement
+            preparedStatement.executeUpdate();
         } catch (SQLException | DataAccessException ex) {
             throw new DataAccessException(String.format("Unable to delete all rows from the table: %s", ex.getMessage()));
         }
