@@ -4,23 +4,13 @@
     <option name="autoReloadType" value="SELECTIVE" />
   </component>
   <component name="ChangeListManager">
-    <list default="true" id="7f72768d-00d0-4037-a08d-33159cc5ebb4" name="Changes" comment="persistent tests now pass">
-      <change afterPath="$PROJECT_DIR$/server/src/test/java/dataAccessTests/AuthDaoTest.java" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/server/src/test/java/dataAccessTests/GameDaoTest.java" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/server/src/test/java/dataAccessTests/UserDaoTest.java" afterDir="false" />
+    <list default="true" id="7f72768d-00d0-4037-a08d-33159cc5ebb4" name="Changes" comment="throw more exceptions!">
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/server/src/main/java/dataAccess/AuthDAO.java" beforeDir="false" afterPath="$PROJECT_DIR$/server/src/main/java/dataAccess/AuthDAO.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/server/src/main/java/dataAccess/DatabaseManager.java" beforeDir="false" afterPath="$PROJECT_DIR$/server/src/main/java/dataAccess/DatabaseManager.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/server/src/main/java/dataAccess/GameDAO.java" beforeDir="false" afterPath="$PROJECT_DIR$/server/src/main/java/dataAccess/GameDAO.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/server/src/main/java/dataAccess/SQLAuthDAO.java" beforeDir="false" afterPath="$PROJECT_DIR$/server/src/main/java/dataAccess/SQLAuthDAO.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/server/src/main/java/dataAccess/SQLGameDAO.java" beforeDir="false" afterPath="$PROJECT_DIR$/server/src/main/java/dataAccess/SQLGameDAO.java" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/server/src/main/java/dataAccess/SQLUsersDAO.java" beforeDir="false" afterPath="$PROJECT_DIR$/server/src/main/java/dataAccess/SQLUsersDAO.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/server/src/main/java/dataAccess/UserDAO.java" beforeDir="false" afterPath="$PROJECT_DIR$/server/src/main/java/dataAccess/UserDAO.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/server/src/main/java/server/Server.java" beforeDir="false" afterPath="$PROJECT_DIR$/server/src/main/java/server/Server.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/server/src/main/java/service/UserService.java" beforeDir="false" afterPath="$PROJECT_DIR$/server/src/main/java/service/UserService.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/server/src/test/java/serviceTests/ClearServiceTest.java" beforeDir="false" afterPath="$PROJECT_DIR$/server/src/test/java/serviceTests/ClearServiceTest.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/server/src/test/java/serviceTests/GameServiceTest.java" beforeDir="false" afterPath="$PROJECT_DIR$/server/src/test/java/serviceTests/GameServiceTest.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/server/src/test/java/serviceTests/UserServiceTest.java" beforeDir="false" afterPath="$PROJECT_DIR$/server/src/test/java/serviceTests/UserServiceTest.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/server/src/main/java/service/GamesWrapper.java" beforeDir="false" afterPath="$PROJECT_DIR$/server/src/main/java/service/GamesWrapper.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/server/src/test/java/dataAccessTests/AuthDaoTest.java" beforeDir="false" afterPath="$PROJECT_DIR$/server/src/test/java/dataAccessTests/AuthDaoTest.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/server/src/test/java/dataAccessTests/GameDaoTest.java" beforeDir="false" afterPath="$PROJECT_DIR$/server/src/test/java/dataAccessTests/GameDaoTest.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/server/src/test/java/dataAccessTests/UserDaoTest.java" beforeDir="false" afterPath="$PROJECT_DIR$/server/src/test/java/dataAccessTests/UserDaoTest.java" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -55,9 +45,17 @@
     "Downloaded.Files.Path.Enabled": "false",
     "JUnit.All in server.executor": "Run",
     "JUnit.All in test.executor": "Run",
+    "JUnit.AuthDaoTest.testClearAll.executor": "Run",
+    "JUnit.AuthDaoTest.testCreateAuth.executor": "Run",
+    "JUnit.AuthDaoTest.testDeleteAuth.executor": "Run",
+    "JUnit.AuthDaoTest.testGetUsernameWithNonexistentAuth.executor": "Run",
     "JUnit.ChessBoardTests.executor": "Run",
     "JUnit.ClearServiceTest.executor": "Run",
     "JUnit.ClearServiceTest.testClearAll.executor": "Run",
+    "JUnit.GameDaoTest.executor": "Run",
+    "JUnit.GameDaoTest.testClearGames.executor": "Run",
+    "JUnit.GameDaoTest.testGetGame.executor": "Run",
+    "JUnit.GameDaoTest.testListGames.executor": "Run",
     "JUnit.GameServiceTest.executor": "Run",
     "JUnit.GameServiceTest.testCreateGameSuccessful.executor": "Run",
     "JUnit.GameServiceTest.testCreateGameUnsuccessful.executor": "Run",
@@ -66,7 +64,7 @@
     "JUnit.GameServiceTest.testListGames.executor": "Run",
     "JUnit.GameServiceTest.testListGamesNoUser.executor": "Run",
     "JUnit.GameServiceTest.testListGamesPositive.executor": "Run",
-    "JUnit.PersistenceTests.executor": "Debug",
+    "JUnit.PersistenceTests.executor": "Run",
     "JUnit.PersistenceTests.persistenceTest.executor": "Debug",
     "JUnit.StandardAPITests.badColorJoin.executor": "Run",
     "JUnit.StandardAPITests.badGameIDWatch.executor": "Debug",
@@ -86,6 +84,11 @@
     "JUnit.StandardAPITests.successRegister.executor": "Run",
     "JUnit.StandardAPITests.uniqueAuthorizationTokens.executor": "Debug",
     "JUnit.UserDaoTest.executor": "Run",
+    "JUnit.UserDaoTest.testClear.executor": "Run",
+    "JUnit.UserDaoTest.testCreateDepulicateUser.executor": "Run",
+    "JUnit.UserDaoTest.testCreateUser.executor": "Run",
+    "JUnit.UserDaoTest.testGetNonexistentUser.executor": "Run",
+    "JUnit.UserDaoTest.testGetUser.executor": "Run",
     "JUnit.UserServiceTest.executor": "Run",
     "JUnit.UserServiceTest.testLoginSuccessful.executor": "Run",
     "JUnit.UserServiceTest.testLoginUnsuccessful.executor": "Run",
@@ -121,53 +124,8 @@
       <recent name="$PROJECT_DIR$/server/src/main/java/resources" />
     </key>
   </component>
-  <component name="RunManager" selected="JUnit.PersistenceTests">
-    <configuration name="GameServiceTest" type="JUnit" factoryName="JUnit" temporary="true" nameIsGenerated="true">
-      <module name="server" />
-      <extension name="coverage">
-        <pattern>
-          <option name="PATTERN" value="serviceTests.*" />
-          <option name="ENABLED" value="true" />
-        </pattern>
-      </extension>
-      <option name="PACKAGE_NAME" value="serviceTests" />
-      <option name="MAIN_CLASS_NAME" value="serviceTests.GameServiceTest" />
-      <option name="TEST_OBJECT" value="class" />
-      <method v="2">
-        <option name="Make" enabled="true" />
-      </method>
-    </configuration>
-    <configuration name="PersistenceTests" type="JUnit" factoryName="JUnit" temporary="true" nameIsGenerated="true">
-      <module name="server" />
-      <extension name="coverage">
-        <pattern>
-          <option name="PATTERN" value="passoffTests.serverTests.*" />
-          <option name="ENABLED" value="true" />
-        </pattern>
-      </extension>
-      <option name="PACKAGE_NAME" value="passoffTests.serverTests" />
-      <option name="MAIN_CLASS_NAME" value="passoffTests.serverTests.PersistenceTests" />
-      <option name="TEST_OBJECT" value="class" />
-      <method v="2">
-        <option name="Make" enabled="true" />
-      </method>
-    </configuration>
-    <configuration name="StandardAPITests" type="JUnit" factoryName="JUnit" temporary="true" nameIsGenerated="true">
-      <module name="server" />
-      <extension name="coverage">
-        <pattern>
-          <option name="PATTERN" value="passoffTests.serverTests.*" />
-          <option name="ENABLED" value="true" />
-        </pattern>
-      </extension>
-      <option name="PACKAGE_NAME" value="passoffTests.serverTests" />
-      <option name="MAIN_CLASS_NAME" value="passoffTests.serverTests.StandardAPITests" />
-      <option name="TEST_OBJECT" value="class" />
-      <method v="2">
-        <option name="Make" enabled="true" />
-      </method>
-    </configuration>
-    <configuration name="UserDaoTest" type="JUnit" factoryName="JUnit" temporary="true" nameIsGenerated="true">
+  <component name="RunManager" selected="JUnit.GameDaoTest.testClearGames">
+    <configuration name="GameDaoTest" type="JUnit" factoryName="JUnit" temporary="true" nameIsGenerated="true">
       <module name="server" />
       <extension name="coverage">
         <pattern>
@@ -176,34 +134,83 @@
         </pattern>
       </extension>
       <option name="PACKAGE_NAME" value="dataAccessTests" />
-      <option name="MAIN_CLASS_NAME" value="dataAccessTests.UserDaoTest" />
+      <option name="MAIN_CLASS_NAME" value="dataAccessTests.GameDaoTest" />
       <option name="TEST_OBJECT" value="class" />
       <method v="2">
         <option name="Make" enabled="true" />
       </method>
     </configuration>
-    <configuration name="UserServiceTest" type="JUnit" factoryName="JUnit" temporary="true" nameIsGenerated="true">
+    <configuration name="GameDaoTest.testClearGames" type="JUnit" factoryName="JUnit" temporary="true" nameIsGenerated="true">
       <module name="server" />
       <extension name="coverage">
         <pattern>
-          <option name="PATTERN" value="serviceTests.*" />
+          <option name="PATTERN" value="dataAccessTests.*" />
           <option name="ENABLED" value="true" />
         </pattern>
       </extension>
-      <option name="PACKAGE_NAME" value="serviceTests" />
-      <option name="MAIN_CLASS_NAME" value="serviceTests.UserServiceTest" />
-      <option name="TEST_OBJECT" value="class" />
+      <option name="PACKAGE_NAME" value="dataAccessTests" />
+      <option name="MAIN_CLASS_NAME" value="dataAccessTests.GameDaoTest" />
+      <option name="METHOD_NAME" value="testClearGames" />
+      <option name="TEST_OBJECT" value="method" />
+      <method v="2">
+        <option name="Make" enabled="true" />
+      </method>
+    </configuration>
+    <configuration name="GameDaoTest.testGetGame" type="JUnit" factoryName="JUnit" temporary="true" nameIsGenerated="true">
+      <module name="server" />
+      <extension name="coverage">
+        <pattern>
+          <option name="PATTERN" value="dataAccessTests.*" />
+          <option name="ENABLED" value="true" />
+        </pattern>
+      </extension>
+      <option name="PACKAGE_NAME" value="dataAccessTests" />
+      <option name="MAIN_CLASS_NAME" value="dataAccessTests.GameDaoTest" />
+      <option name="METHOD_NAME" value="testGetGame" />
+      <option name="TEST_OBJECT" value="method" />
+      <method v="2">
+        <option name="Make" enabled="true" />
+      </method>
+    </configuration>
+    <configuration name="GameDaoTest.testListGames" type="JUnit" factoryName="JUnit" temporary="true" nameIsGenerated="true">
+      <module name="server" />
+      <extension name="coverage">
+        <pattern>
+          <option name="PATTERN" value="dataAccessTests.*" />
+          <option name="ENABLED" value="true" />
+        </pattern>
+      </extension>
+      <option name="PACKAGE_NAME" value="dataAccessTests" />
+      <option name="MAIN_CLASS_NAME" value="dataAccessTests.GameDaoTest" />
+      <option name="METHOD_NAME" value="testListGames" />
+      <option name="TEST_OBJECT" value="method" />
+      <method v="2">
+        <option name="Make" enabled="true" />
+      </method>
+    </configuration>
+    <configuration name="GameDaoTest.testNewGame" type="JUnit" factoryName="JUnit" temporary="true" nameIsGenerated="true">
+      <module name="server" />
+      <extension name="coverage">
+        <pattern>
+          <option name="PATTERN" value="dataAccessTests.*" />
+          <option name="ENABLED" value="true" />
+        </pattern>
+      </extension>
+      <option name="PACKAGE_NAME" value="dataAccessTests" />
+      <option name="MAIN_CLASS_NAME" value="dataAccessTests.GameDaoTest" />
+      <option name="METHOD_NAME" value="testNewGame" />
+      <option name="TEST_OBJECT" value="method" />
       <method v="2">
         <option name="Make" enabled="true" />
       </method>
     </configuration>
     <recent_temporary>
       <list>
-        <item itemvalue="JUnit.PersistenceTests" />
-        <item itemvalue="JUnit.StandardAPITests" />
-        <item itemvalue="JUnit.UserDaoTest" />
-        <item itemvalue="JUnit.UserServiceTest" />
-        <item itemvalue="JUnit.GameServiceTest" />
+        <item itemvalue="JUnit.GameDaoTest.testClearGames" />
+        <item itemvalue="JUnit.GameDaoTest.testListGames" />
+        <item itemvalue="JUnit.GameDaoTest.testGetGame" />
+        <item itemvalue="JUnit.GameDaoTest.testNewGame" />
+        <item itemvalue="JUnit.GameDaoTest" />
       </list>
     </recent_temporary>
   </component>
@@ -228,7 +235,7 @@
       <workItem from="1709063041795" duration="31834000" />
       <workItem from="1709154309562" duration="4329000" />
       <workItem from="1709619847438" duration="13674000" />
-      <workItem from="1709794076485" duration="19483000" />
+      <workItem from="1709794076485" duration="21798000" />
     </task>
     <task id="LOCAL-00001" summary="more setup for server tests and web resources">
       <option name="closed" value="true" />
@@ -350,7 +357,15 @@
       <option name="project" value="LOCAL" />
       <updated>1709871366642</updated>
     </task>
-    <option name="localTasksCounter" value="16" />
+    <task id="LOCAL-00016" summary="throw more exceptions!">
+      <option name="closed" value="true" />
+      <created>1709874307689</created>
+      <option name="number" value="00016" />
+      <option name="presentableId" value="LOCAL-00016" />
+      <option name="project" value="LOCAL" />
+      <updated>1709874307689</updated>
+    </task>
+    <option name="localTasksCounter" value="17" />
     <servers />
   </component>
   <component name="TypeScriptGeneratedFilesManager">
@@ -383,7 +398,8 @@
     <MESSAGE value="SQL Dao classes" />
     <MESSAGE value="Database manager accessible in all SQL related DAOs" />
     <MESSAGE value="persistent tests now pass" />
-    <option name="LAST_COMMIT_MESSAGE" value="persistent tests now pass" />
+    <MESSAGE value="throw more exceptions!" />
+    <option name="LAST_COMMIT_MESSAGE" value="throw more exceptions!" />
   </component>
   <component name="XDebuggerManager">
     <breakpoint-manager>
@@ -418,6 +434,31 @@
           <url>file://$PROJECT_DIR$/server/src/test/java/passoffTests/serverTests/PersistenceTests.java</url>
           <line>65</line>
           <option name="timeStamp" value="78" />
+        </line-breakpoint>
+        <line-breakpoint enabled="true" type="java-line">
+          <url>file://$PROJECT_DIR$/server/src/test/java/passoffTests/serverTests/PersistenceTests.java</url>
+          <line>51</line>
+          <option name="timeStamp" value="81" />
+        </line-breakpoint>
+        <line-breakpoint enabled="true" type="java-line">
+          <url>file://$PROJECT_DIR$/server/src/main/java/server/Server.java</url>
+          <line>64</line>
+          <option name="timeStamp" value="82" />
+        </line-breakpoint>
+        <line-breakpoint enabled="true" type="java-line">
+          <url>file://$PROJECT_DIR$/server/src/main/java/service/UserService.java</url>
+          <line>39</line>
+          <option name="timeStamp" value="83" />
+        </line-breakpoint>
+        <line-breakpoint enabled="true" type="java-line">
+          <url>file://$PROJECT_DIR$/server/src/main/java/dataAccess/SQLUsersDAO.java</url>
+          <line>50</line>
+          <option name="timeStamp" value="84" />
+        </line-breakpoint>
+        <line-breakpoint enabled="true" type="java-line">
+          <url>file://$PROJECT_DIR$/server/src/test/java/dataAccessTests/GameDaoTest.java</url>
+          <line>76</line>
+          <option name="timeStamp" value="86" />
         </line-breakpoint>
       </breakpoints>
     </breakpoint-manager>

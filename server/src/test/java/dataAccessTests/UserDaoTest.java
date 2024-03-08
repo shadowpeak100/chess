@@ -2,8 +2,6 @@ package dataAccessTests;
 
 import dataAccess.*;
 import org.junit.jupiter.api.*;
-import server.ResponseException;
-import service.ClearService;
 import static org.junit.jupiter.api.Assertions.*;
 import model.UserData;
 
@@ -15,8 +13,6 @@ public class UserDaoTest {
     @BeforeEach
     public void setUp() throws DataAccessException {
         DatabaseManager.configureDatabase();
-
-
         connection = DatabaseManager.getConnection();
         usersDAO = new SQLUsersDAO();
     }
@@ -27,6 +23,28 @@ public class UserDaoTest {
         String password = "test_password";
         String email = "test@example.com";
 
+        assertDoesNotThrow(() -> {
+            usersDAO.createUser(username, password, email);
+        });
+    }
+
+    @Test
+    public void testCreateDepulicateUser() throws DataAccessException {
+        String username = "";
+        String password = null;
+        String email = "";
+
+        assertThrows(DataAccessException.class, () -> {
+            usersDAO.createUser(username, password, email);
+        });
+    }
+
+    @Test
+    public void testGetUser() throws DataAccessException {
+        String username = "test_user";
+        String password = "test_password";
+        String email = "test@example.com";
+
         usersDAO.createUser(username, password, email);
 
         UserData userData = usersDAO.getUser(username);
@@ -37,12 +55,18 @@ public class UserDaoTest {
     }
 
     @Test
-    public void testCreateDepulicateUser() throws DataAccessException {
+    public void testGetNonexistentUser() throws DataAccessException {
+        UserData userData = usersDAO.getUser("");
+        assertEquals(userData.getEmail(), "");
+    }
+
+
+    @Test
+    public void testClear() throws DataAccessException {
         String username = "test_user";
         String password = "test_password";
         String email = "test@example.com";
 
-        usersDAO.createUser(username, password, email);
         usersDAO.createUser(username, password, email);
 
         UserData userData = usersDAO.getUser(username);
@@ -50,5 +74,9 @@ public class UserDaoTest {
         assertEquals(username, userData.getUsername());
         assertEquals(password, userData.getPassword());
         assertEquals(email, userData.getEmail());
+
+        usersDAO.clearAll();
+        userData = usersDAO.getUser(username);
+        assertNull(userData);
     }
 }

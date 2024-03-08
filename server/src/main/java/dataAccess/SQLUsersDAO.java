@@ -33,6 +33,9 @@ public class SQLUsersDAO implements UserDAO {
 
     @Override
     public void createUser(String username, String password, String email) throws DataAccessException{
+        if(username == null || password == null || email == null){
+            throw new DataAccessException("Username, password and email must all have values");
+        }
         String insertQuery = "INSERT INTO users (username, json) VALUES (?, ?)";
 
         try (var conn = DatabaseManager.getConnection();
