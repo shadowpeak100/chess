@@ -42,6 +42,8 @@ public class GameServiceTest {
             assertEquals("{\"games\":[{\"gameID\":" + id + ",\"gameName\":\"testGame\",\"game\":{\"board\":{\"board\":[[null,null,null,null,null,null,null,null],[null,null,null,null,null,null,null,null],[null,null,null,null,null,null,null,null],[null,null,null,null,null,null,null,null],[null,null,null,null,null,null,null,null],[null,null,null,null,null,null,null,null],[null,null,null,null,null,null,null,null],[null,null,null,null,null,null,null,null]]},\"currentTurn\":\"WHITE\"}}]}",json);
         }catch (UnauthorizedException ignored){
 
+        } catch (DataAccessException e) {
+            throw new RuntimeException(e);
         }
     }
 
@@ -78,6 +80,8 @@ public class GameServiceTest {
         try{
             id = gameService.createGame(token, "sam's game");
         }catch (BadRequestException | UnauthorizedException ignored){
+        } catch (DataAccessException e) {
+            throw new RuntimeException(e);
         }
 
         assertNotEquals(0, id);

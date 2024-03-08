@@ -50,15 +50,18 @@ public class UserServiceTest {
         AuthDAO ad = new MemoryAuthDAO();
         UserDAO ud = new MemoryUsersDAO();
 
-        String tok = ad.createAuth("James");
+        String tok = null;
+        tok = ad.createAuth("James");
+
         UserService userService = new UserService(gd, ad, ud);
         try{
             userService.register(new UserData("James", "GoodPassword!", "NoEmailBro"));
         }catch (TakenException | BadRequestException ignored){
         }
 
+        String finalTok = tok;
         assertDoesNotThrow(() -> {
-            userService.logout(tok);
+            userService.logout(finalTok);
         });
     }
 
@@ -68,19 +71,22 @@ public class UserServiceTest {
         AuthDAO ad = new MemoryAuthDAO();
         UserDAO ud = new MemoryUsersDAO();
 
-        String tok = ad.createAuth("James");
+        String tok = null;
+        tok = ad.createAuth("James");
+
         UserService userService = new UserService(gd, ad, ud);
         try{
             userService.register(new UserData("James", "GoodPassword!", "NoEmailBro"));
         }catch (TakenException | BadRequestException ignored){
         }
 
+        String finalTok = tok;
         assertDoesNotThrow(() -> {
-            userService.logout(tok);
+            userService.logout(finalTok);
         });
 
         assertThrows(UnauthorizedException.class, () -> {
-            userService.logout(tok);
+            userService.logout(finalTok);
         });
     }
 
@@ -90,7 +96,10 @@ public class UserServiceTest {
         AuthDAO ad = new MemoryAuthDAO();
         UserDAO ud = new MemoryUsersDAO();
 
-        String tok = ad.createAuth("James");
+        String tok = null;
+        tok = ad.createAuth("James");
+
+
         UserData userJames = new UserData("James", "GoodPassword!", "NoEmailBro");
 
         UserService userService = new UserService(gd, ad, ud);
@@ -98,6 +107,8 @@ public class UserServiceTest {
             userService.register(new UserData("James", "GoodPassword!", "NoEmailBro"));
             userService.logout(tok);
         }catch (TakenException | BadRequestException | UnauthorizedException ignored){
+        } catch (DataAccessException e) {
+            throw new RuntimeException(e);
         }
 
         assertDoesNotThrow(() -> {

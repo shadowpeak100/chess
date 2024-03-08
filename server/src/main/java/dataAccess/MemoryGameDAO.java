@@ -4,8 +4,6 @@ import chess.ChessGame;
 import model.GameData;
 import service.GamesWrapper;
 
-import javax.xml.crypto.Data;
-import java.lang.reflect.Array;
 import java.util.*;
 
 public class MemoryGameDAO implements GameDAO{
@@ -52,4 +50,7 @@ public class MemoryGameDAO implements GameDAO{
         this.count ++;
         return game.getGameID();
     }
+
+    @Override
+    public void updateGame(int Gameid, GameData game) throws DataAccessException {}
 }

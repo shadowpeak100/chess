@@ -2,6 +2,7 @@ package service;
 
 import com.google.gson.Gson;
 import dataAccess.AuthDAO;
+import dataAccess.DataAccessException;
 import dataAccess.GameDAO;
 import dataAccess.UserDAO;
 import model.AuthData;
@@ -37,7 +38,11 @@ public class UserService {
         UserData user = userDAO.getUser(usrData.getUsername());
         if(user == null){
             userDAO.createUser(usrData.getUsername(), usrData.getPassword(), usrData.getEmail());
-            String auth = authDAO.createAuth(usrData.getUsername());
+
+            String auth;
+            auth = authDAO.createAuth(usrData.getUsername());
+
+
 
             return new LoginSuccess(usrData.getUsername(), auth);
         }else{
@@ -45,7 +50,7 @@ public class UserService {
         }
     }
 
-    public void logout(String authToken) throws UnauthorizedException{
+    public void logout(String authToken) throws UnauthorizedException, DataAccessException {
         String username = authDAO.getUsernameWithAuth(authToken);
         if (username != null){
             //remove the auth token, the user is not deleted
@@ -55,7 +60,7 @@ public class UserService {
         }
     }
 
-    public Object login(UserData usrData) throws UnauthorizedException {
+    public Object login(UserData usrData) throws UnauthorizedException, DataAccessException {
         UserData user = userDAO.getUser(usrData.getUsername());
 
         if(user == null || !Objects.equals(user.getPassword(), usrData.getPassword())){

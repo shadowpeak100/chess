@@ -19,7 +19,7 @@ public class MemoryAuthDAO implements AuthDAO{
     }
 
     @Override
-    public String getUsernameWithAuth(String authToken) {
+    public String getUsernameWithAuth(String authToken)  throws DataAccessException {
         return authUserMap.get(authToken);
     }
 

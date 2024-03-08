@@ -6,6 +6,8 @@ import model.*;
 import service.*;
 import spark.*;
 
+import javax.xml.crypto.Data;
+
 public class Server {
 
     private final UserService userService;
@@ -13,16 +15,15 @@ public class Server {
     private final GameService gameService;
 
     public Server(){
-        DatabaseManager manager = null;
         try{
-            manager = new DatabaseManager();
-        }catch (DataAccessException ignored){
-
+            DatabaseManager.configureDatabase();
+        }catch (DataAccessException e){
+            System.out.println("Exception on creating database manager: " + e);
         }
 
-        GameDAO gd = new SQLGameDAO(manager);
-        AuthDAO ad = new SQLAuthDAO(manager);
-        UserDAO ud = new SQLUsersDAO(manager);
+        GameDAO gd = new SQLGameDAO();
+        AuthDAO ad = new SQLAuthDAO();
+        UserDAO ud = new SQLUsersDAO();
         this.clearService = new ClearService(gd, ad, ud);
         this.userService = new UserService(gd, ad, ud);
         this.gameService = new GameService(gd, ad, ud);
@@ -57,6 +58,7 @@ public class Server {
             response.status(e.statusCode);
             return e.getMessage();
         }
+
     }
 
     private Object register(Request request, Response response){
@@ -84,6 +86,9 @@ public class Server {
         }catch (UnauthorizedException e){
             response.status(e.statusCode);
             return e.getMessage();
+        } catch (DataAccessException e) {
+            response.status(500);
+            return e.toString();
         }
     }
 
@@ -96,6 +101,9 @@ public class Server {
         }catch (UnauthorizedException e){
             response.status(e.statusCode);
             return e.getMessage();
+        } catch (DataAccessException e) {
+            response.status(500);
+            return e.toString();
         }
     }
 
@@ -110,6 +118,9 @@ public class Server {
         }catch (UnauthorizedException e){
             response.status(e.statusCode);
             return e.getMessage();
+        } catch (DataAccessException e) {
+            response.status(500);
+            return e.toString();
         }
     }
 
@@ -128,6 +139,9 @@ public class Server {
         }catch (UnauthorizedException | BadRequestException e){
             response.status(e.statusCode);
             return e.getMessage();
+        } catch (DataAccessException e) {
+            response.status(500);
+            return e.toString();
         }
     }
 
@@ -141,6 +155,9 @@ public class Server {
         }catch (UnauthorizedException | BadRequestException | TakenException e){
             response.status(e.statusCode);
             return e.getMessage();
+        } catch (DataAccessException e) {
+            response.status(500);
+            return e.toString();
         }
     }
 

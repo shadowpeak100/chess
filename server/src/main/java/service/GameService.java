@@ -24,7 +24,7 @@ public class GameService {
         this.userDAO = ud;
     }
 
-    public GamesWrapper listGames(String authToken) throws UnauthorizedException {
+    public GamesWrapper listGames(String authToken) throws UnauthorizedException, DataAccessException {
         String username = authDAO.getUsernameWithAuth(authToken);
         UserData user = userDAO.getUser(username);
         if(user == null){
@@ -35,7 +35,7 @@ public class GameService {
         }
     }
 
-    public int createGame(String authToken, String gameName) throws BadRequestException, UnauthorizedException {
+    public int createGame(String authToken, String gameName) throws BadRequestException, UnauthorizedException, DataAccessException {
         String username = authDAO.getUsernameWithAuth(authToken);
         if(username == null){
             throw new UnauthorizedException();
@@ -48,7 +48,7 @@ public class GameService {
         }
     }
 
-    public void joinGame(String authToken, int gameID, String playerColor) throws UnauthorizedException, BadRequestException, TakenException {
+    public void joinGame(String authToken, int gameID, String playerColor) throws UnauthorizedException, BadRequestException, TakenException, DataAccessException {
         String username = authDAO.getUsernameWithAuth(authToken);
         if(username == null){
             throw new UnauthorizedException();
@@ -61,11 +61,13 @@ public class GameService {
                             throw new TakenException();
                         }
                         game.setWhiteUsername(username);
+                        gameDAO. updateGame(gameID, game);
                     }else if (playerColor.equals("BLACK")){
                         if(game.getBlackUsername() != null){
                             throw new TakenException();
                         }
                         game.setBlackUsername(username);
+                        gameDAO.updateGame(gameID, game);
                     }
                 }else{
                     throw new BadRequestException();
@@ -74,6 +76,7 @@ public class GameService {
                 throw new BadRequestException();
             }
         }
-
     }
+
+
 }

@@ -9,9 +9,6 @@ public class DatabaseManager {
     private static final String password;
     private static final String connectionUrl;
 
-    public DatabaseManager() throws DataAccessException {
-        configureDatabase();
-    }
     /*
      * Load the database information for the db.properties file.
      */
@@ -71,21 +68,28 @@ public class DatabaseManager {
         }
     }
 
-    private final String[] createStatements = {
+    private static final String[] createStatements = {
             """
-            CREATE TABLE IF NOT EXISTS  pet (
+            CREATE TABLE IF NOT EXISTS  users (
               `id` int NOT NULL AUTO_INCREMENT,
-              `name` varchar(256) NOT NULL,
-              `type` ENUM('CAT', 'DOG', 'FISH', 'FROG', 'ROCK') DEFAULT 'CAT',
+              `username` varchar(256) NOT NULL,
               `json` TEXT DEFAULT NULL,
-              PRIMARY KEY (`id`),
-              INDEX(type),
-              INDEX(name)
-            ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_ai_ci
+              PRIMARY KEY (`id`)
+            )""","""
+            CREATE TABLE IF NOT EXISTS  gameIdToGame (
+              `gameid` int NOT NULL,
+              `gamedata` TEXT DEFAULT NULL,
+              PRIMARY KEY (`gameid`)
+            )""","""
+            CREATE TABLE IF NOT EXISTS  authTokenToUsername (
+              `authToken` varchar(256) NOT NULL,
+              `username` varchar(256) NOT NULL,
+              PRIMARY KEY (`authToken`)
+            )
             """
     };
 
-    static void configureDatabase() throws DataAccessException {
+    public static void configureDatabase() throws DataAccessException {
         createDatabase();
         try (var conn = DatabaseManager.getConnection()) {
             for (var statement : createStatements) {
@@ -94,7 +98,7 @@ public class DatabaseManager {
                 }
             }
         } catch (SQLException ex) {
-            throw new ResponseException(500, String.format("Unable to configure database: %s", ex.getMessage()));
+            throw new DataAccessException(String.format("Unable to configure database: %s", ex.getMessage()));
         }
     }
 }

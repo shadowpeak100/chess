@@ -4,12 +4,23 @@
     <option name="autoReloadType" value="SELECTIVE" />
   </component>
   <component name="ChangeListManager">
-    <list default="true" id="7f72768d-00d0-4037-a08d-33159cc5ebb4" name="Changes" comment="SQL Dao classes">
+    <list default="true" id="7f72768d-00d0-4037-a08d-33159cc5ebb4" name="Changes" comment="Database manager accessible in all SQL related DAOs">
+      <change afterPath="$PROJECT_DIR$/server/src/main/java/server/InternalErrorException.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/server/src/main/java/Main.java" beforeDir="false" afterPath="$PROJECT_DIR$/server/src/main/java/Main.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/server/src/main/java/dataAccess/AuthDAO.java" beforeDir="false" afterPath="$PROJECT_DIR$/server/src/main/java/dataAccess/AuthDAO.java" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/server/src/main/java/dataAccess/DatabaseManager.java" beforeDir="false" afterPath="$PROJECT_DIR$/server/src/main/java/dataAccess/DatabaseManager.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/server/src/main/java/dataAccess/GameDAO.java" beforeDir="false" afterPath="$PROJECT_DIR$/server/src/main/java/dataAccess/GameDAO.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/server/src/main/java/dataAccess/MemoryAuthDAO.java" beforeDir="false" afterPath="$PROJECT_DIR$/server/src/main/java/dataAccess/MemoryAuthDAO.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/server/src/main/java/dataAccess/MemoryGameDAO.java" beforeDir="false" afterPath="$PROJECT_DIR$/server/src/main/java/dataAccess/MemoryGameDAO.java" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/server/src/main/java/dataAccess/SQLAuthDAO.java" beforeDir="false" afterPath="$PROJECT_DIR$/server/src/main/java/dataAccess/SQLAuthDAO.java" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/server/src/main/java/dataAccess/SQLGameDAO.java" beforeDir="false" afterPath="$PROJECT_DIR$/server/src/main/java/dataAccess/SQLGameDAO.java" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/server/src/main/java/dataAccess/SQLUsersDAO.java" beforeDir="false" afterPath="$PROJECT_DIR$/server/src/main/java/dataAccess/SQLUsersDAO.java" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/server/src/main/java/server/Server.java" beforeDir="false" afterPath="$PROJECT_DIR$/server/src/main/java/server/Server.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/server/src/main/java/service/GameService.java" beforeDir="false" afterPath="$PROJECT_DIR$/server/src/main/java/service/GameService.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/server/src/main/java/service/UserService.java" beforeDir="false" afterPath="$PROJECT_DIR$/server/src/main/java/service/UserService.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/server/src/test/java/serviceTests/GameServiceTest.java" beforeDir="false" afterPath="$PROJECT_DIR$/server/src/test/java/serviceTests/GameServiceTest.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/server/src/test/java/serviceTests/UserServiceTest.java" beforeDir="false" afterPath="$PROJECT_DIR$/server/src/test/java/serviceTests/UserServiceTest.java" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -38,75 +49,85 @@
     <option name="showLibraryContents" value="true" />
     <option name="showMembers" value="true" />
   </component>
-  <component name="PropertiesComponent">{
-  &quot;keyToString&quot;: {
-    &quot;Application.Main.executor&quot;: &quot;Run&quot;,
-    &quot;Downloaded.Files.Path.Enabled&quot;: &quot;false&quot;,
-    &quot;JUnit.All in server.executor&quot;: &quot;Run&quot;,
-    &quot;JUnit.All in test.executor&quot;: &quot;Run&quot;,
-    &quot;JUnit.ChessBoardTests.executor&quot;: &quot;Run&quot;,
-    &quot;JUnit.ClearServiceTest.executor&quot;: &quot;Run&quot;,
-    &quot;JUnit.ClearServiceTest.testClearAll.executor&quot;: &quot;Run&quot;,
-    &quot;JUnit.GameServiceTest.executor&quot;: &quot;Run&quot;,
-    &quot;JUnit.GameServiceTest.testCreateGameSuccessful.executor&quot;: &quot;Run&quot;,
-    &quot;JUnit.GameServiceTest.testCreateGameUnsuccessful.executor&quot;: &quot;Run&quot;,
-    &quot;JUnit.GameServiceTest.testJoinGameSuccessful.executor&quot;: &quot;Run&quot;,
-    &quot;JUnit.GameServiceTest.testJoinGameUnsuccessful.executor&quot;: &quot;Run&quot;,
-    &quot;JUnit.GameServiceTest.testListGames.executor&quot;: &quot;Run&quot;,
-    &quot;JUnit.GameServiceTest.testListGamesNoUser.executor&quot;: &quot;Run&quot;,
-    &quot;JUnit.GameServiceTest.testListGamesPositive.executor&quot;: &quot;Run&quot;,
-    &quot;JUnit.StandardAPITests.badColorJoin.executor&quot;: &quot;Run&quot;,
-    &quot;JUnit.StandardAPITests.badGameIDWatch.executor&quot;: &quot;Debug&quot;,
-    &quot;JUnit.StandardAPITests.clearData.executor&quot;: &quot;Debug&quot;,
-    &quot;JUnit.StandardAPITests.executor&quot;: &quot;Run&quot;,
-    &quot;JUnit.StandardAPITests.failRegister.executor&quot;: &quot;Run&quot;,
-    &quot;JUnit.StandardAPITests.gamesList.executor&quot;: &quot;Run&quot;,
-    &quot;JUnit.StandardAPITests.goodCreate.executor&quot;: &quot;Debug&quot;,
-    &quot;JUnit.StandardAPITests.goodJoin.executor&quot;: &quot;Run&quot;,
-    &quot;JUnit.StandardAPITests.goodWatch.executor&quot;: &quot;Run&quot;,
-    &quot;JUnit.StandardAPITests.loginInvalidUser.executor&quot;: &quot;Run&quot;,
-    &quot;JUnit.StandardAPITests.loginWrongPassword.executor&quot;: &quot;Run&quot;,
-    &quot;JUnit.StandardAPITests.manyWatch.executor&quot;: &quot;Run&quot;,
-    &quot;JUnit.StandardAPITests.staticFiles.executor&quot;: &quot;Run&quot;,
-    &quot;JUnit.StandardAPITests.successLogin.executor&quot;: &quot;Run&quot;,
-    &quot;JUnit.StandardAPITests.successLogout.executor&quot;: &quot;Run&quot;,
-    &quot;JUnit.StandardAPITests.successRegister.executor&quot;: &quot;Run&quot;,
-    &quot;JUnit.StandardAPITests.uniqueAuthorizationTokens.executor&quot;: &quot;Debug&quot;,
-    &quot;JUnit.UserServiceTest.executor&quot;: &quot;Run&quot;,
-    &quot;JUnit.UserServiceTest.testLoginSuccessful.executor&quot;: &quot;Run&quot;,
-    &quot;JUnit.UserServiceTest.testLoginUnsuccessful.executor&quot;: &quot;Run&quot;,
-    &quot;JUnit.UserServiceTest.testLogoutTwice.executor&quot;: &quot;Run&quot;,
-    &quot;JUnit.UserServiceTest.testRegister.executor&quot;: &quot;Run&quot;,
-    &quot;JUnit.UserServiceTest.testRegisterTakenName.executor&quot;: &quot;Run&quot;,
-    &quot;JUnit.UserServiceTest.testSuccessfulLogout.executor&quot;: &quot;Run&quot;,
-    &quot;JUnit.passoffTests in test.executor&quot;: &quot;Run&quot;,
-    &quot;Repository.Attach.Annotations&quot;: &quot;false&quot;,
-    &quot;Repository.Attach.JavaDocs&quot;: &quot;false&quot;,
-    &quot;Repository.Attach.Sources&quot;: &quot;false&quot;,
-    &quot;RunOnceActivity.OpenProjectViewOnStart&quot;: &quot;true&quot;,
-    &quot;RunOnceActivity.ShowReadmeOnStart&quot;: &quot;true&quot;,
-    &quot;SHARE_PROJECT_CONFIGURATION_FILES&quot;: &quot;true&quot;,
-    &quot;extract.method.default.visibility&quot;: &quot;private&quot;,
-    &quot;git-widget-placeholder&quot;: &quot;main&quot;,
-    &quot;kotlin-language-version-configured&quot;: &quot;true&quot;,
-    &quot;node.js.detected.package.eslint&quot;: &quot;true&quot;,
-    &quot;node.js.detected.package.tslint&quot;: &quot;true&quot;,
-    &quot;node.js.selected.package.eslint&quot;: &quot;(autodetect)&quot;,
-    &quot;node.js.selected.package.tslint&quot;: &quot;(autodetect)&quot;,
-    &quot;nodejs_package_manager_path&quot;: &quot;npm&quot;,
-    &quot;project.structure.last.edited&quot;: &quot;Modules&quot;,
-    &quot;project.structure.proportion&quot;: &quot;0.15&quot;,
-    &quot;project.structure.side.proportion&quot;: &quot;0.2&quot;,
-    &quot;settings.editor.selected.configurable&quot;: &quot;inlay.hints&quot;,
-    &quot;vue.rearranger.settings.migration&quot;: &quot;true&quot;
+  <component name="PropertiesComponent"><![CDATA[{
+  "keyToString": {
+    "Application.Main.executor": "Run",
+    "Downloaded.Files.Path.Enabled": "false",
+    "JUnit.All in server.executor": "Run",
+    "JUnit.All in test.executor": "Run",
+    "JUnit.ChessBoardTests.executor": "Run",
+    "JUnit.ClearServiceTest.executor": "Run",
+    "JUnit.ClearServiceTest.testClearAll.executor": "Run",
+    "JUnit.GameServiceTest.executor": "Run",
+    "JUnit.GameServiceTest.testCreateGameSuccessful.executor": "Run",
+    "JUnit.GameServiceTest.testCreateGameUnsuccessful.executor": "Run",
+    "JUnit.GameServiceTest.testJoinGameSuccessful.executor": "Run",
+    "JUnit.GameServiceTest.testJoinGameUnsuccessful.executor": "Run",
+    "JUnit.GameServiceTest.testListGames.executor": "Run",
+    "JUnit.GameServiceTest.testListGamesNoUser.executor": "Run",
+    "JUnit.GameServiceTest.testListGamesPositive.executor": "Run",
+    "JUnit.PersistenceTests.executor": "Run",
+    "JUnit.PersistenceTests.persistenceTest.executor": "Debug",
+    "JUnit.StandardAPITests.badColorJoin.executor": "Run",
+    "JUnit.StandardAPITests.badGameIDWatch.executor": "Debug",
+    "JUnit.StandardAPITests.clearData.executor": "Debug",
+    "JUnit.StandardAPITests.executor": "Run",
+    "JUnit.StandardAPITests.failRegister.executor": "Run",
+    "JUnit.StandardAPITests.gamesList.executor": "Run",
+    "JUnit.StandardAPITests.goodCreate.executor": "Debug",
+    "JUnit.StandardAPITests.goodJoin.executor": "Run",
+    "JUnit.StandardAPITests.goodWatch.executor": "Run",
+    "JUnit.StandardAPITests.loginInvalidUser.executor": "Run",
+    "JUnit.StandardAPITests.loginWrongPassword.executor": "Run",
+    "JUnit.StandardAPITests.manyWatch.executor": "Run",
+    "JUnit.StandardAPITests.staticFiles.executor": "Run",
+    "JUnit.StandardAPITests.successLogin.executor": "Run",
+    "JUnit.StandardAPITests.successLogout.executor": "Run",
+    "JUnit.StandardAPITests.successRegister.executor": "Run",
+    "JUnit.StandardAPITests.uniqueAuthorizationTokens.executor": "Debug",
+    "JUnit.UserServiceTest.executor": "Run",
+    "JUnit.UserServiceTest.testLoginSuccessful.executor": "Run",
+    "JUnit.UserServiceTest.testLoginUnsuccessful.executor": "Run",
+    "JUnit.UserServiceTest.testLogoutTwice.executor": "Run",
+    "JUnit.UserServiceTest.testRegister.executor": "Run",
+    "JUnit.UserServiceTest.testRegisterTakenName.executor": "Run",
+    "JUnit.UserServiceTest.testSuccessfulLogout.executor": "Run",
+    "JUnit.passoffTests in test.executor": "Run",
+    "Repository.Attach.Annotations": "false",
+    "Repository.Attach.JavaDocs": "false",
+    "Repository.Attach.Sources": "false",
+    "RunOnceActivity.OpenProjectViewOnStart": "true",
+    "RunOnceActivity.ShowReadmeOnStart": "true",
+    "SHARE_PROJECT_CONFIGURATION_FILES": "true",
+    "extract.method.default.visibility": "private",
+    "git-widget-placeholder": "main",
+    "kotlin-language-version-configured": "true",
+    "node.js.detected.package.eslint": "true",
+    "node.js.detected.package.tslint": "true",
+    "node.js.selected.package.eslint": "(autodetect)",
+    "node.js.selected.package.tslint": "(autodetect)",
+    "nodejs_package_manager_path": "npm",
+    "project.structure.last.edited": "Modules",
+    "project.structure.proportion": "0.15",
+    "project.structure.side.proportion": "0.2",
+    "settings.editor.selected.configurable": "preferences.editor",
+    "vue.rearranger.settings.migration": "true"
   }
-}</component>
+}]]></component>
   <component name="RecentsManager">
     <key name="MoveFile.RECENT_KEYS">
+      <recent name="$PROJECT_DIR$/server/src/main/resources" />
       <recent name="$PROJECT_DIR$/server/src/main/java/resources" />
     </key>
   </component>
-  <component name="RunManager" selected="JUnit.All in server">
+  <component name="RunManager" selected="JUnit.PersistenceTests.persistenceTest">
+    <configuration name="Main" type="Application" factoryName="Application" temporary="true" nameIsGenerated="true">
+      <option name="MAIN_CLASS_NAME" value="Main" />
+      <module name="server" />
+      <method v="2">
+        <option name="Make" enabled="true" />
+      </method>
+    </configuration>
     <configuration name="All in server" type="JUnit" factoryName="JUnit" temporary="true" nameIsGenerated="true">
       <module name="server" />
       <option name="PACKAGE_NAME" value="" />
@@ -115,66 +136,59 @@
         <option name="Make" enabled="true" />
       </method>
     </configuration>
-    <configuration name="All in test" type="JUnit" factoryName="JUnit" temporary="true" nameIsGenerated="true">
-      <module name="test" />
-      <option name="PACKAGE_NAME" value="" />
-      <option name="TEST_OBJECT" value="package" />
-      <method v="2">
-        <option name="Make" enabled="true" />
-      </method>
-    </configuration>
-    <configuration name="GameServiceTest" type="JUnit" factoryName="JUnit" temporary="true" nameIsGenerated="true">
+    <configuration name="PersistenceTests" type="JUnit" factoryName="JUnit" temporary="true" nameIsGenerated="true">
       <module name="server" />
       <extension name="coverage">
         <pattern>
-          <option name="PATTERN" value="serviceTests.*" />
+          <option name="PATTERN" value="passoffTests.serverTests.*" />
           <option name="ENABLED" value="true" />
         </pattern>
       </extension>
-      <option name="PACKAGE_NAME" value="serviceTests" />
-      <option name="MAIN_CLASS_NAME" value="serviceTests.GameServiceTest" />
+      <option name="PACKAGE_NAME" value="passoffTests.serverTests" />
+      <option name="MAIN_CLASS_NAME" value="passoffTests.serverTests.PersistenceTests" />
       <option name="TEST_OBJECT" value="class" />
       <method v="2">
         <option name="Make" enabled="true" />
       </method>
     </configuration>
-    <configuration name="GameServiceTest.testListGamesPositive" type="JUnit" factoryName="JUnit" temporary="true" nameIsGenerated="true">
+    <configuration name="PersistenceTests.persistenceTest" type="JUnit" factoryName="JUnit" temporary="true" nameIsGenerated="true">
       <module name="server" />
       <extension name="coverage">
         <pattern>
-          <option name="PATTERN" value="serviceTests.*" />
+          <option name="PATTERN" value="passoffTests.serverTests.*" />
           <option name="ENABLED" value="true" />
         </pattern>
       </extension>
-      <option name="PACKAGE_NAME" value="serviceTests" />
-      <option name="MAIN_CLASS_NAME" value="serviceTests.GameServiceTest" />
-      <option name="METHOD_NAME" value="testListGamesPositive" />
+      <option name="PACKAGE_NAME" value="passoffTests.serverTests" />
+      <option name="MAIN_CLASS_NAME" value="passoffTests.serverTests.PersistenceTests" />
+      <option name="METHOD_NAME" value="persistenceTest" />
       <option name="TEST_OBJECT" value="method" />
       <method v="2">
         <option name="Make" enabled="true" />
       </method>
     </configuration>
-    <configuration name="passoffTests in test" type="JUnit" factoryName="JUnit" temporary="true" nameIsGenerated="true">
-      <module name="test" />
+    <configuration name="StandardAPITests" type="JUnit" factoryName="JUnit" temporary="true" nameIsGenerated="true">
+      <module name="server" />
       <extension name="coverage">
         <pattern>
-          <option name="PATTERN" value="passoffTests.*" />
+          <option name="PATTERN" value="passoffTests.serverTests.*" />
           <option name="ENABLED" value="true" />
         </pattern>
       </extension>
-      <option name="PACKAGE_NAME" value="passoffTests" />
-      <option name="TEST_OBJECT" value="package" />
+      <option name="PACKAGE_NAME" value="passoffTests.serverTests" />
+      <option name="MAIN_CLASS_NAME" value="passoffTests.serverTests.StandardAPITests" />
+      <option name="TEST_OBJECT" value="class" />
       <method v="2">
         <option name="Make" enabled="true" />
       </method>
     </configuration>
     <recent_temporary>
       <list>
+        <item itemvalue="JUnit.PersistenceTests.persistenceTest" />
+        <item itemvalue="JUnit.PersistenceTests" />
+        <item itemvalue="JUnit.StandardAPITests" />
+        <item itemvalue="Application.Main" />
         <item itemvalue="JUnit.All in server" />
-        <item itemvalue="JUnit.All in test" />
-        <item itemvalue="JUnit.GameServiceTest.testListGamesPositive" />
-        <item itemvalue="JUnit.passoffTests in test" />
-        <item itemvalue="JUnit.GameServiceTest" />
       </list>
     </recent_temporary>
   </component>
@@ -199,6 +213,7 @@
       <workItem from="1709063041795" duration="31834000" />
       <workItem from="1709154309562" duration="4329000" />
       <workItem from="1709619847438" duration="13674000" />
+      <workItem from="1709794076485" duration="16773000" />
     </task>
     <task id="LOCAL-00001" summary="more setup for server tests and web resources">
       <option name="closed" value="true" />
@@ -304,7 +319,15 @@
       <option name="project" value="LOCAL" />
       <updated>1709707340038</updated>
     </task>
-    <option name="localTasksCounter" value="14" />
+    <task id="LOCAL-00014" summary="Database manager accessible in all SQL related DAOs">
+      <option name="closed" value="true" />
+      <created>1709794108038</created>
+      <option name="number" value="00014" />
+      <option name="presentableId" value="LOCAL-00014" />
+      <option name="project" value="LOCAL" />
+      <updated>1709794108038</updated>
+    </task>
+    <option name="localTasksCounter" value="15" />
     <servers />
   </component>
   <component name="TypeScriptGeneratedFilesManager">
@@ -335,7 +358,8 @@
     <MESSAGE value="whack-a-mole with &quot;AuthToken&quot; becoming &quot;authToken&quot;" />
     <MESSAGE value="getting started files in place" />
     <MESSAGE value="SQL Dao classes" />
-    <option name="LAST_COMMIT_MESSAGE" value="SQL Dao classes" />
+    <MESSAGE value="Database manager accessible in all SQL related DAOs" />
+    <option name="LAST_COMMIT_MESSAGE" value="Database manager accessible in all SQL related DAOs" />
   </component>
   <component name="XDebuggerManager">
     <breakpoint-manager>
@@ -358,8 +382,33 @@
         <line-breakpoint enabled="true" type="java-line">
           <condition expression="authToken == null || authToken == &quot;&quot;" language="JAVA" />
           <url>file://$PROJECT_DIR$/server/src/main/java/server/Server.java</url>
-          <line>92</line>
+          <line>97</line>
           <option name="timeStamp" value="52" />
+        </line-breakpoint>
+        <line-breakpoint enabled="true" type="java-line">
+          <url>file://$PROJECT_DIR$/server/src/main/java/server/Server.java</url>
+          <line>148</line>
+          <option name="timeStamp" value="69" />
+        </line-breakpoint>
+        <line-breakpoint enabled="true" type="java-line">
+          <url>file://$PROJECT_DIR$/server/src/main/java/server/Server.java</url>
+          <line>127</line>
+          <option name="timeStamp" value="71" />
+        </line-breakpoint>
+        <line-breakpoint enabled="true" type="java-line">
+          <url>file://$PROJECT_DIR$/server/src/test/java/passoffTests/serverTests/PersistenceTests.java</url>
+          <line>79</line>
+          <option name="timeStamp" value="76" />
+        </line-breakpoint>
+        <line-breakpoint enabled="true" type="java-line">
+          <url>file://$PROJECT_DIR$/server/src/test/java/passoffTests/serverTests/PersistenceTests.java</url>
+          <line>63</line>
+          <option name="timeStamp" value="77" />
+        </line-breakpoint>
+        <line-breakpoint enabled="true" type="java-line">
+          <url>file://$PROJECT_DIR$/server/src/test/java/passoffTests/serverTests/PersistenceTests.java</url>
+          <line>65</line>
+          <option name="timeStamp" value="78" />
         </line-breakpoint>
       </breakpoints>
     </breakpoint-manager>
