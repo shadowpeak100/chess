@@ -40,6 +40,14 @@ public class GameDaoTest {
     }
 
     @Test
+    public void testNewGameMalformedInput() {
+        String gameName = null;
+        assertThrows(DataAccessException.class, () -> {
+            gameDAO.newGame(gameName);
+        });
+    }
+
+    @Test
     public void testGetGame() {
         String gameName = "Test Game";
         int gameID = insertTestData(gameName);
@@ -54,6 +62,20 @@ public class GameDaoTest {
         assertNotNull(retrievedGame);
         assertEquals(gameID, retrievedGame.getGameID());
         assertEquals(gameName, retrievedGame.getGameName());
+    }
+
+    @Test
+    public void testGetGameEmptyList() throws DataAccessException {
+        gameDAO.clearAll();
+
+        GameData retrievedGame = null;
+        try {
+            retrievedGame = gameDAO.getGame(1);
+        } catch (DataAccessException e) {
+            e.printStackTrace();
+        }
+
+        assertNull(retrievedGame);
     }
 
     @Test
@@ -74,6 +96,21 @@ public class GameDaoTest {
 
         assertTrue(games.stream().anyMatch(game -> game.getGameName().equals(gameName1)));
         assertTrue(games.stream().anyMatch(game -> game.getGameName().equals(gameName2)));
+    }
+
+    @Test
+    public void testListGamesEmpty() throws DataAccessException {
+        gameDAO.clearAll();
+
+        GamesWrapper gamesWrapper = null;
+        try {
+            gamesWrapper = gameDAO.listGames();
+        } catch (DataAccessException e) {
+            e.printStackTrace();
+        }
+
+        List<GameData> games = gamesWrapper.getGames();
+        assertEquals(0, games.size());
     }
 
     @Test

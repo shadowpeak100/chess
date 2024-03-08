@@ -28,6 +28,14 @@ public class AuthDaoTest {
     }
 
     @Test
+    public void testCreateAuthNullUser() {
+        String username = null;
+        assertThrows(DataAccessException.class, () -> {
+            authDAO.createAuth(username);
+        });
+    }
+
+    @Test
     public void testGetUsernameWithAuth() {
         String username = "test_user";
         String authToken = null;
@@ -87,6 +95,14 @@ public class AuthDaoTest {
             e.printStackTrace();
         }
         assertNull(retrievedUsername);
+    }
+
+    @Test
+    public void testDeleteAuthNull() {
+        String username = null;
+        assertThrows(DataAccessException.class, () -> {
+            authDAO.deleteAuth(username);
+        });
     }
 
     @Test

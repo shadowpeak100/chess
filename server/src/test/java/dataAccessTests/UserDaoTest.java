@@ -57,7 +57,7 @@ public class UserDaoTest {
     @Test
     public void testGetNonexistentUser() throws DataAccessException {
         UserData userData = usersDAO.getUser("");
-        assertEquals(userData.getEmail(), "");
+        assertNull(userData);
     }
 
 

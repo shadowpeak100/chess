@@ -9,6 +9,9 @@ public class SQLAuthDAO implements AuthDAO{
 
     @Override
     public String createAuth(String username) throws DataAccessException {
+        if(username == null){
+            throw new DataAccessException("error: username cannot be null for auth token generation");
+        }
         var authToken = UUID.randomUUID().toString();
         var statement = "INSERT INTO authTokenToUsername (authtoken, username) VALUES (?, ?)";
 
@@ -48,6 +51,9 @@ public class SQLAuthDAO implements AuthDAO{
 
     @Override
     public void deleteAuth(String authToken) throws DataAccessException{
+        if (authToken==null){
+            throw new DataAccessException("error: auth token must not be null for deletion");
+        }
         String deleteStatement = "DELETE FROM authTokenToUsername WHERE authToken = ?";
 
         try (var conn = DatabaseManager.getConnection();

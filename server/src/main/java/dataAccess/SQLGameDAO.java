@@ -70,6 +70,10 @@ public class SQLGameDAO implements GameDAO{
 
     @Override
     public int newGame(String gameName) throws DataAccessException {
+        if (gameName==null){
+            throw new DataAccessException("error: must have game name specified");
+        }
+
         int gameID = Math.abs(UUID.randomUUID().hashCode());
         GameData game = new GameData(gameID, null, null , gameName, new ChessGame());
         Gson gson = new Gson();
