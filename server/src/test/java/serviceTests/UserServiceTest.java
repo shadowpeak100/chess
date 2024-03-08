@@ -9,8 +9,7 @@ import server.UnauthorizedException;
 import service.GameService;
 import service.UserService;
 
-import static org.junit.jupiter.api.Assertions.assertDoesNotThrow;
-import static org.junit.jupiter.api.Assertions.assertThrows;
+import static org.junit.jupiter.api.Assertions.*;
 
 public class UserServiceTest {
 
@@ -36,7 +35,7 @@ public class UserServiceTest {
         UserService userService = new UserService(gd, ad, ud);
         try{
             userService.register(new UserData("James", "GoodPassword!", "NoEmailBro"));
-        }catch (TakenException | BadRequestException ignored){
+        }catch (TakenException | BadRequestException | DataAccessException ignored){
         }
 
         assertThrows(TakenException.class, () -> {
@@ -51,12 +50,16 @@ public class UserServiceTest {
         UserDAO ud = new MemoryUsersDAO();
 
         String tok = null;
-        tok = ad.createAuth("James");
+        try{
+            tok = ad.createAuth("James");
+        }catch (DataAccessException e){
+            assertEquals(1,0);
+        }
 
         UserService userService = new UserService(gd, ad, ud);
         try{
             userService.register(new UserData("James", "GoodPassword!", "NoEmailBro"));
-        }catch (TakenException | BadRequestException ignored){
+        }catch (TakenException | BadRequestException | DataAccessException ignored){
         }
 
         String finalTok = tok;
@@ -72,12 +75,16 @@ public class UserServiceTest {
         UserDAO ud = new MemoryUsersDAO();
 
         String tok = null;
-        tok = ad.createAuth("James");
+        try{
+            tok = ad.createAuth("James");
+        }catch (DataAccessException e){
+            assertEquals(1,0);
+        }
 
         UserService userService = new UserService(gd, ad, ud);
         try{
             userService.register(new UserData("James", "GoodPassword!", "NoEmailBro"));
-        }catch (TakenException | BadRequestException ignored){
+        }catch (TakenException | BadRequestException | DataAccessException ignored){
         }
 
         String finalTok = tok;
@@ -97,7 +104,11 @@ public class UserServiceTest {
         UserDAO ud = new MemoryUsersDAO();
 
         String tok = null;
-        tok = ad.createAuth("James");
+        try{
+            tok = ad.createAuth("James");
+        }catch (DataAccessException e){
+            assertEquals(1,0);
+        }
 
 
         UserData userJames = new UserData("James", "GoodPassword!", "NoEmailBro");

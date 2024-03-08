@@ -72,6 +72,9 @@ public class Server {
         }catch (TakenException | BadRequestException e){
             response.status(e.statusCode);
             return e.getMessage();
+        }catch (DataAccessException e){
+            response.status(500);
+            return e.getMessage();
         }
     }
 

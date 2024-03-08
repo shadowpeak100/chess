@@ -30,7 +30,7 @@ public class UserService {
         this.userDAO = ud;
     }
 
-    public Object register(UserData usrData) throws TakenException, BadRequestException {
+    public Object register(UserData usrData) throws TakenException, BadRequestException, DataAccessException {
         if (usrData.getPassword() == ""){
             throw new BadRequestException();
         }

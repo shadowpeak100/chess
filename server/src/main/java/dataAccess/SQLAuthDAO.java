@@ -1,5 +1,6 @@
 package dataAccess;
 
+import javax.xml.crypto.Data;
 import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.util.UUID;
@@ -7,22 +8,19 @@ import java.util.UUID;
 public class SQLAuthDAO implements AuthDAO{
 
     @Override
-    public String createAuth(String username){
+    public String createAuth(String username) throws DataAccessException {
         var authToken = UUID.randomUUID().toString();
         var statement = "INSERT INTO authTokenToUsername (authtoken, username) VALUES (?, ?)";
-        int linesAffected;
 
         try (var conn = DatabaseManager.getConnection()) {
             try (var preparedStatement = conn.prepareStatement(statement)) {
                 preparedStatement.setString(1, authToken);
                 preparedStatement.setString(2, username);
-                linesAffected = preparedStatement.executeUpdate();
+                preparedStatement.executeUpdate();
             }
         } catch (SQLException | DataAccessException ex) {
-            //throw new DataAccessException(String.format("Unable to insert auth token to database: %s", ex.getMessage()));
+            throw new DataAccessException(String.format("Unable to insert auth token to database: %s", ex.getMessage()));
         }
-
-        //System.out.println(linesAffected);
 
         return authToken;
     }
@@ -45,36 +43,31 @@ public class SQLAuthDAO implements AuthDAO{
             throw new DataAccessException(String.format("Unable to get username from auth token: %s", ex.getMessage()));
         }
 
-        System.out.println(username);
         return username;
     }
 
     @Override
-    public void deleteAuth(String authToken) {
+    public void deleteAuth(String authToken) throws DataAccessException{
         String deleteStatement = "DELETE FROM authTokenToUsername WHERE authToken = ?";
 
         try (var conn = DatabaseManager.getConnection();
              var preparedStatement = conn.prepareStatement(deleteStatement)) {
             preparedStatement.setString(1, authToken);
-            int rowsAffected = preparedStatement.executeUpdate(); // Execute the delete statement
-            System.out.println(rowsAffected + " rows deleted."); // Optionally print the number of rows deleted
+            preparedStatement.executeUpdate(); // Execute the delete statement
         } catch (SQLException | DataAccessException ex) {
-            System.out.println("failed deleting auth");
-            //throw new DataAccessException(String.format("Unable to delete row by auth token: %s", ex.getMessage()));
+            throw new DataAccessException(String.format("Unable to delete row by auth token: %s", ex.getMessage()));
         }
     }
 
     @Override
-    public void clearAll() {
+    public void clearAll() throws DataAccessException{
         String deleteStatement = "DELETE FROM authTokenToUsername";
 
         try (var conn = DatabaseManager.getConnection();
              var preparedStatement = conn.prepareStatement(deleteStatement)) {
-            int rowsAffected = preparedStatement.executeUpdate(); // Execute the delete statement
-            System.out.println(rowsAffected + " rows deleted."); // Optionally print the number of rows deleted
+            preparedStatement.executeUpdate(); // Execute the delete statement
         } catch (SQLException | DataAccessException ex) {
-            System.out.println("failed deleting all");
-            //throw new DataAccessException(String.format("Unable to delete all rows from the table: %s", ex.getMessage()));
+            throw new DataAccessException(String.format("Unable to delete all rows from the table: %s", ex.getMessage()));
         }
     }
 }

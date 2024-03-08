@@ -9,7 +9,7 @@ import javax.xml.crypto.Data;
 public interface GameDAO{
     void clearAll() throws DataAccessException;
     GameData getGame(int gameID) throws DataAccessException;
-    GamesWrapper listGames();
+    GamesWrapper listGames() throws DataAccessException;
     int newGame(String gameName) throws DataAccessException;
     void updateGame(int Gameid, GameData game) throws DataAccessException;
 }

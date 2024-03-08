@@ -5,7 +5,6 @@ import com.google.gson.Gson;
 import model.GameData;
 import service.GamesWrapper;
 
-import javax.xml.crypto.Data;
 import java.sql.SQLException;
 import java.util.*;
 
@@ -18,8 +17,7 @@ public class SQLGameDAO implements GameDAO{
 
         try (var conn = DatabaseManager.getConnection();
              var preparedStatement = conn.prepareStatement(deleteStatement)) {
-            int rowsAffected = preparedStatement.executeUpdate();
-            System.out.println(rowsAffected + " rows deleted.");
+            preparedStatement.executeUpdate();
         } catch (SQLException | DataAccessException ex) {
             throw new DataAccessException(String.format("Unable to delete all rows from the gameIdToGame table: %s", ex.getMessage()));
         }
@@ -29,7 +27,6 @@ public class SQLGameDAO implements GameDAO{
     public GameData getGame(int gameID) throws DataAccessException {
         GameData game = null;
 
-        // SQL query to select gamedata based on gameid
         String selectQuery = "SELECT gamedata FROM gameIdToGame WHERE gameid = ?";
 
         try (var conn = DatabaseManager.getConnection();
@@ -50,7 +47,7 @@ public class SQLGameDAO implements GameDAO{
     }
 
     @Override
-    public GamesWrapper listGames() {
+    public GamesWrapper listGames() throws DataAccessException{
         ArrayList<GameData> games = new ArrayList<>();
 
         String selectQuery = "SELECT gamedata FROM gameIdToGame";
@@ -60,14 +57,12 @@ public class SQLGameDAO implements GameDAO{
              var resultSet = preparedStatement.executeQuery()) {
             while (resultSet.next()) {
                 String json = resultSet.getString("gamedata");
-
                 Gson gson = new Gson();
                 GameData game = gson.fromJson(json, GameData.class);
-
                 games.add(game);
             }
         } catch (SQLException | DataAccessException ex) {
-            //throw new DataAccessException(String.format("Unable to retrieve games: %s", ex.getMessage()));
+            throw new DataAccessException(String.format("Unable to retrieve games: %s", ex.getMessage()));
         }
 
         return new GamesWrapper(games);
@@ -86,9 +81,7 @@ public class SQLGameDAO implements GameDAO{
              var preparedStatement = conn.prepareStatement(insertStatement)) {
             preparedStatement.setInt(1, gameID);
             preparedStatement.setString(2, json);
-
-            int rowsAffected = preparedStatement.executeUpdate();
-            System.out.println(rowsAffected + " row(s) inserted.");
+            preparedStatement.executeUpdate();
         } catch (SQLException | DataAccessException ex) {
             throw new DataAccessException(String.format("Unable to insert game data into the gameIdToGame table: %s", ex.getMessage()));
         }
@@ -105,11 +98,9 @@ public class SQLGameDAO implements GameDAO{
             Gson gson = new Gson();
             String json = gson.toJson(game);
 
-            preparedStatement.setString(1, json); // Set the new game data JSON
-            preparedStatement.setInt(2, Gameid); // Set the game ID
-
-            int rowsAffected = preparedStatement.executeUpdate(); // Execute the update statement
-            System.out.println(rowsAffected + " rows updated.");
+            preparedStatement.setString(1, json);
+            preparedStatement.setInt(2, Gameid);
+            preparedStatement.executeUpdate();
         } catch (SQLException | DataAccessException ex) {
             throw new DataAccessException(String.format("Unable to update game data: %s", ex.getMessage()));
         }

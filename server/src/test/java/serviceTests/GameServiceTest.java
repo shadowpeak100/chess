@@ -28,8 +28,15 @@ public class GameServiceTest {
 
         }
 
-        String token = ad.createAuth("Hammy");
-        ud.createUser("Hammy", "Jackson", "das@");
+        String token = null;
+        try{
+           token = ad.createAuth("Hammy");
+        }catch (DataAccessException e){
+            assertEquals(1, 0);
+        }
+        assertDoesNotThrow(() -> {
+            ud.createUser("Hammy", "Jackson", "das@");
+        });
 
         GameService gameService = new GameService(gd, ad, ud);
 
@@ -53,12 +60,19 @@ public class GameServiceTest {
         AuthDAO ad = new MemoryAuthDAO();
         UserDAO ud = new MemoryUsersDAO();
 
-        String token = ad.createAuth("Hammy");
+        String token = null;
+        try{
+            token = ad.createAuth("Hammy");
+        }catch (DataAccessException e){
+            assertEquals(1, 0);
+        }
+
 
         GameService gameService = new GameService(gd, ad, ud);
 
+        String finalToken = token;
         assertThrows(UnauthorizedException.class, () -> {
-            gameService.listGames(token);
+            gameService.listGames(finalToken);
         });
     }
 
@@ -74,8 +88,16 @@ public class GameServiceTest {
 
         }
 
-        ud.createUser("Tommy", "", "");
-        String token = ad.createAuth("Tommy");
+        assertDoesNotThrow(() -> {
+            ud.createUser("Tommy", "", "");
+        });
+
+        String token = null;
+        try{
+            token = ad.createAuth("Tommy");
+        }catch (DataAccessException e){
+            assertEquals(1, 0);
+        }
         GameService gameService = new GameService(gd, ad, ud);
         try{
             id = gameService.createGame(token, "sam's game");
@@ -112,12 +134,20 @@ public class GameServiceTest {
 
         }
 
-        String tok = ad.createAuth("gzs");
+
+        String tok = null;
+        try{
+            tok = ad.createAuth("gzs");
+        }catch (DataAccessException e){
+            assertEquals(1, 0);
+        }
+
         GameService gameService = new GameService(gd, ad, ud);
 
         int finalId = id;
+        String finalTok = tok;
         assertDoesNotThrow(() -> {
-            gameService.joinGame(tok, finalId, "BLACK");
+            gameService.joinGame(finalTok, finalId, "BLACK");
         });
     }
 
@@ -127,12 +157,18 @@ public class GameServiceTest {
         AuthDAO ad = new MemoryAuthDAO();
         UserDAO ud = new MemoryUsersDAO();
 
-        String tok = ad.createAuth("gzs");
+        String tok = null;
+        try{
+            tok = ad.createAuth("gzs");
+        }catch (DataAccessException e){
+            assertEquals(1, 0);
+        }
         //no game ID
         GameService gameService = new GameService(gd, ad, ud);
 
+        String finalTok = tok;
         assertThrows(BadRequestException.class, () -> {
-            gameService.joinGame(tok, 16, "BLACK");
+            gameService.joinGame(finalTok, 16, "BLACK");
         });
     }
 }

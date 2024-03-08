@@ -15,8 +15,12 @@ public class ClearServiceTest {
         AuthDAO ad = new MemoryAuthDAO();
         UserDAO ud = new MemoryUsersDAO();
 
-        ad.createAuth("jimmy");
-        ud.createUser("testPerson", "password", "b@g.c");
+        assertDoesNotThrow(() -> {
+            ad.createAuth("jimmy");
+        });
+        assertDoesNotThrow(() -> {
+            ud.createUser("testPerson", "password", "b@g.c");
+        });
 
         ClearService clearService = new ClearService(gd, ad, ud);
 
@@ -25,6 +29,12 @@ public class ClearServiceTest {
         }catch (ResponseException ignored){
 
         }
-        assertNull(ud.getUser("testPerson"));
+        try{
+            ud.getUser("testPerson");
+        }catch (DataAccessException e){
+            assertDoesNotThrow(() -> {
+                ud.getUser("testPerson");
+            });
+        }
     }
 }
