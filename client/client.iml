@@ -15,5 +15,6 @@
     <orderEntry type="module" module-name="server" scope="TEST" />
     <orderEntry type="library" name="passoff-dependencies" level="project" />
     <orderEntry type="module" module-name="test" />
+    <orderEntry type="module" module-name="server" />
   </component>
 </module>
