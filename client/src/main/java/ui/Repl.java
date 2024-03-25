@@ -1,28 +1,51 @@
 package ui;
 
 
+import server.Server;
+
 import java.util.Scanner;
+import ui.EscapeSequences;
 
 public class Repl {
-    private final PetClient client;
+    private final Server server;
+    private final ChessClient client;
 
     public Repl(String serverUrl) {
-        client = new PetClient(serverUrl, this);
+        server = new Server();
+        client = new ChessClient();
     }
 
     public void run() {
-        System.out.println("\uD83D\uDC36 Welcome to the pet store. Sign in to start.");
+        System.out.println("\uD83D\uDC36 Welcome to 240 chess. Type help to get started.");
         System.out.print(client.help());
 
         Scanner scanner = new Scanner(System.in);
         var result = "";
+
+        //this is the outmost loop for not being signed in
         while (!result.equals("quit")) {
             printPrompt();
+            scanner.reset();
             String line = scanner.nextLine();
 
             try {
                 result = client.eval(line);
-                System.out.print(BLUE + result);
+                System.out.print(result);
+
+                while (!result.equals("quit") && client.state == State.SIGNEDIN){
+                    printPrompt();
+                        //this is the middle loop for being logged in
+                        while (!result.equals("quit") && client.state == State.INGAME) {
+                            printPrompt();
+                            if (client.state == State.INGAME) {
+                                //this is the innermost loop for being in game
+                            }
+                        }
+
+                }
+
+
+
             } catch (Throwable e) {
                 var msg = e.toString();
                 System.out.print(msg);
@@ -31,17 +54,17 @@ public class Repl {
         System.out.println();
     }
 
-    public void notify(Notification notification) {
-        System.out.println(RED + notification.message());
-        printPrompt();
-    }
+//    public void notify(Notification notification) {
+//        System.out.println(RED + notification.message());
+//        printPrompt();
+//    }
 
     private void printPrompt() {
-        System.out.print("\n" + RESET + ">>> " + GREEN);
+        System.out.print("\n" + EscapeSequences.RESET + ">>> ");
     }
 
-    @Override
-    public HandlerResult handleNotification(Notification notification, Object attachment) {
-        return null;
-    }
+//    @Override
+//    public HandlerResult handleNotification(Notification notification, Object attachment) {
+//        return null;
+//    }
 }

@@ -60,7 +60,7 @@ public class UserService {
         }
     }
 
-    public Object login(UserData usrData) throws UnauthorizedException, DataAccessException {
+    public LoginSuccess login(UserData usrData) throws UnauthorizedException, DataAccessException {
         UserData user = userDAO.getUser(usrData.getUsername());
 
         if(user == null || !Objects.equals(user.getPassword(), usrData.getPassword())){

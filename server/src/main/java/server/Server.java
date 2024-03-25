@@ -10,9 +10,9 @@ import javax.xml.crypto.Data;
 
 public class Server {
 
-    private final UserService userService;
-    private final ClearService clearService;
-    private final GameService gameService;
+    public final UserService userService;
+    public final ClearService clearService;
+    public final GameService gameService;
 
     public Server(){
         try{
