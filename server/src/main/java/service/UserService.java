@@ -30,7 +30,7 @@ public class UserService {
         this.userDAO = ud;
     }
 
-    public Object register(UserData usrData) throws TakenException, BadRequestException, DataAccessException {
+    public LoginSuccess register(UserData usrData) throws TakenException, BadRequestException, DataAccessException {
         if (usrData.getPassword() == ""){
             throw new BadRequestException();
         }
@@ -38,12 +38,8 @@ public class UserService {
         UserData user = userDAO.getUser(usrData.getUsername());
         if(user == null){
             userDAO.createUser(usrData.getUsername(), usrData.getPassword(), usrData.getEmail());
-
             String auth;
             auth = authDAO.createAuth(usrData.getUsername());
-
-
-
             return new LoginSuccess(usrData.getUsername(), auth);
         }else{
             throw new TakenException();

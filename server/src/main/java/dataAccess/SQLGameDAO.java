@@ -65,7 +65,7 @@ public class SQLGameDAO implements GameDAO{
             throw new DataAccessException(String.format("Unable to retrieve games: %s", ex.getMessage()));
         }
 
-        return new GamesWrapper(games);
+         return new GamesWrapper(games);
     }
 
     @Override
@@ -76,6 +76,8 @@ public class SQLGameDAO implements GameDAO{
 
         int gameID = Math.abs(UUID.randomUUID().hashCode());
         GameData game = new GameData(gameID, null, null , gameName, new ChessGame());
+        game.getGame().defaultSetup();
+
         Gson gson = new Gson();
         String json = gson.toJson(game);
 

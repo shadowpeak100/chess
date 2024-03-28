@@ -55,7 +55,9 @@ public class GameData {
         return gameName;
     }
 
+    public ChessGame getGame() { return game; }
 
+    public void setGame(ChessGame game) {this.game = game; }
 
 }
 

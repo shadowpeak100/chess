@@ -32,6 +32,43 @@ public class ChessGame {
         this.currentTurn = TeamColor.WHITE;
     }
 
+    public void defaultSetup(){
+        this.board.setBoard(1,1,new ChessPiece(TeamColor.WHITE, ChessPiece.PieceType.ROOK));
+        this.board.setBoard(1,2,new ChessPiece(TeamColor.WHITE, ChessPiece.PieceType.KNIGHT));
+        this.board.setBoard(1,3,new ChessPiece(TeamColor.WHITE, ChessPiece.PieceType.BISHOP));
+        this.board.setBoard(1,4,new ChessPiece(TeamColor.WHITE, ChessPiece.PieceType.QUEEN));
+        this.board.setBoard(1,5,new ChessPiece(TeamColor.WHITE, ChessPiece.PieceType.KING));
+        this.board.setBoard(1,6,new ChessPiece(TeamColor.WHITE, ChessPiece.PieceType.BISHOP));
+        this.board.setBoard(1,7,new ChessPiece(TeamColor.WHITE, ChessPiece.PieceType.KNIGHT));
+        this.board.setBoard(1,8,new ChessPiece(TeamColor.WHITE, ChessPiece.PieceType.ROOK));
+        this.board.setBoard(2,1,new ChessPiece(TeamColor.WHITE, ChessPiece.PieceType.PAWN));
+        this.board.setBoard(2,2,new ChessPiece(TeamColor.WHITE, ChessPiece.PieceType.PAWN));
+        this.board.setBoard(2,3,new ChessPiece(TeamColor.WHITE, ChessPiece.PieceType.PAWN));
+        this.board.setBoard(2,4,new ChessPiece(TeamColor.WHITE, ChessPiece.PieceType.PAWN));
+        this.board.setBoard(2,5,new ChessPiece(TeamColor.WHITE, ChessPiece.PieceType.PAWN));
+        this.board.setBoard(2,6,new ChessPiece(TeamColor.WHITE, ChessPiece.PieceType.PAWN));
+        this.board.setBoard(2,7,new ChessPiece(TeamColor.WHITE, ChessPiece.PieceType.PAWN));
+        this.board.setBoard(2,8,new ChessPiece(TeamColor.WHITE, ChessPiece.PieceType.PAWN));
+
+        //black
+        this.board.setBoard(8,1,new ChessPiece(TeamColor.BLACK, ChessPiece.PieceType.ROOK));
+        this.board.setBoard(8,2,new ChessPiece(TeamColor.BLACK, ChessPiece.PieceType.KNIGHT));
+        this.board.setBoard(8,3,new ChessPiece(TeamColor.BLACK, ChessPiece.PieceType.BISHOP));
+        this.board.setBoard(8,4,new ChessPiece(TeamColor.BLACK, ChessPiece.PieceType.KING));
+        this.board.setBoard(8,5,new ChessPiece(TeamColor.BLACK, ChessPiece.PieceType.QUEEN));
+        this.board.setBoard(8,6,new ChessPiece(TeamColor.BLACK, ChessPiece.PieceType.BISHOP));
+        this.board.setBoard(8,7,new ChessPiece(TeamColor.BLACK, ChessPiece.PieceType.KNIGHT));
+        this.board.setBoard(8,8,new ChessPiece(TeamColor.BLACK, ChessPiece.PieceType.ROOK));
+        this.board.setBoard(7,1,new ChessPiece(TeamColor.BLACK, ChessPiece.PieceType.PAWN));
+        this.board.setBoard(7,2,new ChessPiece(TeamColor.BLACK, ChessPiece.PieceType.PAWN));
+        this.board.setBoard(7,3,new ChessPiece(TeamColor.BLACK, ChessPiece.PieceType.PAWN));
+        this.board.setBoard(7,4,new ChessPiece(TeamColor.BLACK, ChessPiece.PieceType.PAWN));
+        this.board.setBoard(7,5,new ChessPiece(TeamColor.BLACK, ChessPiece.PieceType.PAWN));
+        this.board.setBoard(7,6,new ChessPiece(TeamColor.BLACK, ChessPiece.PieceType.PAWN));
+        this.board.setBoard(7,7,new ChessPiece(TeamColor.BLACK, ChessPiece.PieceType.PAWN));
+        this.board.setBoard(7,8,new ChessPiece(TeamColor.BLACK, ChessPiece.PieceType.PAWN));
+    }
+
     /**
      * @return Which team's turn it is
      */

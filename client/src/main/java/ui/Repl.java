@@ -3,20 +3,20 @@ package ui;
 
 import server.Server;
 
+import java.util.Objects;
 import java.util.Scanner;
-import ui.EscapeSequences;
 
 public class Repl {
     private final Server server;
-    private final ChessClient client;
+    private final ChessClientFacade client;
 
-    public Repl(String serverUrl) {
+    public Repl() {
         server = new Server();
-        client = new ChessClient();
+        client = new ChessClientFacade();
     }
 
     public void run() {
-        System.out.println("\uD83D\uDC36 Welcome to 240 chess. Type help to get started.");
+        System.out.println("Welcome to 240 chess. Type help to get started.");
         System.out.print(client.help());
 
         Scanner scanner = new Scanner(System.in);
@@ -33,19 +33,25 @@ public class Repl {
                 System.out.print(result);
 
                 while (!result.equals("quit") && client.state == State.SIGNEDIN){
+                    //this is the middle loop for being logged in
                     printPrompt();
-                        //this is the middle loop for being logged in
-                        while (!result.equals("quit") && client.state == State.INGAME) {
-                            printPrompt();
-                            if (client.state == State.INGAME) {
-                                //this is the innermost loop for being in game
-                            }
-                        }
+                    scanner.reset();
+                    line = scanner.nextLine();
+                    result = client.eval(line);
+                    System.out.print(result);
+                    if (Objects.equals(result, "quit")){
+                        break;
+                    }
 
+                    while (!result.equals("quit") && client.state == State.INGAME) {
+                        //this is the innermost loop for being in game
+                        printPrompt();
+                        scanner.reset();
+                        line = scanner.nextLine();
+                        result = client.eval(line);
+                        System.out.print(result);
+                    }
                 }
-
-
-
             } catch (Throwable e) {
                 var msg = e.toString();
                 System.out.print(msg);

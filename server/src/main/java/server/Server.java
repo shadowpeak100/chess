@@ -1,5 +1,6 @@
 package server;
 
+import chess.ChessGame;
 import com.google.gson.Gson;
 import dataAccess.*;
 import model.*;
@@ -13,6 +14,7 @@ public class Server {
     public final UserService userService;
     public final ClearService clearService;
     public final GameService gameService;
+    public final GameDAO gd;
 
     public Server(){
         try{
@@ -21,7 +23,7 @@ public class Server {
             System.out.println("Exception on creating database manager: " + e);
         }
 
-        GameDAO gd = new SQLGameDAO();
+        this.gd = new SQLGameDAO();
         AuthDAO ad = new SQLAuthDAO();
         UserDAO ud = new SQLUsersDAO();
         this.clearService = new ClearService(gd, ad, ud);

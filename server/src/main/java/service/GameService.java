@@ -49,6 +49,7 @@ public class GameService {
     }
 
     public void joinGame(String authToken, int gameID, String playerColor) throws UnauthorizedException, BadRequestException, TakenException, DataAccessException {
+        playerColor = playerColor.toUpperCase();
         String username = authDAO.getUsernameWithAuth(authToken);
         if(username == null){
             throw new UnauthorizedException();
