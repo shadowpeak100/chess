@@ -10,6 +10,7 @@ import java.util.Objects;
  * methods.
  */
 public class UserGameCommand {
+    //these go from client to server
 
     public UserGameCommand(String authToken) {
         this.authToken = authToken;
@@ -23,7 +24,7 @@ public class UserGameCommand {
         RESIGN
     }
 
-    protected CommandType commandType;
+    public CommandType commandType;
 
     private final String authToken;
 

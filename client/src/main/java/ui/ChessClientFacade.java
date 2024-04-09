@@ -136,6 +136,9 @@ public class ChessClientFacade {
     }
 
     public String joinGame(String... params) throws ResponseException, DataAccessException {
+        //we want to open Web socket connection with server using /connect, to send/recieve messages
+        //send a JOIN_PLAYER websocket message to server
+
         if (params.length >= 2) {
             int gameId;
             try {
@@ -153,6 +156,9 @@ public class ChessClientFacade {
     }
 
     public String joinObserver(String... params) throws ResponseException, DataAccessException {
+        //we want to open Web socket connection with server using /connect, to send/recieve messages
+        //send a JOIN_OBSERVER websocket message to server
+
         if (params.length >= 1) {
             int gameId;
             try {

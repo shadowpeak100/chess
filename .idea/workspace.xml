@@ -4,20 +4,25 @@
     <option name="autoReloadType" value="SELECTIVE" />
   </component>
   <component name="ChangeListManager">
-    <list default="true" id="7f72768d-00d0-4037-a08d-33159cc5ebb4" name="Changes" comment="some more fun tests!">
-      <change afterPath="$PROJECT_DIR$/.idea/libraries/glassfish_tyrus_bundles_standalone_client.xml" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/.idea/libraries/mysql_connector_java.xml" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/.idea/libraries/springframework_security_spring_core.xml" afterDir="false" />
+    <list default="true" id="7f72768d-00d0-4037-a08d-33159cc5ebb4" name="Changes" comment="checkered chess board and phase 6 start">
       <change afterPath="$PROJECT_DIR$/.idea/sonarlint/issuestore/index.pb" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/.idea/sonarlint/securityhotspotstore/index.pb" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/server/src/test/java/serverTests/WebSocketTests.java" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/shared/src/main/java/webSocketMessages/serverMessages/ServerMessage.java" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/shared/src/main/java/webSocketMessages/userCommands/UserGameCommand.java" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/client/src/main/java/websocket/NotificationHandler.java" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/client/src/main/java/websocket/WebSocketFacade.java" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/server/src/main/java/server/websocket/Connection.java" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/server/src/main/java/server/websocket/ConnectionManager.java" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/server/src/main/java/server/websocket/WebSocketHandler.java" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/shared/src/main/java/webSocketMessages/serverMessages/Error.java" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/shared/src/main/java/webSocketMessages/serverMessages/LoadGame.java" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/shared/src/main/java/webSocketMessages/serverMessages/Notification.java" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/shared/src/main/java/webSocketMessages/userCommands/JoinObserver.java" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/shared/src/main/java/webSocketMessages/userCommands/JoinPlayer.java" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/shared/src/main/java/webSocketMessages/userCommands/Leave.java" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/shared/src/main/java/webSocketMessages/userCommands/MakeMove.java" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/shared/src/main/java/webSocketMessages/userCommands/Resign.java" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/client/client.iml" beforeDir="false" afterPath="$PROJECT_DIR$/client/client.iml" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/client/src/main/java/ui/ChessClientFacade.java" beforeDir="false" afterPath="$PROJECT_DIR$/client/src/main/java/ui/ChessClientFacade.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/client/src/main/java/ui/Repl.java" beforeDir="false" afterPath="$PROJECT_DIR$/client/src/main/java/ui/Repl.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/server/server.iml" beforeDir="false" afterPath="$PROJECT_DIR$/server/server.iml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/shared/src/main/java/webSocketMessages/serverMessages/ServerMessage.java" beforeDir="false" afterPath="$PROJECT_DIR$/shared/src/main/java/webSocketMessages/serverMessages/ServerMessage.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/shared/src/main/java/webSocketMessages/userCommands/UserGameCommand.java" beforeDir="false" afterPath="$PROJECT_DIR$/shared/src/main/java/webSocketMessages/userCommands/UserGameCommand.java" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -46,103 +51,103 @@
     <option name="showLibraryContents" value="true" />
     <option name="showMembers" value="true" />
   </component>
-  <component name="PropertiesComponent">{
-  &quot;keyToString&quot;: {
-    &quot;Application.Main (1).executor&quot;: &quot;Run&quot;,
-    &quot;Application.Main.executor&quot;: &quot;Run&quot;,
-    &quot;Downloaded.Files.Path.Enabled&quot;: &quot;false&quot;,
-    &quot;JUnit.All in server.executor&quot;: &quot;Run&quot;,
-    &quot;JUnit.All in test.executor&quot;: &quot;Run&quot;,
-    &quot;JUnit.AuthDaoTest.executor&quot;: &quot;Run&quot;,
-    &quot;JUnit.AuthDaoTest.testClearAll.executor&quot;: &quot;Run&quot;,
-    &quot;JUnit.AuthDaoTest.testCreateAuth.executor&quot;: &quot;Run&quot;,
-    &quot;JUnit.AuthDaoTest.testCreateAuthNullUser.executor&quot;: &quot;Run&quot;,
-    &quot;JUnit.AuthDaoTest.testDeleteAuth.executor&quot;: &quot;Run&quot;,
-    &quot;JUnit.AuthDaoTest.testDeleteAuthNull.executor&quot;: &quot;Run&quot;,
-    &quot;JUnit.AuthDaoTest.testGetUsernameWithNonexistentAuth.executor&quot;: &quot;Run&quot;,
-    &quot;JUnit.ChessBoardTests.executor&quot;: &quot;Run&quot;,
-    &quot;JUnit.ClearServiceTest.executor&quot;: &quot;Run&quot;,
-    &quot;JUnit.ClearServiceTest.testClearAll.executor&quot;: &quot;Run&quot;,
-    &quot;JUnit.GameDaoTest.executor&quot;: &quot;Run&quot;,
-    &quot;JUnit.GameDaoTest.testClearGames.executor&quot;: &quot;Run&quot;,
-    &quot;JUnit.GameDaoTest.testGetGame.executor&quot;: &quot;Run&quot;,
-    &quot;JUnit.GameDaoTest.testGetGameEmptyList.executor&quot;: &quot;Run&quot;,
-    &quot;JUnit.GameDaoTest.testListGames.executor&quot;: &quot;Debug&quot;,
-    &quot;JUnit.GameDaoTest.testListGamesEmpty.executor&quot;: &quot;Run&quot;,
-    &quot;JUnit.GameDaoTest.testNewGame.executor&quot;: &quot;Run&quot;,
-    &quot;JUnit.GameServiceTest.executor&quot;: &quot;Run&quot;,
-    &quot;JUnit.GameServiceTest.testCreateGameSuccessful.executor&quot;: &quot;Run&quot;,
-    &quot;JUnit.GameServiceTest.testCreateGameUnsuccessful.executor&quot;: &quot;Run&quot;,
-    &quot;JUnit.GameServiceTest.testJoinGameSuccessful.executor&quot;: &quot;Run&quot;,
-    &quot;JUnit.GameServiceTest.testJoinGameUnsuccessful.executor&quot;: &quot;Run&quot;,
-    &quot;JUnit.GameServiceTest.testListGames.executor&quot;: &quot;Run&quot;,
-    &quot;JUnit.GameServiceTest.testListGamesNoUser.executor&quot;: &quot;Run&quot;,
-    &quot;JUnit.GameServiceTest.testListGamesPositive.executor&quot;: &quot;Run&quot;,
-    &quot;JUnit.PersistenceTests.executor&quot;: &quot;Run&quot;,
-    &quot;JUnit.PersistenceTests.persistenceTest.executor&quot;: &quot;Debug&quot;,
-    &quot;JUnit.ServerFacadeTests.createGameBadInputTest.executor&quot;: &quot;Run&quot;,
-    &quot;JUnit.ServerFacadeTests.createGameTest.executor&quot;: &quot;Run&quot;,
-    &quot;JUnit.ServerFacadeTests.executor&quot;: &quot;Run&quot;,
-    &quot;JUnit.ServerFacadeTests.joinGameBadIdTest.executor&quot;: &quot;Run&quot;,
-    &quot;JUnit.ServerFacadeTests.joinGameTest.executor&quot;: &quot;Run&quot;,
-    &quot;JUnit.ServerFacadeTests.joinObserverTest.executor&quot;: &quot;Run&quot;,
-    &quot;JUnit.ServerFacadeTests.listGamesNotSignedInTest.executor&quot;: &quot;Run&quot;,
-    &quot;JUnit.ServerFacadeTests.logoutNotSignedInTest.executor&quot;: &quot;Run&quot;,
-    &quot;JUnit.ServerFacadeTests.logoutTest.executor&quot;: &quot;Run&quot;,
-    &quot;JUnit.ServerFacadeTests.registerMalformedUserTest.executor&quot;: &quot;Run&quot;,
-    &quot;JUnit.ServerFacadeTests.registerTest.executor&quot;: &quot;Run&quot;,
-    &quot;JUnit.StandardAPITests.badColorJoin.executor&quot;: &quot;Run&quot;,
-    &quot;JUnit.StandardAPITests.badGameIDWatch.executor&quot;: &quot;Run&quot;,
-    &quot;JUnit.StandardAPITests.clearData.executor&quot;: &quot;Debug&quot;,
-    &quot;JUnit.StandardAPITests.executor&quot;: &quot;Run&quot;,
-    &quot;JUnit.StandardAPITests.failRegister.executor&quot;: &quot;Run&quot;,
-    &quot;JUnit.StandardAPITests.gamesList.executor&quot;: &quot;Run&quot;,
-    &quot;JUnit.StandardAPITests.goodCreate.executor&quot;: &quot;Debug&quot;,
-    &quot;JUnit.StandardAPITests.goodJoin.executor&quot;: &quot;Run&quot;,
-    &quot;JUnit.StandardAPITests.goodWatch.executor&quot;: &quot;Run&quot;,
-    &quot;JUnit.StandardAPITests.loginInvalidUser.executor&quot;: &quot;Run&quot;,
-    &quot;JUnit.StandardAPITests.loginWrongPassword.executor&quot;: &quot;Run&quot;,
-    &quot;JUnit.StandardAPITests.manyWatch.executor&quot;: &quot;Run&quot;,
-    &quot;JUnit.StandardAPITests.staticFiles.executor&quot;: &quot;Run&quot;,
-    &quot;JUnit.StandardAPITests.successLogin.executor&quot;: &quot;Run&quot;,
-    &quot;JUnit.StandardAPITests.successLogout.executor&quot;: &quot;Run&quot;,
-    &quot;JUnit.StandardAPITests.successRegister.executor&quot;: &quot;Run&quot;,
-    &quot;JUnit.StandardAPITests.uniqueAuthorizationTokens.executor&quot;: &quot;Debug&quot;,
-    &quot;JUnit.UserDaoTest.executor&quot;: &quot;Run&quot;,
-    &quot;JUnit.UserDaoTest.testClear.executor&quot;: &quot;Run&quot;,
-    &quot;JUnit.UserDaoTest.testCreateDepulicateUser.executor&quot;: &quot;Run&quot;,
-    &quot;JUnit.UserDaoTest.testCreateUser.executor&quot;: &quot;Run&quot;,
-    &quot;JUnit.UserDaoTest.testGetNonexistentUser.executor&quot;: &quot;Run&quot;,
-    &quot;JUnit.UserDaoTest.testGetUser.executor&quot;: &quot;Run&quot;,
-    &quot;JUnit.UserServiceTest.executor&quot;: &quot;Run&quot;,
-    &quot;JUnit.UserServiceTest.testLoginSuccessful.executor&quot;: &quot;Run&quot;,
-    &quot;JUnit.UserServiceTest.testLoginUnsuccessful.executor&quot;: &quot;Run&quot;,
-    &quot;JUnit.UserServiceTest.testLogoutTwice.executor&quot;: &quot;Run&quot;,
-    &quot;JUnit.UserServiceTest.testRegister.executor&quot;: &quot;Run&quot;,
-    &quot;JUnit.UserServiceTest.testRegisterTakenName.executor&quot;: &quot;Run&quot;,
-    &quot;JUnit.UserServiceTest.testSuccessfulLogout.executor&quot;: &quot;Run&quot;,
-    &quot;JUnit.passoffTests in test.executor&quot;: &quot;Run&quot;,
-    &quot;Repository.Attach.Annotations&quot;: &quot;false&quot;,
-    &quot;Repository.Attach.JavaDocs&quot;: &quot;false&quot;,
-    &quot;Repository.Attach.Sources&quot;: &quot;false&quot;,
-    &quot;RunOnceActivity.OpenProjectViewOnStart&quot;: &quot;true&quot;,
-    &quot;RunOnceActivity.ShowReadmeOnStart&quot;: &quot;true&quot;,
-    &quot;SHARE_PROJECT_CONFIGURATION_FILES&quot;: &quot;true&quot;,
-    &quot;extract.method.default.visibility&quot;: &quot;private&quot;,
-    &quot;git-widget-placeholder&quot;: &quot;main&quot;,
-    &quot;kotlin-language-version-configured&quot;: &quot;true&quot;,
-    &quot;node.js.detected.package.eslint&quot;: &quot;true&quot;,
-    &quot;node.js.detected.package.tslint&quot;: &quot;true&quot;,
-    &quot;node.js.selected.package.eslint&quot;: &quot;(autodetect)&quot;,
-    &quot;node.js.selected.package.tslint&quot;: &quot;(autodetect)&quot;,
-    &quot;nodejs_package_manager_path&quot;: &quot;npm&quot;,
-    &quot;project.structure.last.edited&quot;: &quot;Modules&quot;,
-    &quot;project.structure.proportion&quot;: &quot;0.15&quot;,
-    &quot;project.structure.side.proportion&quot;: &quot;0.2&quot;,
-    &quot;settings.editor.selected.configurable&quot;: &quot;preferences.pluginManager&quot;,
-    &quot;vue.rearranger.settings.migration&quot;: &quot;true&quot;
+  <component name="PropertiesComponent"><![CDATA[{
+  "keyToString": {
+    "Application.Main (1).executor": "Run",
+    "Application.Main.executor": "Run",
+    "Downloaded.Files.Path.Enabled": "false",
+    "JUnit.All in server.executor": "Run",
+    "JUnit.All in test.executor": "Run",
+    "JUnit.AuthDaoTest.executor": "Run",
+    "JUnit.AuthDaoTest.testClearAll.executor": "Run",
+    "JUnit.AuthDaoTest.testCreateAuth.executor": "Run",
+    "JUnit.AuthDaoTest.testCreateAuthNullUser.executor": "Run",
+    "JUnit.AuthDaoTest.testDeleteAuth.executor": "Run",
+    "JUnit.AuthDaoTest.testDeleteAuthNull.executor": "Run",
+    "JUnit.AuthDaoTest.testGetUsernameWithNonexistentAuth.executor": "Run",
+    "JUnit.ChessBoardTests.executor": "Run",
+    "JUnit.ClearServiceTest.executor": "Run",
+    "JUnit.ClearServiceTest.testClearAll.executor": "Run",
+    "JUnit.GameDaoTest.executor": "Run",
+    "JUnit.GameDaoTest.testClearGames.executor": "Run",
+    "JUnit.GameDaoTest.testGetGame.executor": "Run",
+    "JUnit.GameDaoTest.testGetGameEmptyList.executor": "Run",
+    "JUnit.GameDaoTest.testListGames.executor": "Debug",
+    "JUnit.GameDaoTest.testListGamesEmpty.executor": "Run",
+    "JUnit.GameDaoTest.testNewGame.executor": "Run",
+    "JUnit.GameServiceTest.executor": "Run",
+    "JUnit.GameServiceTest.testCreateGameSuccessful.executor": "Run",
+    "JUnit.GameServiceTest.testCreateGameUnsuccessful.executor": "Run",
+    "JUnit.GameServiceTest.testJoinGameSuccessful.executor": "Run",
+    "JUnit.GameServiceTest.testJoinGameUnsuccessful.executor": "Run",
+    "JUnit.GameServiceTest.testListGames.executor": "Run",
+    "JUnit.GameServiceTest.testListGamesNoUser.executor": "Run",
+    "JUnit.GameServiceTest.testListGamesPositive.executor": "Run",
+    "JUnit.PersistenceTests.executor": "Run",
+    "JUnit.PersistenceTests.persistenceTest.executor": "Debug",
+    "JUnit.ServerFacadeTests.createGameBadInputTest.executor": "Run",
+    "JUnit.ServerFacadeTests.createGameTest.executor": "Run",
+    "JUnit.ServerFacadeTests.executor": "Run",
+    "JUnit.ServerFacadeTests.joinGameBadIdTest.executor": "Run",
+    "JUnit.ServerFacadeTests.joinGameTest.executor": "Run",
+    "JUnit.ServerFacadeTests.joinObserverTest.executor": "Run",
+    "JUnit.ServerFacadeTests.listGamesNotSignedInTest.executor": "Run",
+    "JUnit.ServerFacadeTests.logoutNotSignedInTest.executor": "Run",
+    "JUnit.ServerFacadeTests.logoutTest.executor": "Run",
+    "JUnit.ServerFacadeTests.registerMalformedUserTest.executor": "Run",
+    "JUnit.ServerFacadeTests.registerTest.executor": "Run",
+    "JUnit.StandardAPITests.badColorJoin.executor": "Run",
+    "JUnit.StandardAPITests.badGameIDWatch.executor": "Run",
+    "JUnit.StandardAPITests.clearData.executor": "Debug",
+    "JUnit.StandardAPITests.executor": "Run",
+    "JUnit.StandardAPITests.failRegister.executor": "Run",
+    "JUnit.StandardAPITests.gamesList.executor": "Run",
+    "JUnit.StandardAPITests.goodCreate.executor": "Debug",
+    "JUnit.StandardAPITests.goodJoin.executor": "Run",
+    "JUnit.StandardAPITests.goodWatch.executor": "Run",
+    "JUnit.StandardAPITests.loginInvalidUser.executor": "Run",
+    "JUnit.StandardAPITests.loginWrongPassword.executor": "Run",
+    "JUnit.StandardAPITests.manyWatch.executor": "Run",
+    "JUnit.StandardAPITests.staticFiles.executor": "Run",
+    "JUnit.StandardAPITests.successLogin.executor": "Run",
+    "JUnit.StandardAPITests.successLogout.executor": "Run",
+    "JUnit.StandardAPITests.successRegister.executor": "Run",
+    "JUnit.StandardAPITests.uniqueAuthorizationTokens.executor": "Debug",
+    "JUnit.UserDaoTest.executor": "Run",
+    "JUnit.UserDaoTest.testClear.executor": "Run",
+    "JUnit.UserDaoTest.testCreateDepulicateUser.executor": "Run",
+    "JUnit.UserDaoTest.testCreateUser.executor": "Run",
+    "JUnit.UserDaoTest.testGetNonexistentUser.executor": "Run",
+    "JUnit.UserDaoTest.testGetUser.executor": "Run",
+    "JUnit.UserServiceTest.executor": "Run",
+    "JUnit.UserServiceTest.testLoginSuccessful.executor": "Run",
+    "JUnit.UserServiceTest.testLoginUnsuccessful.executor": "Run",
+    "JUnit.UserServiceTest.testLogoutTwice.executor": "Run",
+    "JUnit.UserServiceTest.testRegister.executor": "Run",
+    "JUnit.UserServiceTest.testRegisterTakenName.executor": "Run",
+    "JUnit.UserServiceTest.testSuccessfulLogout.executor": "Run",
+    "JUnit.passoffTests in test.executor": "Run",
+    "Repository.Attach.Annotations": "false",
+    "Repository.Attach.JavaDocs": "false",
+    "Repository.Attach.Sources": "false",
+    "RunOnceActivity.OpenProjectViewOnStart": "true",
+    "RunOnceActivity.ShowReadmeOnStart": "true",
+    "SHARE_PROJECT_CONFIGURATION_FILES": "true",
+    "extract.method.default.visibility": "private",
+    "git-widget-placeholder": "main",
+    "kotlin-language-version-configured": "true",
+    "node.js.detected.package.eslint": "true",
+    "node.js.detected.package.tslint": "true",
+    "node.js.selected.package.eslint": "(autodetect)",
+    "node.js.selected.package.tslint": "(autodetect)",
+    "nodejs_package_manager_path": "npm",
+    "project.structure.last.edited": "Modules",
+    "project.structure.proportion": "0.15",
+    "project.structure.side.proportion": "0.2",
+    "settings.editor.selected.configurable": "preferences.keymap",
+    "vue.rearranger.settings.migration": "true"
   }
-}</component>
+}]]></component>
   <component name="RecentsManager">
     <key name="MoveFile.RECENT_KEYS">
       <recent name="$PROJECT_DIR$/server/src/main/resources" />
@@ -256,7 +261,7 @@
       <workItem from="1710032849440" duration="607000" />
       <workItem from="1710894742825" duration="37298000" />
       <workItem from="1712608263043" duration="2726000" />
-      <workItem from="1712625480343" duration="4028000" />
+      <workItem from="1712625480343" duration="10134000" />
     </task>
     <task id="LOCAL-00001" summary="more setup for server tests and web resources">
       <option name="closed" value="true" />
@@ -450,7 +455,23 @@
       <option name="project" value="LOCAL" />
       <updated>1711600082884</updated>
     </task>
-    <option name="localTasksCounter" value="25" />
+    <task id="LOCAL-00025" summary="checkered chess board and phase 6 start">
+      <option name="closed" value="true" />
+      <created>1712633839632</created>
+      <option name="number" value="00025" />
+      <option name="presentableId" value="LOCAL-00025" />
+      <option name="project" value="LOCAL" />
+      <updated>1712633839632</updated>
+    </task>
+    <task id="LOCAL-00026" summary="checkered chess board and phase 6 start">
+      <option name="closed" value="true" />
+      <created>1712633894156</created>
+      <option name="number" value="00026" />
+      <option name="presentableId" value="LOCAL-00026" />
+      <option name="project" value="LOCAL" />
+      <updated>1712633894156</updated>
+    </task>
+    <option name="localTasksCounter" value="27" />
     <servers />
   </component>
   <component name="TypeScriptGeneratedFilesManager">
@@ -492,7 +513,8 @@
     <MESSAGE value="login and repl general setup" />
     <MESSAGE value="repl and other cases" />
     <MESSAGE value="some more fun tests!" />
-    <option name="LAST_COMMIT_MESSAGE" value="some more fun tests!" />
+    <MESSAGE value="checkered chess board and phase 6 start" />
+    <option name="LAST_COMMIT_MESSAGE" value="checkered chess board and phase 6 start" />
   </component>
   <component name="XDebuggerManager">
     <breakpoint-manager>
@@ -540,7 +562,7 @@
         </line-breakpoint>
         <line-breakpoint enabled="true" type="java-line">
           <url>file://$PROJECT_DIR$/client/src/main/java/ui/ChessClientFacade.java</url>
-          <line>141</line>
+          <line>144</line>
           <option name="timeStamp" value="90" />
         </line-breakpoint>
         <line-breakpoint enabled="true" type="java-line">
