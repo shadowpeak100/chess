@@ -67,6 +67,11 @@ public class ChessClientFacade {
             return """
                     - quit
                     - help
+                    - redraw_board
+                    - leave
+                    - make_move <start_position> <end_position>
+                    - resign
+                    - highlight_legal_moves <piece_position>
                     """;
         }
     }
@@ -167,30 +172,15 @@ public class ChessClientFacade {
     public String printGame(int gameId, String teamColor) throws DataAccessException {
         ChessGame game = chessServer.gd.getGame(gameId).getGame();
         String spacer = "\u2001\u2005\u200A";
-        String output = "";
+        String output;
 
         //todo: add something that checkers the board, if col & row are both even/odd, should be black, else white
-
         String sample = "a | R | K |   |   |   |   |   |   | a";
 
         //build in perspective of white at bottom
-        if(teamColor.equalsIgnoreCase("white")) {
-            String header = "     a     b     c     d     e     f     g     h\n";
-            output = header;
-            for (int i = 0; i < 8; i++) {
-                output = output + (i+1) + " |";
-                for (int j = 0; j < 8; j++) {
-                    ChessPosition pos = new ChessPosition(i+1, j+1);
-                    ChessPiece piece = game.getBoard().getPiece(pos);
-                    String shape = getAppropriateCharacter(piece);
-                    output = output + " " + shape + " |";
-                }
-                output = output + " " + (8-i) + "\n";
-            }
-            output = output + header;
-        }else{
+        if(teamColor.equalsIgnoreCase("black")) {
             //print black
-            String header = "     h     g     f     e     d     c     b     a\n";
+            String header = EscapeSequences.RESET_BG_COLOR + "     h     g     f     e     d     c     b     a\n";
             output = header;
 
             for(int i = 0; i < 8; i++){
@@ -199,9 +189,38 @@ public class ChessClientFacade {
                     ChessPosition pos = new ChessPosition(8-i, 8-j);
                     ChessPiece piece = game.getBoard().getPiece(pos);
                     String shape = getAppropriateCharacter(piece);
-                    output = output + " " + shape + " |";
+                    if(i % 2 == 0 && j % 2 == 0){
+                        output = output + EscapeSequences.SET_BG_COLOR_DARK_GREY +  " " + shape + " " + EscapeSequences.RESET_BG_COLOR + "|";
+                    }else if(i % 2 == 1 && j % 2 == 1){
+                        output = output + EscapeSequences.SET_BG_COLOR_DARK_GREY +  " " + shape + " " + EscapeSequences.RESET_BG_COLOR + "|";
+                    }else{
+                        output = output + EscapeSequences.SET_BG_COLOR_LIGHT_GREY +  " " + shape + " " + EscapeSequences.RESET_BG_COLOR + "|";
+                    }
+                    //output = output + " " + shape + " |";
                 }
                 output = output + " " + (i+1) + "\n";
+            }
+            output = output + header;
+        }else{
+            //print white
+            String header = EscapeSequences.RESET_BG_COLOR + "     a     b     c     d     e     f     g     h\n";
+            output = header;
+            for (int i = 0; i < 8; i++) {
+                output = output + (i+1) + " |";
+                for (int j = 0; j < 8; j++) {
+                    ChessPosition pos = new ChessPosition(i+1, j+1);
+                    ChessPiece piece = game.getBoard().getPiece(pos);
+                    String shape = getAppropriateCharacter(piece);
+                    if(i % 2 == 0 && j % 2 == 0){
+                        output = output + EscapeSequences.SET_BG_COLOR_DARK_GREY +  " " + shape + " " + EscapeSequences.RESET_BG_COLOR + "|";
+                    }else if(i % 2 == 1 && j % 2 == 1){
+                        output = output + EscapeSequences.SET_BG_COLOR_DARK_GREY +  " " + shape + " " + EscapeSequences.RESET_BG_COLOR + "|";
+                    }else{
+                        output = output + EscapeSequences.SET_BG_COLOR_LIGHT_GREY +  " " + shape + " " + EscapeSequences.RESET_BG_COLOR + "|";
+                    }
+                    //output = output + " " + shape + " |";
+                }
+                output = output + " " + (8-i) + "\n";
             }
             output = output + header;
         }

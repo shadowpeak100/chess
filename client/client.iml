@@ -16,5 +16,6 @@
     <orderEntry type="library" name="passoff-dependencies" level="project" />
     <orderEntry type="module" module-name="test" />
     <orderEntry type="module" module-name="server" />
+    <orderEntry type="library" exported="" name="glassfish.tyrus.bundles.standalone.client" level="project" />
   </component>
 </module>

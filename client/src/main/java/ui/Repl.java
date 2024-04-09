@@ -43,7 +43,7 @@ public class Repl {
                         break;
                     }
 
-                    while (!result.equals("quit") && client.state == State.INGAME) {
+                    while (!result.equals("quit") && !result.equals("leave") && client.state == State.INGAME) {
                         //this is the innermost loop for being in game
                         printPrompt();
                         scanner.reset();
