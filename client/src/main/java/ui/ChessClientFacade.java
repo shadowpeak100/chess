@@ -1,8 +1,6 @@
 package ui;
 
-import chess.ChessGame;
-import chess.ChessPiece;
-import chess.ChessPosition;
+import chess.*;
 import dataAccess.DataAccessException;
 import model.GameData;
 import model.LoginSuccess;
@@ -13,7 +11,10 @@ import service.GamesWrapper;
 import websocket.NotificationHandler;
 import websocket.WebSocketFacade;
 
+import java.awt.*;
 import java.util.Arrays;
+import java.util.Objects;
+import java.util.Scanner;
 
 public class ChessClientFacade {
     private final Server chessServer;
@@ -57,6 +58,8 @@ public class ChessClientFacade {
             };
         } catch (ResponseException | DataAccessException ex) {
             return ex.getMessage();
+        } catch (InvalidMoveException e) {
+            throw new RuntimeException(e);
         }
     }
 
@@ -160,10 +163,10 @@ public class ChessClientFacade {
             } catch (NumberFormatException e) {
                 throw new DataAccessException("the game ID must be an int, string input could not be parsed to int");
             }
-            if (params[1].toUpperCase() == "WHITE"){
+            if (params[1].equalsIgnoreCase("white")){
                 teamColor = ChessGame.TeamColor.WHITE;
             }
-            if (params[1].toUpperCase() == "BLACK"){
+            if (params[1].equalsIgnoreCase("black")){
                 teamColor = ChessGame.TeamColor.BLACK;
             }
             chessServer.gameService.joinGame(this.authToken, GameID, params[1]);
@@ -215,15 +218,97 @@ public class ChessClientFacade {
         throw new DataAccessException("could not access game to print");
     }
 
-    public String leave(){
-        return "";
+    public String leave() throws DataAccessException, ResponseException {
+        if(state == State.INGAME){
+            state = State.SIGNEDIN;
+            ws.leave(username, authToken, GameID);
+            return username + " has left the game";
+        }
+        throw new DataAccessException("expected user to be in game, but found another state");
     }
 
-    public String makeMove(String ... params){
-        return "";
+    public String makeMove(String ... params) throws DataAccessException, ResponseException, InvalidMoveException {
+        if(state == State.INGAME && params.length >= 2){
+            ChessMove chessMove = chessMoveFromParams(params[0], params[1]);
+            GameData game = chessServer.gd.getGame(GameID);
+            game.getGame().makeMove(chessMove);
+            chessServer.gd.updateGame(GameID, game);
+
+            boolean check;
+            boolean checkmate;
+            boolean stalemate;
+            if(teamColor == ChessGame.TeamColor.WHITE){
+                stalemate = game.getGame().isInStalemate(ChessGame.TeamColor.BLACK);
+                checkmate = game.getGame().isInCheckmate(ChessGame.TeamColor.BLACK);
+                check = game.getGame().isInCheck(ChessGame.TeamColor.BLACK);
+            }else{
+                stalemate = game.getGame().isInStalemate(ChessGame.TeamColor.WHITE);
+                checkmate = game.getGame().isInCheckmate(ChessGame.TeamColor.WHITE);
+                check = game.getGame().isInCheck(ChessGame.TeamColor.WHITE);
+            }
+
+            //if checkmate/stalemate, no more moves!
+            if(stalemate || checkmate){
+                game.getGame().setTeamTurn(null);
+                chessServer.gd.updateGame(GameID, game);
+            }
+
+            String opposingBoard;
+            String ourBoard;
+            if(teamColor == ChessGame.TeamColor.WHITE){
+                opposingBoard = printGame(game.getGameID(), "black");
+                ourBoard = printGame(game.getGameID(), "white");
+            }else{
+                opposingBoard = printGame(game.getGameID(), "white");
+                ourBoard = printGame(game.getGameID(), "black");
+            }
+
+            ws.makeMove(username, authToken, GameID, chessMove, opposingBoard, check, checkmate);
+            return username + " has moved from " + params[0] + " to " + params[1] + "\n" + ourBoard;
+        }
+        throw new DataAccessException("making a move was not successful, parameter length provided was " + params.length);
     }
 
-    public String resign(){
+    public ChessMove chessMoveFromParams(String startString, String endString){
+        int startRow; //should be a number
+        int startCol; //alpha character
+        int endRow;
+        int endCol;
+        if(startString.length() != 2 || endString.length() != 2){
+            throw new RuntimeException("positions are not formatted correct, unable to make move.");
+        }
+
+        startCol = mapCharToNumber(startString.charAt(0));
+        endCol = mapCharToNumber(endString.charAt(0));
+        startRow = startString.charAt(1) - '0';
+        endRow = endString.charAt(1) - '0';
+
+        if(isInChessBounds(startCol) && isInChessBounds(startRow) && isInChessBounds(endCol) && isInChessBounds(endRow)){
+            return new ChessMove(new ChessPosition(startRow, startCol), new ChessPosition(endRow, endCol), null);
+        }
+        throw new RuntimeException("positions must be 1-8 and a-h");
+    }
+
+    public boolean isInChessBounds(int i){
+        if (i >= 1 && i <= 8){
+            return true;
+        }
+        return false;
+    }
+
+    public int mapCharToNumber(char c) {
+        c = Character.toLowerCase(c);
+        return c - 'a' + 1;
+    }
+
+    public String resign() throws ResponseException, DataAccessException {
+        if(state == State.INGAME){
+            GameData game = chessServer.gd.getGame(GameID);
+            game.getGame().setTeamTurn(null);
+            chessServer.gd.updateGame(GameID, game);
+            ws.resign(username, authToken, GameID);
+            return "You have resigned, the game is over";
+        }
         return "";
     }
 
@@ -243,9 +328,9 @@ public class ChessClientFacade {
             output = header;
 
             for(int i = 0; i < 8; i++){
-                output = output + (8-i) + " |";
-                for(int j = 0; j < 8; j++){
-                    ChessPosition pos = new ChessPosition(8-i, 8-j);
+                output = output + (i+1) + " |";
+                for(int j = 7; j >= 0; j--){
+                    ChessPosition pos = new ChessPosition(i+1, j+1);
                     ChessPiece piece = game.getBoard().getPiece(pos);
                     String shape = getAppropriateCharacter(piece);
                     if(i % 2 == 0 && j % 2 == 0){
@@ -264,7 +349,7 @@ public class ChessClientFacade {
             //print white
             String header = EscapeSequences.RESET_BG_COLOR + "     a     b     c     d     e     f     g     h\n";
             output = header;
-            for (int i = 0; i < 8; i++) {
+            for (int i = 7; i >= 0; i--) {
                 output = output + (i+1) + " |";
                 for (int j = 0; j < 8; j++) {
                     ChessPosition pos = new ChessPosition(i+1, j+1);
@@ -279,7 +364,7 @@ public class ChessClientFacade {
                     }
                     //output = output + " " + shape + " |";
                 }
-                output = output + " " + (8-i) + "\n";
+                output = output + " " + (i+1) + "\n";
             }
             output = output + header;
         }
@@ -293,44 +378,44 @@ public class ChessClientFacade {
         switch (piece.getPieceType()){
             case KING -> {
                 if (piece.getTeamColor() == ChessGame.TeamColor.WHITE){
-                    return EscapeSequences.WHITE_KING;
+                    return EscapeSequences.SET_TEXT_COLOR_GREEN + EscapeSequences.WHITE_KING + EscapeSequences.SET_TEXT_COLOR_WHITE;
                 }else {
-                    return EscapeSequences.BLACK_KING;
+                    return EscapeSequences.SET_TEXT_COLOR_BLUE +EscapeSequences.BLACK_KING + EscapeSequences.SET_TEXT_COLOR_WHITE;
                 }
             }
             case QUEEN -> {
                 if (piece.getTeamColor() == ChessGame.TeamColor.WHITE){
-                    return EscapeSequences.WHITE_QUEEN;
+                    return EscapeSequences.SET_TEXT_COLOR_GREEN + EscapeSequences.WHITE_QUEEN + EscapeSequences.SET_TEXT_COLOR_WHITE;
                 }else {
-                    return EscapeSequences.BLACK_QUEEN;
+                    return EscapeSequences.SET_TEXT_COLOR_BLUE + EscapeSequences.BLACK_QUEEN + EscapeSequences.SET_TEXT_COLOR_WHITE;
                 }
             }
             case BISHOP -> {
                 if (piece.getTeamColor() == ChessGame.TeamColor.WHITE){
-                    return EscapeSequences.WHITE_BISHOP;
+                    return EscapeSequences.SET_TEXT_COLOR_GREEN + EscapeSequences.WHITE_BISHOP + EscapeSequences.SET_TEXT_COLOR_WHITE;
                 }else {
-                    return EscapeSequences.BLACK_BISHOP;
+                    return EscapeSequences.SET_TEXT_COLOR_BLUE + EscapeSequences.BLACK_BISHOP + EscapeSequences.SET_TEXT_COLOR_WHITE;
                 }
             }
             case KNIGHT -> {
                 if (piece.getTeamColor() == ChessGame.TeamColor.WHITE){
-                    return EscapeSequences.WHITE_KNIGHT;
+                    return EscapeSequences.SET_TEXT_COLOR_GREEN + EscapeSequences.WHITE_KNIGHT + EscapeSequences.SET_TEXT_COLOR_WHITE;
                 }else {
-                    return EscapeSequences.BLACK_KNIGHT;
+                    return EscapeSequences.SET_TEXT_COLOR_BLUE + EscapeSequences.BLACK_KNIGHT + EscapeSequences.SET_TEXT_COLOR_WHITE;
                 }
             }
             case ROOK -> {
                 if (piece.getTeamColor() == ChessGame.TeamColor.WHITE){
-                    return EscapeSequences.WHITE_ROOK;
+                    return EscapeSequences.SET_TEXT_COLOR_GREEN + EscapeSequences.WHITE_ROOK + EscapeSequences.SET_TEXT_COLOR_WHITE;
                 }else {
-                    return EscapeSequences.BLACK_ROOK;
+                    return EscapeSequences.SET_TEXT_COLOR_BLUE + EscapeSequences.BLACK_ROOK + EscapeSequences.SET_TEXT_COLOR_WHITE;
                 }
             }
             case PAWN -> {
                 if (piece.getTeamColor() == ChessGame.TeamColor.WHITE){
-                    return EscapeSequences.WHITE_PAWN;
+                    return EscapeSequences.SET_TEXT_COLOR_GREEN + EscapeSequences.WHITE_PAWN + EscapeSequences.SET_TEXT_COLOR_WHITE;
                 }else {
-                    return EscapeSequences.BLACK_PAWN;
+                    return EscapeSequences.SET_TEXT_COLOR_BLUE + EscapeSequences.BLACK_PAWN + EscapeSequences.SET_TEXT_COLOR_WHITE;
                 }
             }
             default -> {

@@ -1,6 +1,8 @@
 package server.websocket;
 
+import com.google.gson.Gson;
 import org.eclipse.jetty.websocket.api.Session;
+import webSocketMessages.serverMessages.Notification;
 import webSocketMessages.serverMessages.ServerMessage;
 
 import java.io.IOException;
@@ -30,7 +32,7 @@ public class ConnectionManager {
     }
 
     //sends to everyone except the excludeVisitorName
-    public void broadcast(String excludePlayerName, Integer gameID, ServerMessage notification) throws IOException {
+    public void broadcast(String excludePlayerName, Integer gameID, Notification notification) throws IOException {
         if (connections.containsKey(gameID)) {
 
             ConcurrentHashMap<String, Connection> gameConnections = connections.get(gameID);
@@ -41,7 +43,7 @@ public class ConnectionManager {
 
                 if (!playerName.equals(excludePlayerName)) {
                     try {
-                        connection.send(notification.toString());
+                        connection.send(new Gson().toJson(notification));
                     } catch (IOException e) {
                         System.err.println("Failed to send message to player " + playerName + ": " + e.getMessage());
                     }

@@ -56,16 +56,13 @@ public class WebSocketFacade extends Endpoint {
         try {
             var action = new JoinObserver(playerName, authToken, gameID);
             this.session.getBasicRemote().sendText(new Gson().toJson(action));
-            this.session.close();
         } catch (IOException ex) {
             throw new ResponseException(500, ex.getMessage());
         }
     }
 
-    public void leave(String playerName) throws ResponseException {
+    public void leave(String playerName, String authToken, int gameID) throws ResponseException {
         try {
-            String authToken = "";
-            int gameID = 1;
             var action = new Leave(playerName, authToken, gameID);
             this.session.getBasicRemote().sendText(new Gson().toJson(action));
             this.session.close();
@@ -74,26 +71,19 @@ public class WebSocketFacade extends Endpoint {
         }
     }
 
-    public void makeMove(String playerName) throws ResponseException {
+    public void makeMove(String playerName, String authToken, int gameID, ChessMove chessMove, String opposingBoard, boolean inCheck, boolean inCheckmate) throws ResponseException {
         try {
-            String authToken = "";
-            int gameID = 1;
-            ChessMove chessMove = new ChessMove(new ChessPosition(0,0), new ChessPosition(1,1), null);
-            var action = new MakeMove(playerName, authToken, gameID, chessMove);
+            var action = new MakeMove(playerName, authToken, gameID, chessMove, opposingBoard, inCheck, inCheckmate);
             this.session.getBasicRemote().sendText(new Gson().toJson(action));
-            this.session.close();
         } catch (IOException ex) {
             throw new ResponseException(500, ex.getMessage());
         }
     }
 
-    public void resign(String playerName) throws ResponseException {
+    public void resign(String playerName, String authToken, int gameID) throws ResponseException {
         try {
-            String authToken = "";
-            int gameID = 1;
             var action = new Resign(playerName, authToken, gameID);
             this.session.getBasicRemote().sendText(new Gson().toJson(action));
-            this.session.close();
         } catch (IOException ex) {
             throw new ResponseException(500, ex.getMessage());
         }

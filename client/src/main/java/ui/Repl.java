@@ -48,7 +48,16 @@ public class Repl implements NotificationHandler {
                         printPrompt();
                         scanner.reset();
                         line = scanner.nextLine();
-                        result = client.eval(line);
+                        if(Objects.equals(line, "resign")){
+                            System.out.println("Are you sure you want to resign? Type YES to confirm");
+                            scanner.reset();
+                            line = scanner.nextLine();
+                            if(Objects.equals(line, "YES")){
+                                result = client.eval("resign");
+                            }
+                        }else{
+                            result = client.eval(line);
+                        }
                         System.out.print(result);
                     }
                 }
@@ -62,16 +71,11 @@ public class Repl implements NotificationHandler {
     }
 
     public void notify(Notification notification) {
-        System.out.println(EscapeSequences.SET_TEXT_COLOR_RED + notification.message);
+        System.out.println(EscapeSequences.SET_TEXT_COLOR_GREEN + notification.message + EscapeSequences.SET_TEXT_COLOR_WHITE);
         printPrompt();
     }
 
     private void printPrompt() {
         System.out.print("\n" + EscapeSequences.RESET + ">>> ");
     }
-
-//    @Override
-//    public HandlerResult handleNotification(Notification notification, Object attachment) {
-//        return null;
-//    }
 }
