@@ -6,6 +6,7 @@ import server.ResponseException;
 import server.Server;
 import server.UnauthorizedException;
 import ui.ChessClientFacade;
+import ui.Repl;
 
 import static org.junit.jupiter.api.Assertions.assertDoesNotThrow;
 import static org.junit.jupiter.api.Assertions.assertThrows;
@@ -15,13 +16,21 @@ public class ServerFacadeTests {
 
     private static Server server;
     private static ChessClientFacade clientFacade;
+    private static Repl repl;
+    private static String serverUrl;
 
     @BeforeAll
     public static void init() {
         server = new Server();
         var port = server.run(0);
         System.out.println("Started test HTTP server on " + port);
-        clientFacade = new ChessClientFacade();
+
+        serverUrl = "http://localhost:8080";
+        server.run(8123);
+        repl = new Repl(serverUrl);
+        repl.run();
+
+        //clientFacade = new ChessClientFacade(serverUrl, );
 
         //register a user
         String[] params = new String[]{"Willie", "Wonka", "itsASecret@wizbang.com"};
@@ -39,7 +48,9 @@ public class ServerFacadeTests {
 
     @BeforeEach
     void startFacade(){
-        clientFacade = new ChessClientFacade();
+        repl = new Repl(serverUrl);
+        repl.run();
+        //clientFacade = new ChessClientFacade();
     }
 
     @Test

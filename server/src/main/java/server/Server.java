@@ -4,6 +4,7 @@ import chess.ChessGame;
 import com.google.gson.Gson;
 import dataAccess.*;
 import model.*;
+import server.websocket.WebSocketHandler;
 import service.*;
 import spark.*;
 
@@ -15,6 +16,8 @@ public class Server {
     public final ClearService clearService;
     public final GameService gameService;
     public final GameDAO gd;
+    private final WebSocketHandler webSocketHandler;
+
 
     public Server(){
         try{
@@ -29,6 +32,7 @@ public class Server {
         this.clearService = new ClearService(gd, ad, ud);
         this.userService = new UserService(gd, ad, ud);
         this.gameService = new GameService(gd, ad, ud);
+        this.webSocketHandler = new WebSocketHandler();
     }
 
     public int run(int desiredPort) {
@@ -36,6 +40,9 @@ public class Server {
         Spark.port(desiredPort);
 
         Spark.staticFiles.location("web");
+
+        //handling web socket stuff
+        Spark.webSocket("/connect", webSocketHandler);
 
         // Register your endpoints and handle exceptions here.
         Spark.delete("/db", this::clear);

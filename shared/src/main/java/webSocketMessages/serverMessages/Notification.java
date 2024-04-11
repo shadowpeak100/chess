@@ -6,5 +6,5 @@ public class Notification extends ServerMessage{
         this.message = message;
     }
 
-    private String message;
+    public String message;
 }

@@ -5,36 +5,51 @@ import webSocketMessages.serverMessages.ServerMessage;
 
 import java.io.IOException;
 import java.util.ArrayList;
+import java.util.Map;
 import java.util.concurrent.ConcurrentHashMap;
 
 public class ConnectionManager {
-    public final ConcurrentHashMap<String, Connection> connections = new ConcurrentHashMap<>();
+    //public final ConcurrentHashMap<String, Connection> connections = new ConcurrentHashMap<>();
+    public final ConcurrentHashMap<Integer, ConcurrentHashMap<String, Connection>> connections = new ConcurrentHashMap<>();
 
-    public void add(String playerName, Session session) {
+    public void add(String playerName, int gameID, Session session) {
+
+        //this should be GameID -> set of connections :)
         var connection = new Connection(playerName, session);
-        connections.put(playerName, connection);
+        if (!connections.containsKey(gameID)) {
+            connections.put(gameID, new ConcurrentHashMap<>());
+        }
+        connections.get(gameID).put(playerName, connection);
     }
 
-    public void remove(String playerName) {
-        connections.remove(playerName);
+    public void remove(String playerName, Integer gameID) {
+        if (connections.containsKey(gameID)) {
+            ConcurrentHashMap<String, Connection> gameConnections = connections.get(gameID);
+            gameConnections.remove(playerName);
+        }
     }
 
     //sends to everyone except the excludeVisitorName
-    public void broadcast(String excludeVisitorName, ServerMessage notification) throws IOException {
-        var removeList = new ArrayList<Connection>();
-        for (var c : connections.values()) {
-            if (c.session.isOpen()) {
-                if (!c.playerName.equals(excludeVisitorName)) {
-                    c.send(notification.toString());
-                }
-            } else {
-                removeList.add(c);
-            }
-        }
+    public void broadcast(String excludePlayerName, Integer gameID, ServerMessage notification) throws IOException {
+        if (connections.containsKey(gameID)) {
 
-        // Clean up any connections that were left open.
-        for (var c : removeList) {
-            connections.remove(c.playerName);
+            ConcurrentHashMap<String, Connection> gameConnections = connections.get(gameID);
+
+            for (Map.Entry<String, Connection> entry : gameConnections.entrySet()) {
+                String playerName = entry.getKey();
+                Connection connection = entry.getValue();
+
+                if (!playerName.equals(excludePlayerName)) {
+                    try {
+                        connection.send(notification.toString());
+                    } catch (IOException e) {
+                        System.err.println("Failed to send message to player " + playerName + ": " + e.getMessage());
+                    }
+                }
+            }
+
+        }else{
+            throw new IOException("Could not find gameID");
         }
     }
 }

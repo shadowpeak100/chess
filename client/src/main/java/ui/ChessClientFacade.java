@@ -10,6 +10,8 @@ import model.UserData;
 import server.ResponseException;
 import server.Server;
 import service.GamesWrapper;
+import websocket.NotificationHandler;
+import websocket.WebSocketFacade;
 
 import java.util.Arrays;
 
@@ -18,9 +20,17 @@ public class ChessClientFacade {
     public State state;
     public String username;
     public String authToken;
+    public ChessGame.TeamColor teamColor;
+    public int GameID;
+    private final String serverUrl;
+    private final NotificationHandler notificationHandler;
+    private WebSocketFacade ws;
 
-    public ChessClientFacade(){
+
+    public ChessClientFacade(String serverUrl, NotificationHandler notificationHandler){
         chessServer = new Server();
+        this.serverUrl = serverUrl;
+        this.notificationHandler = notificationHandler;
         state = State.SIGNEDOUT;
     }
 
@@ -38,6 +48,11 @@ public class ChessClientFacade {
                 case "list_games" -> listGames();
                 case "join_game" -> joinGame(params);
                 case "join_observer" -> joinObserver(params);
+                case "redraw_board" -> redrawBoard();
+                case "leave" -> leave();
+                case "make_move" -> makeMove(params);
+                case "resign" -> resign();
+                case "highlight_legal_moves" -> highlightLegalMoves(params);
                 default -> help();
             };
         } catch (ResponseException | DataAccessException ex) {
@@ -69,9 +84,9 @@ public class ChessClientFacade {
                     - help
                     - redraw_board
                     - leave
-                    - make_move <start_position> <end_position>
+                    - make_move <start_position (ex: b7)> <end_position (ex: d6)>
                     - resign
-                    - highlight_legal_moves <piece_position>
+                    - highlight_legal_moves <piece_position (ex: a1)>
                     """;
         }
     }
@@ -140,16 +155,24 @@ public class ChessClientFacade {
         //send a JOIN_PLAYER websocket message to server
 
         if (params.length >= 2) {
-            int gameId;
             try {
-                gameId = Integer.parseInt(params[0]);
+                GameID = Integer.parseInt(params[0]);
             } catch (NumberFormatException e) {
                 throw new DataAccessException("the game ID must be an int, string input could not be parsed to int");
             }
-            chessServer.gameService.joinGame(this.authToken, gameId, params[1]);
+            if (params[1].toUpperCase() == "WHITE"){
+                teamColor = ChessGame.TeamColor.WHITE;
+            }
+            if (params[1].toUpperCase() == "BLACK"){
+                teamColor = ChessGame.TeamColor.BLACK;
+            }
+            chessServer.gameService.joinGame(this.authToken, GameID, params[1]);
             state = State.INGAME;
 
-            String gamePrint = printGame(gameId, params[1]);
+            ws = new WebSocketFacade(serverUrl, notificationHandler);
+            ws.joinGame(username, authToken, GameID, teamColor);
+
+            String gamePrint = printGame(GameID, params[1]);
             return "game " + params[0] + " was joined successfully, here is the layout:\n" + gamePrint;
         }
         throw new DataAccessException("Data could not be accessed, incorrect parameter length");
@@ -160,28 +183,58 @@ public class ChessClientFacade {
         //send a JOIN_OBSERVER websocket message to server
 
         if (params.length >= 1) {
-            int gameId;
             try {
-                gameId = Integer.parseInt(params[0]);
+                GameID = Integer.parseInt(params[0]);
             } catch (NumberFormatException e) {
                 throw new DataAccessException("the game ID must be an int, string input could not be parsed to int");
             }
-            chessServer.gameService.joinGame(this.authToken, gameId, "");
+            chessServer.gameService.joinGame(this.authToken, GameID, "");
             state = State.INGAME;
-
-            String gamePrint = printGame(gameId, "");
+            ws = new WebSocketFacade(serverUrl, notificationHandler);
+            ws.joinObserver(username, authToken, GameID);
+            String gamePrint = printGame(GameID, "");
             return "game " + params[0] + " is now being observed, here is the game:\n" + gamePrint;
         }
         throw new DataAccessException("Data could not be accessed, incorrect parameter length");
+    }
+
+    public String redrawBoard()throws DataAccessException {
+        String color;
+        if(teamColor == ChessGame.TeamColor.WHITE){
+            color = "white";
+        }else if(teamColor == ChessGame.TeamColor.BLACK){
+            color = "black";
+        }else{
+            color = "";
+        }
+
+        if (state == State.INGAME) {
+            return printGame(GameID, color);
+        }
+
+        throw new DataAccessException("could not access game to print");
+    }
+
+    public String leave(){
+        return "";
+    }
+
+    public String makeMove(String ... params){
+        return "";
+    }
+
+    public String resign(){
+        return "";
+    }
+
+    public String highlightLegalMoves(String ... params){
+        return "";
     }
 
     public String printGame(int gameId, String teamColor) throws DataAccessException {
         ChessGame game = chessServer.gd.getGame(gameId).getGame();
         String spacer = "\u2001\u2005\u200A";
         String output;
-
-        //todo: add something that checkers the board, if col & row are both even/odd, should be black, else white
-        String sample = "a | R | K |   |   |   |   |   |   | a";
 
         //build in perspective of white at bottom
         if(teamColor.equalsIgnoreCase("black")) {
