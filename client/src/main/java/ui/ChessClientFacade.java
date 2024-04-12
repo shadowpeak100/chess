@@ -60,7 +60,7 @@ public class ChessClientFacade {
             };
         } catch (ResponseException | DataAccessException ex) {
             return ex.getMessage();
-        } catch (InvalidMoveException e) {
+        } catch (Exception e) {
             throw new RuntimeException(e);
         }
     }
@@ -155,7 +155,7 @@ public class ChessClientFacade {
         throw new DataAccessException("Games could not be listed, user's auth token could not be found");
     }
 
-    public String joinGame(String... params) throws ResponseException, DataAccessException {
+    public String joinGame(String... params) throws Exception {
         //we want to open Web socket connection with server using /connect, to send/recieve messages
         //send a JOIN_PLAYER websocket message to server
 
@@ -183,7 +183,7 @@ public class ChessClientFacade {
         throw new DataAccessException("Data could not be accessed, incorrect parameter length");
     }
 
-    public String joinObserver(String... params) throws ResponseException, DataAccessException {
+    public String joinObserver(String... params) throws Exception {
         //we want to open Web socket connection with server using /connect, to send/recieve messages
         //send a JOIN_OBSERVER websocket message to server
 
@@ -220,7 +220,7 @@ public class ChessClientFacade {
         throw new DataAccessException("could not access game to print");
     }
 
-    public String leave() throws DataAccessException, ResponseException {
+    public String leave() throws Exception {
         if(state == State.INGAME){
             state = State.SIGNEDIN;
             ws.leave(username, authToken, GameID);
@@ -229,7 +229,7 @@ public class ChessClientFacade {
         throw new DataAccessException("expected user to be in game, but found another state");
     }
 
-    public String makeMove(String ... params) throws DataAccessException, ResponseException, InvalidMoveException {
+    public String makeMove(String ... params) throws Exception {
         if(state == State.INGAME && params.length >= 2){
             ChessMove chessMove = chessMoveFromParams(params[0], params[1]);
             GameData game = chessServer.gd.getGame(GameID);
@@ -327,7 +327,7 @@ public class ChessClientFacade {
         return c - 'a' + 1;
     }
 
-    public String resign() throws ResponseException, DataAccessException {
+    public String resign() throws Exception {
         if(state == State.INGAME){
             GameData game = chessServer.gd.getGame(GameID);
             game.getGame().setTeamTurn(ChessGame.TeamColor.DONE);

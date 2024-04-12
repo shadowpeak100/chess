@@ -2,9 +2,7 @@ package websocket;
 
 import chess.ChessGame;
 import chess.ChessMove;
-import chess.ChessPosition;
 import com.google.gson.Gson;
-import server.ResponseException;
 import webSocketMessages.userCommands.*;
 import webSocketMessages.serverMessages.*;
 
@@ -21,7 +19,7 @@ public class WebSocketFacade extends Endpoint {
     Session session;
     NotificationHandler notificationHandler;
 
-    public WebSocketFacade(String url, NotificationHandler notificationHandler) throws ResponseException {
+    public WebSocketFacade(String url, NotificationHandler notificationHandler) throws Exception {
         try {
             url = url.replace("http", "ws");
             URI socketURI = new URI(url + "/connect");
@@ -40,54 +38,54 @@ public class WebSocketFacade extends Endpoint {
                 }
             });
         } catch (DeploymentException | IOException | URISyntaxException ex) {
-            throw new ResponseException(500, ex.getMessage());
+            throw new Exception("Failed to send resignation message: " + ex.getMessage());
         }
     }
 
-    public void joinGame(String playerName, String authToken, int gameID, ChessGame.TeamColor color, ChessGame game) throws ResponseException {
+    public void joinGame(String playerName, String authToken, int gameID, ChessGame.TeamColor color, ChessGame game) throws Exception {
         try {
             var action = new JoinPlayer(playerName, authToken, gameID, color, game);
             action.loadData();
             this.session.getBasicRemote().sendText(new Gson().toJson(action));
         } catch (IOException ex) {
-            throw new ResponseException(500, ex.getMessage());
+            throw new Exception("Failed to send resignation message: " + ex.getMessage());
         }
     }
 
-    public void joinObserver(String playerName, String authToken, int gameID) throws ResponseException {
+    public void joinObserver(String playerName, String authToken, int gameID) throws Exception {
         try {
             var action = new JoinObserver(playerName, authToken, gameID);
             this.session.getBasicRemote().sendText(new Gson().toJson(action));
         } catch (IOException ex) {
-            throw new ResponseException(500, ex.getMessage());
+            throw new Exception("Failed to send resignation message: " + ex.getMessage());
         }
     }
 
-    public void leave(String playerName, String authToken, int gameID) throws ResponseException {
+    public void leave(String playerName, String authToken, int gameID) throws Exception {
         try {
             var action = new Leave(playerName, authToken, gameID);
             this.session.getBasicRemote().sendText(new Gson().toJson(action));
             this.session.close();
         } catch (IOException ex) {
-            throw new ResponseException(500, ex.getMessage());
+            throw new Exception("Failed to send resignation message: " + ex.getMessage());
         }
     }
 
-    public void makeMove(String playerName, String authToken, int gameID, ChessMove chessMove, String opposingBoard, boolean inCheck, boolean inCheckmate, ChessGame.TeamColor currentTurn) throws ResponseException {
+    public void makeMove(String playerName, String authToken, int gameID, ChessMove chessMove, String opposingBoard, boolean inCheck, boolean inCheckmate, ChessGame.TeamColor currentTurn) throws Exception {
         try {
             var action = new MakeMove(playerName, authToken, gameID, chessMove, opposingBoard, inCheck, inCheckmate, currentTurn);
             this.session.getBasicRemote().sendText(new Gson().toJson(action));
         } catch (IOException ex) {
-            throw new ResponseException(500, ex.getMessage());
+            throw new Exception("Failed to send resignation message: " + ex.getMessage());
         }
     }
 
-    public void resign(String playerName, String authToken, int gameID) throws ResponseException {
+    public void resign(String playerName, String authToken, int gameID) throws Exception {
         try {
             var action = new Resign(playerName, authToken, gameID);
             this.session.getBasicRemote().sendText(new Gson().toJson(action));
         } catch (IOException ex) {
-            throw new ResponseException(500, ex.getMessage());
+            throw new Exception("Failed to send resignation message: " + ex.getMessage());
         }
     }
 

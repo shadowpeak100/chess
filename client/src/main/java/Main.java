@@ -1,5 +1,4 @@
 import chess.*;
-import server.Server;
 import ui.Repl;
 
 public class Main {
@@ -11,9 +10,6 @@ public class Main {
         if (args.length == 1) {
             serverUrl = args[0];
         }
-
-//        Server server = new Server();
-//        server.run(8080);
 
         Repl repl = new Repl(serverUrl);
         repl.run();
