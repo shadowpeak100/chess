@@ -54,8 +54,8 @@ public class ChessGame {
         this.board.setBoard(8,1,new ChessPiece(TeamColor.BLACK, ChessPiece.PieceType.ROOK));
         this.board.setBoard(8,2,new ChessPiece(TeamColor.BLACK, ChessPiece.PieceType.KNIGHT));
         this.board.setBoard(8,3,new ChessPiece(TeamColor.BLACK, ChessPiece.PieceType.BISHOP));
-        this.board.setBoard(8,4,new ChessPiece(TeamColor.BLACK, ChessPiece.PieceType.KING));
-        this.board.setBoard(8,5,new ChessPiece(TeamColor.BLACK, ChessPiece.PieceType.QUEEN));
+        this.board.setBoard(8,4,new ChessPiece(TeamColor.BLACK, ChessPiece.PieceType.QUEEN));
+        this.board.setBoard(8,5,new ChessPiece(TeamColor.BLACK, ChessPiece.PieceType.KING));
         this.board.setBoard(8,6,new ChessPiece(TeamColor.BLACK, ChessPiece.PieceType.BISHOP));
         this.board.setBoard(8,7,new ChessPiece(TeamColor.BLACK, ChessPiece.PieceType.KNIGHT));
         this.board.setBoard(8,8,new ChessPiece(TeamColor.BLACK, ChessPiece.PieceType.ROOK));
@@ -90,7 +90,8 @@ public class ChessGame {
      */
     public enum TeamColor {
         WHITE,
-        BLACK
+        BLACK,
+        DONE
     }
 
     /**

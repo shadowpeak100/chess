@@ -32,26 +32,47 @@ public class ConnectionManager {
     }
 
     //sends to everyone except the excludeVisitorName
-    public void broadcast(String excludePlayerName, Integer gameID, Notification notification) throws IOException {
-        if (connections.containsKey(gameID)) {
+    public void broadcast(String excludePlayerName, String onlySendTo, Integer gameID, ServerMessage notification) throws IOException {
+        if(onlySendTo != null && !onlySendTo.isEmpty()){
+            if (connections.containsKey(gameID)) {
+                ConcurrentHashMap<String, Connection> gameConnections = connections.get(gameID);
 
-            ConcurrentHashMap<String, Connection> gameConnections = connections.get(gameID);
+                for (Map.Entry<String, Connection> entry : gameConnections.entrySet()) {
+                    String playerName = entry.getKey();
+                    Connection connection = entry.getValue();
 
-            for (Map.Entry<String, Connection> entry : gameConnections.entrySet()) {
-                String playerName = entry.getKey();
-                Connection connection = entry.getValue();
-
-                if (!playerName.equals(excludePlayerName)) {
-                    try {
-                        connection.send(new Gson().toJson(notification));
-                    } catch (IOException e) {
-                        System.err.println("Failed to send message to player " + playerName + ": " + e.getMessage());
+                    if (playerName.equals(onlySendTo)) {
+                        try {
+                            connection.send(new Gson().toJson(notification));
+                        } catch (IOException e) {
+                            System.err.println("Failed to send message to player " + playerName + ": " + e.getMessage());
+                        }
                     }
                 }
+            } else{
+                throw new IOException("Could not find gameID");
             }
-
         }else{
-            throw new IOException("Could not find gameID");
+            if (connections.containsKey(gameID)) {
+
+                ConcurrentHashMap<String, Connection> gameConnections = connections.get(gameID);
+
+                for (Map.Entry<String, Connection> entry : gameConnections.entrySet()) {
+                    String playerName = entry.getKey();
+                    Connection connection = entry.getValue();
+
+                    if (!playerName.equals(excludePlayerName)) {
+                        try {
+                            connection.send(new Gson().toJson(notification));
+                        } catch (IOException e) {
+                            System.err.println("Failed to send message to player " + playerName + ": " + e.getMessage());
+                        }
+                    }
+                }
+
+            }else{
+                throw new IOException("Could not find gameID");
+            }
         }
     }
 }

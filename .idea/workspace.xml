@@ -1,19 +1,24 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <project version="4">
+  <component name="AnalysisUIOptions">
+    <option name="ANALYZE_INJECTED_CODE" value="false" />
+  </component>
   <component name="AutoImportSettings">
     <option name="autoReloadType" value="SELECTIVE" />
   </component>
   <component name="ChangeListManager">
-    <list default="true" id="7f72768d-00d0-4037-a08d-33159cc5ebb4" name="Changes" comment="websockets seem to be communicating">
+    <list default="true" id="7f72768d-00d0-4037-a08d-33159cc5ebb4" name="Changes" comment="websockets now get info, lots of additional logic and I was programming way too late">
       <change afterPath="$PROJECT_DIR$/.idea/sonarlint/issuestore/index.pb" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/client/src/main/java/Main.java" beforeDir="false" afterPath="$PROJECT_DIR$/client/src/main/java/Main.java" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/client/src/main/java/ui/ChessClientFacade.java" beforeDir="false" afterPath="$PROJECT_DIR$/client/src/main/java/ui/ChessClientFacade.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/client/src/main/java/ui/Repl.java" beforeDir="false" afterPath="$PROJECT_DIR$/client/src/main/java/ui/Repl.java" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/client/src/main/java/websocket/WebSocketFacade.java" beforeDir="false" afterPath="$PROJECT_DIR$/client/src/main/java/websocket/WebSocketFacade.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/server/src/main/java/server/Server.java" beforeDir="false" afterPath="$PROJECT_DIR$/server/src/main/java/server/Server.java" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/server/src/main/java/server/websocket/ConnectionManager.java" beforeDir="false" afterPath="$PROJECT_DIR$/server/src/main/java/server/websocket/ConnectionManager.java" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/server/src/main/java/server/websocket/WebSocketHandler.java" beforeDir="false" afterPath="$PROJECT_DIR$/server/src/main/java/server/websocket/WebSocketHandler.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/shared/src/main/java/webSocketMessages/serverMessages/Notification.java" beforeDir="false" afterPath="$PROJECT_DIR$/shared/src/main/java/webSocketMessages/serverMessages/Notification.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/shared/src/main/java/webSocketMessages/userCommands/MakeMove.java" beforeDir="false" afterPath="$PROJECT_DIR$/shared/src/main/java/webSocketMessages/userCommands/MakeMove.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/shared/src/main/java/chess/ChessGame.java" beforeDir="false" afterPath="$PROJECT_DIR$/shared/src/main/java/chess/ChessGame.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/shared/src/main/java/webSocketMessages/serverMessages/LoadGame.java" beforeDir="false" afterPath="$PROJECT_DIR$/shared/src/main/java/webSocketMessages/serverMessages/LoadGame.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/shared/src/main/java/webSocketMessages/userCommands/JoinPlayer.java" beforeDir="false" afterPath="$PROJECT_DIR$/shared/src/main/java/webSocketMessages/userCommands/JoinPlayer.java" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -33,6 +38,9 @@
   <component name="MarkdownSettingsMigration">
     <option name="stateVersion" value="1" />
   </component>
+  <component name="ProblemsViewState">
+    <option name="selectedTabId" value="ProjectErrors" />
+  </component>
   <component name="ProjectColorInfo">{
   &quot;associatedIndex&quot;: 6
 }</component>
@@ -45,7 +53,7 @@
   <component name="PropertiesComponent"><![CDATA[{
   "keyToString": {
     "Application.Main (1).executor": "Run",
-    "Application.Main.executor": "Debug",
+    "Application.Main.executor": "Run",
     "Downloaded.Files.Path.Enabled": "false",
     "JUnit.All in server.executor": "Run",
     "JUnit.All in test.executor": "Run",
@@ -117,6 +125,9 @@
     "JUnit.UserServiceTest.testRegister.executor": "Run",
     "JUnit.UserServiceTest.testRegisterTakenName.executor": "Run",
     "JUnit.UserServiceTest.testSuccessfulLogout.executor": "Run",
+    "JUnit.WebSocketTests.executor": "Run",
+    "JUnit.WebSocketTests.joinPlayerGood.executor": "Run",
+    "JUnit.WebSocketTests.joinPlayerSteal.executor": "Run",
     "JUnit.passoffTests in test.executor": "Run",
     "Repository.Attach.Annotations": "false",
     "Repository.Attach.JavaDocs": "false",
@@ -135,6 +146,7 @@
     "project.structure.last.edited": "Modules",
     "project.structure.proportion": "0.15",
     "project.structure.side.proportion": "0.2",
+    "run.code.analysis.last.selected.profile": "pProject Default",
     "settings.editor.selected.configurable": "preferences.keymap",
     "vue.rearranger.settings.migration": "true"
   }
@@ -145,84 +157,82 @@
       <recent name="$PROJECT_DIR$/server/src/main/java/resources" />
     </key>
   </component>
-  <component name="RunManager" selected="Application.Main">
-    <configuration name="Main" type="Application" factoryName="Application" temporary="true" nameIsGenerated="true">
+  <component name="RunManager" selected="JUnit.WebSocketTests.joinPlayerGood">
+    <configuration name="Main (1)" type="Application" factoryName="Application" temporary="true" nameIsGenerated="true">
+      <option name="MAIN_CLASS_NAME" value="Main" />
+      <module name="server" />
+      <method v="2">
+        <option name="Make" enabled="true" />
+      </method>
+    </configuration>
+    <configuration name="Main" type="Application" factoryName="Application" singleton="false" temporary="true">
       <option name="MAIN_CLASS_NAME" value="Main" />
       <module name="client" />
       <method v="2">
         <option name="Make" enabled="true" />
       </method>
     </configuration>
-    <configuration name="ServerFacadeTests" type="JUnit" factoryName="JUnit" temporary="true" nameIsGenerated="true">
-      <module name="client" />
+    <configuration name="WebSocketTests" type="JUnit" factoryName="JUnit" temporary="true" nameIsGenerated="true">
+      <module name="server" />
       <extension name="coverage">
         <pattern>
-          <option name="PATTERN" value="clientTests.*" />
+          <option name="PATTERN" value="serverTests.*" />
           <option name="ENABLED" value="true" />
         </pattern>
       </extension>
-      <option name="PACKAGE_NAME" value="clientTests" />
-      <option name="MAIN_CLASS_NAME" value="clientTests.ServerFacadeTests" />
+      <option name="PACKAGE_NAME" value="serverTests" />
+      <option name="MAIN_CLASS_NAME" value="serverTests.WebSocketTests" />
       <option name="TEST_OBJECT" value="class" />
       <method v="2">
         <option name="Make" enabled="true" />
       </method>
     </configuration>
-    <configuration name="ServerFacadeTests.joinGameBadIdTest" type="JUnit" factoryName="JUnit" temporary="true" nameIsGenerated="true">
-      <module name="client" />
+    <configuration name="WebSocketTests.joinPlayerGood" type="JUnit" factoryName="JUnit" temporary="true" nameIsGenerated="true">
+      <module name="server" />
       <extension name="coverage">
         <pattern>
-          <option name="PATTERN" value="clientTests.*" />
+          <option name="PATTERN" value="serverTests.*" />
           <option name="ENABLED" value="true" />
         </pattern>
       </extension>
-      <option name="PACKAGE_NAME" value="clientTests" />
-      <option name="MAIN_CLASS_NAME" value="clientTests.ServerFacadeTests" />
-      <option name="METHOD_NAME" value="joinGameBadIdTest" />
+      <option name="PACKAGE_NAME" value="serverTests" />
+      <option name="MAIN_CLASS_NAME" value="serverTests.WebSocketTests" />
+      <option name="METHOD_NAME" value="joinPlayerGood" />
       <option name="TEST_OBJECT" value="method" />
       <method v="2">
         <option name="Make" enabled="true" />
       </method>
     </configuration>
-    <configuration name="ServerFacadeTests.joinGameTest" type="JUnit" factoryName="JUnit" temporary="true" nameIsGenerated="true">
-      <module name="client" />
+    <configuration name="WebSocketTests.joinPlayerSteal" type="JUnit" factoryName="JUnit" temporary="true" nameIsGenerated="true">
+      <module name="server" />
       <extension name="coverage">
         <pattern>
-          <option name="PATTERN" value="clientTests.*" />
+          <option name="PATTERN" value="serverTests.*" />
           <option name="ENABLED" value="true" />
         </pattern>
       </extension>
-      <option name="PACKAGE_NAME" value="clientTests" />
-      <option name="MAIN_CLASS_NAME" value="clientTests.ServerFacadeTests" />
-      <option name="METHOD_NAME" value="joinGameTest" />
+      <option name="PACKAGE_NAME" value="serverTests" />
+      <option name="MAIN_CLASS_NAME" value="serverTests.WebSocketTests" />
+      <option name="METHOD_NAME" value="joinPlayerSteal" />
       <option name="TEST_OBJECT" value="method" />
       <method v="2">
         <option name="Make" enabled="true" />
       </method>
     </configuration>
-    <configuration name="ServerFacadeTests.joinObserverTest" type="JUnit" factoryName="JUnit" temporary="true" nameIsGenerated="true">
-      <module name="client" />
-      <extension name="coverage">
-        <pattern>
-          <option name="PATTERN" value="clientTests.*" />
-          <option name="ENABLED" value="true" />
-        </pattern>
-      </extension>
-      <option name="PACKAGE_NAME" value="clientTests" />
-      <option name="MAIN_CLASS_NAME" value="clientTests.ServerFacadeTests" />
-      <option name="METHOD_NAME" value="joinObserverTest" />
-      <option name="TEST_OBJECT" value="method" />
-      <method v="2">
-        <option name="Make" enabled="true" />
-      </method>
-    </configuration>
+    <list>
+      <item itemvalue="Application.Main (1)" />
+      <item itemvalue="Application.Main" />
+      <item itemvalue="JUnit.WebSocketTests.joinPlayerSteal" />
+      <item itemvalue="JUnit.WebSocketTests" />
+      <item itemvalue="JUnit.WebSocketTests.joinPlayerGood" />
+    </list>
     <recent_temporary>
       <list>
+        <item itemvalue="JUnit.WebSocketTests.joinPlayerGood" />
+        <item itemvalue="JUnit.WebSocketTests.joinPlayerSteal" />
+        <item itemvalue="JUnit.WebSocketTests" />
         <item itemvalue="Application.Main" />
-        <item itemvalue="JUnit.ServerFacadeTests" />
-        <item itemvalue="JUnit.ServerFacadeTests.joinObserverTest" />
-        <item itemvalue="JUnit.ServerFacadeTests.joinGameBadIdTest" />
-        <item itemvalue="JUnit.ServerFacadeTests.joinGameTest" />
+        <item itemvalue="Application.Main (1)" />
       </list>
     </recent_temporary>
   </component>
@@ -253,7 +263,7 @@
       <workItem from="1710894742825" duration="37298000" />
       <workItem from="1712608263043" duration="2726000" />
       <workItem from="1712625480343" duration="11744000" />
-      <workItem from="1712727676113" duration="32442000" />
+      <workItem from="1712727676113" duration="61501000" />
     </task>
     <task id="LOCAL-00001" summary="more setup for server tests and web resources">
       <option name="closed" value="true" />
@@ -487,7 +497,15 @@
       <option name="project" value="LOCAL" />
       <updated>1712802710967</updated>
     </task>
-    <option name="localTasksCounter" value="30" />
+    <task id="LOCAL-00030" summary="websockets now get info, lots of additional logic and I was programming way too late">
+      <option name="closed" value="true" />
+      <created>1712825101823</created>
+      <option name="number" value="00030" />
+      <option name="presentableId" value="LOCAL-00030" />
+      <option name="project" value="LOCAL" />
+      <updated>1712825101823</updated>
+    </task>
+    <option name="localTasksCounter" value="31" />
     <servers />
   </component>
   <component name="TypeScriptGeneratedFilesManager">
@@ -505,7 +523,6 @@
     </option>
   </component>
   <component name="VcsManagerConfiguration">
-    <MESSAGE value="work on getting login and clear functional" />
     <MESSAGE value="login and auth working, splitting responsibilities" />
     <MESSAGE value="allow watchers for chess games" />
     <MESSAGE value="passing all tests, new unit tests" />
@@ -530,7 +547,8 @@
     <MESSAGE value="checkered chess board and phase 6 start" />
     <MESSAGE value="work in progress on websockets" />
     <MESSAGE value="websockets seem to be communicating" />
-    <option name="LAST_COMMIT_MESSAGE" value="websockets seem to be communicating" />
+    <MESSAGE value="websockets now get info, lots of additional logic and I was programming way too late" />
+    <option name="LAST_COMMIT_MESSAGE" value="websockets now get info, lots of additional logic and I was programming way too late" />
   </component>
   <component name="XDebuggerManager">
     <breakpoint-manager>
@@ -538,18 +556,8 @@
         <line-breakpoint enabled="true" type="java-line">
           <condition expression="authToken == null || authToken == &quot;&quot;" language="JAVA" />
           <url>file://$PROJECT_DIR$/server/src/main/java/server/Server.java</url>
-          <line>109</line>
+          <line>111</line>
           <option name="timeStamp" value="52" />
-        </line-breakpoint>
-        <line-breakpoint enabled="true" type="java-line">
-          <url>file://$PROJECT_DIR$/server/src/main/java/server/Server.java</url>
-          <line>160</line>
-          <option name="timeStamp" value="69" />
-        </line-breakpoint>
-        <line-breakpoint enabled="true" type="java-line">
-          <url>file://$PROJECT_DIR$/server/src/main/java/server/Server.java</url>
-          <line>139</line>
-          <option name="timeStamp" value="71" />
         </line-breakpoint>
         <line-breakpoint enabled="true" type="java-line">
           <url>file://$PROJECT_DIR$/server/src/test/java/passoffTests/serverTests/PersistenceTests.java</url>
@@ -572,24 +580,69 @@
           <option name="timeStamp" value="81" />
         </line-breakpoint>
         <line-breakpoint enabled="true" type="java-line">
-          <url>file://$PROJECT_DIR$/server/src/main/java/server/Server.java</url>
-          <line>73</line>
-          <option name="timeStamp" value="82" />
-        </line-breakpoint>
-        <line-breakpoint enabled="true" type="java-line">
           <url>file://$PROJECT_DIR$/client/src/test/java/clientTests/ServerFacadeTests.java</url>
           <line>57</line>
           <option name="timeStamp" value="95" />
         </line-breakpoint>
         <line-breakpoint enabled="true" type="java-line">
-          <url>file://$PROJECT_DIR$/client/src/main/java/ui/Repl.java</url>
-          <line>64</line>
-          <option name="timeStamp" value="129" />
+          <url>file://$PROJECT_DIR$/client/src/main/java/ui/ChessClientFacade.java</url>
+          <line>247</line>
+          <option name="timeStamp" value="147" />
         </line-breakpoint>
         <line-breakpoint enabled="true" type="java-line">
           <url>file://$PROJECT_DIR$/client/src/main/java/ui/ChessClientFacade.java</url>
-          <line>222</line>
-          <option name="timeStamp" value="130" />
+          <line>251</line>
+          <option name="timeStamp" value="148" />
+        </line-breakpoint>
+        <line-breakpoint enabled="true" type="java-line">
+          <url>file://$PROJECT_DIR$/client/src/main/java/ui/ChessClientFacade.java</url>
+          <line>232</line>
+          <option name="timeStamp" value="154" />
+        </line-breakpoint>
+        <line-breakpoint enabled="true" type="java-line">
+          <url>file://$PROJECT_DIR$/client/src/main/java/websocket/WebSocketFacade.java</url>
+          <line>37</line>
+          <option name="timeStamp" value="155" />
+        </line-breakpoint>
+        <line-breakpoint enabled="true" type="java-line">
+          <url>file://$PROJECT_DIR$/client/src/main/java/ui/ChessClientFacade.java</url>
+          <line>329</line>
+          <option name="timeStamp" value="156" />
+        </line-breakpoint>
+        <line-breakpoint enabled="true" type="java-line">
+          <url>file://$PROJECT_DIR$/client/src/main/java/ui/Repl.java</url>
+          <line>48</line>
+          <option name="timeStamp" value="157" />
+        </line-breakpoint>
+        <line-breakpoint enabled="true" type="java-line">
+          <url>file://$PROJECT_DIR$/client/src/main/java/ui/Repl.java</url>
+          <line>58</line>
+          <option name="timeStamp" value="158" />
+        </line-breakpoint>
+        <line-breakpoint enabled="true" type="java-line">
+          <url>file://$PROJECT_DIR$/client/src/main/java/ui/ChessClientFacade.java</url>
+          <line>334</line>
+          <option name="timeStamp" value="159" />
+        </line-breakpoint>
+        <line-breakpoint enabled="true" type="java-line">
+          <url>file://$PROJECT_DIR$/server/src/main/java/server/websocket/WebSocketHandler.java</url>
+          <line>32</line>
+          <option name="timeStamp" value="162" />
+        </line-breakpoint>
+        <line-breakpoint enabled="true" type="java-line">
+          <url>file://$PROJECT_DIR$/server/src/test/java/serverTests/WebSocketTests.java</url>
+          <line>696</line>
+          <option name="timeStamp" value="166" />
+        </line-breakpoint>
+        <line-breakpoint enabled="true" type="java-line">
+          <url>file://$PROJECT_DIR$/client/src/main/java/ui/ChessClientFacade.java</url>
+          <line>177</line>
+          <option name="timeStamp" value="170" />
+        </line-breakpoint>
+        <line-breakpoint enabled="true" type="java-line">
+          <url>file://$PROJECT_DIR$/server/src/main/java/server/websocket/WebSocketHandler.java</url>
+          <line>71</line>
+          <option name="timeStamp" value="172" />
         </line-breakpoint>
       </breakpoints>
     </breakpoint-manager>

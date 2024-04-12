@@ -12,8 +12,8 @@ public class Main {
             serverUrl = args[0];
         }
 
-        Server server = new Server();
-        server.run(8080);
+//        Server server = new Server();
+//        server.run(8080);
 
         Repl repl = new Repl(serverUrl);
         repl.run();

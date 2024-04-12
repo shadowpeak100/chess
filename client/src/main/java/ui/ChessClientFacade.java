@@ -11,8 +11,10 @@ import service.GamesWrapper;
 import websocket.NotificationHandler;
 import websocket.WebSocketFacade;
 
+import javax.swing.text.Position;
 import java.awt.*;
 import java.util.Arrays;
+import java.util.Collection;
 import java.util.Objects;
 import java.util.Scanner;
 
@@ -173,9 +175,9 @@ public class ChessClientFacade {
             state = State.INGAME;
 
             ws = new WebSocketFacade(serverUrl, notificationHandler);
-            ws.joinGame(username, authToken, GameID, teamColor);
+            ws.joinGame(username, authToken, GameID, teamColor, chessServer.gd.getGame(GameID).getGame());
 
-            String gamePrint = printGame(GameID, params[1]);
+            String gamePrint = printGame(GameID, params[1], null);
             return "game " + params[0] + " was joined successfully, here is the layout:\n" + gamePrint;
         }
         throw new DataAccessException("Data could not be accessed, incorrect parameter length");
@@ -195,7 +197,7 @@ public class ChessClientFacade {
             state = State.INGAME;
             ws = new WebSocketFacade(serverUrl, notificationHandler);
             ws.joinObserver(username, authToken, GameID);
-            String gamePrint = printGame(GameID, "");
+            String gamePrint = printGame(GameID, "", null);
             return "game " + params[0] + " is now being observed, here is the game:\n" + gamePrint;
         }
         throw new DataAccessException("Data could not be accessed, incorrect parameter length");
@@ -212,7 +214,7 @@ public class ChessClientFacade {
         }
 
         if (state == State.INGAME) {
-            return printGame(GameID, color);
+            return printGame(GameID, color, null);
         }
 
         throw new DataAccessException("could not access game to print");
@@ -231,6 +233,11 @@ public class ChessClientFacade {
         if(state == State.INGAME && params.length >= 2){
             ChessMove chessMove = chessMoveFromParams(params[0], params[1]);
             GameData game = chessServer.gd.getGame(GameID);
+
+            if(game.getGame().getTeamTurn() != teamColor){
+                throw new DataAccessException("making a move was not successful, it is not your turn or the game may be over");
+            }
+
             game.getGame().makeMove(chessMove);
             chessServer.gd.updateGame(GameID, game);
 
@@ -246,25 +253,43 @@ public class ChessClientFacade {
                 checkmate = game.getGame().isInCheckmate(ChessGame.TeamColor.WHITE);
                 check = game.getGame().isInCheck(ChessGame.TeamColor.WHITE);
             }
+//            System.out.println("check: " + check + " checkmate: " + checkmate + " checkmatePre: " + checkmatePre + " stalemate: " + stalemate);
+
+            if(!stalemate){
+                checkmate = false;
+            }
 
             //if checkmate/stalemate, no more moves!
             if(stalemate || checkmate){
                 game.getGame().setTeamTurn(null);
                 chessServer.gd.updateGame(GameID, game);
+                check = false;
             }
 
             String opposingBoard;
             String ourBoard;
             if(teamColor == ChessGame.TeamColor.WHITE){
-                opposingBoard = printGame(game.getGameID(), "black");
-                ourBoard = printGame(game.getGameID(), "white");
+                opposingBoard = printGame(game.getGameID(), "black", null);
+                ourBoard = printGame(game.getGameID(), "white", null);
             }else{
-                opposingBoard = printGame(game.getGameID(), "white");
-                ourBoard = printGame(game.getGameID(), "black");
+                opposingBoard = printGame(game.getGameID(), "white", null);
+                ourBoard = printGame(game.getGameID(), "black", null);
             }
 
             ws.makeMove(username, authToken, GameID, chessMove, opposingBoard, check, checkmate);
-            return username + " has moved from " + params[0] + " to " + params[1] + "\n" + ourBoard;
+
+            String advise = "";
+            if(check){
+                advise = "opponent is in check\n";
+            }
+            if(stalemate){
+                advise = "stalemate reached, game over\n";
+            }
+            if(checkmate){
+                advise = "opponent is in checkmate, you win!\n";
+            }
+
+            return username + " has moved from " + params[0] + " to " + params[1] + "\n" + advise + ourBoard;
         }
         throw new DataAccessException("making a move was not successful, parameter length provided was " + params.length);
     }
@@ -304,19 +329,46 @@ public class ChessClientFacade {
     public String resign() throws ResponseException, DataAccessException {
         if(state == State.INGAME){
             GameData game = chessServer.gd.getGame(GameID);
-            game.getGame().setTeamTurn(null);
+            game.getGame().setTeamTurn(ChessGame.TeamColor.DONE);
             chessServer.gd.updateGame(GameID, game);
+            GameData x = chessServer.gd.getGame(GameID);
             ws.resign(username, authToken, GameID);
             return "You have resigned, the game is over";
         }
         return "";
     }
 
-    public String highlightLegalMoves(String ... params){
-        return "";
+    public String highlightLegalMoves(String ... params) throws DataAccessException {
+        String startString = params[0];
+
+        if(startString.length() != 2){
+            throw new RuntimeException("positions are not formatted correct, unable to make move.");
+        }
+
+        int startCol = mapCharToNumber(startString.charAt(0));
+        int startRow = startString.charAt(1) - '0';
+
+        ChessPosition position = new ChessPosition(startRow, startCol);
+        ChessGame game = chessServer.gd.getGame(GameID).getGame();
+        Collection<ChessMove> validMoves = game.validMoves(position);
+
+        if(teamColor == ChessGame.TeamColor.WHITE){
+            return printGame(GameID, "white", validMoves);
+        }else{
+            return printGame(GameID, "black", validMoves);
+        }
     }
 
-    public String printGame(int gameId, String teamColor) throws DataAccessException {
+    public boolean checkIfPositionIsValidMove(Collection<ChessMove> validMoves, ChessPosition pos){
+        for (ChessMove move : validMoves) {
+            if (move.getEndPosition().getRow() == pos.getRow() && move.getEndPosition().getColumn() == pos.getColumn()) {
+                return true;
+            }
+        }
+        return false;
+    }
+
+    public String printGame(int gameId, String teamColor, Collection<ChessMove> validMoves) throws DataAccessException {
         ChessGame game = chessServer.gd.getGame(gameId).getGame();
         String spacer = "\u2001\u2005\u200A";
         String output;
@@ -331,16 +383,33 @@ public class ChessClientFacade {
                 output = output + (i+1) + " |";
                 for(int j = 7; j >= 0; j--){
                     ChessPosition pos = new ChessPosition(i+1, j+1);
+
+                    boolean validMove = false;
+                    if(validMoves != null){
+                        validMove = checkIfPositionIsValidMove(validMoves, pos);
+                    }
+
                     ChessPiece piece = game.getBoard().getPiece(pos);
                     String shape = getAppropriateCharacter(piece);
                     if(i % 2 == 0 && j % 2 == 0){
-                        output = output + EscapeSequences.SET_BG_COLOR_DARK_GREY +  " " + shape + " " + EscapeSequences.RESET_BG_COLOR + "|";
+                        if(validMove){
+                            output = output + EscapeSequences.SET_BG_COLOR_DARK_GREEN +  " " + shape + " " + EscapeSequences.RESET_BG_COLOR + "|";
+                        }else{
+                            output = output + EscapeSequences.SET_BG_COLOR_DARK_GREY +  " " + shape + " " + EscapeSequences.RESET_BG_COLOR + "|";
+                        }
                     }else if(i % 2 == 1 && j % 2 == 1){
-                        output = output + EscapeSequences.SET_BG_COLOR_DARK_GREY +  " " + shape + " " + EscapeSequences.RESET_BG_COLOR + "|";
+                        if(validMove){
+                            output = output + EscapeSequences.SET_BG_COLOR_DARK_GREEN +  " " + shape + " " + EscapeSequences.RESET_BG_COLOR + "|";
+                        }else{
+                            output = output + EscapeSequences.SET_BG_COLOR_DARK_GREY +  " " + shape + " " + EscapeSequences.RESET_BG_COLOR + "|";
+                        }
                     }else{
-                        output = output + EscapeSequences.SET_BG_COLOR_LIGHT_GREY +  " " + shape + " " + EscapeSequences.RESET_BG_COLOR + "|";
+                        if(validMove){
+                            output = output + EscapeSequences.SET_BG_COLOR_GREEN +  " " + shape + " " + EscapeSequences.RESET_BG_COLOR + "|";
+                        }else{
+                            output = output + EscapeSequences.SET_BG_COLOR_LIGHT_GREY +  " " + shape + " " + EscapeSequences.RESET_BG_COLOR + "|";
+                        }
                     }
-                    //output = output + " " + shape + " |";
                 }
                 output = output + " " + (i+1) + "\n";
             }
@@ -353,16 +422,33 @@ public class ChessClientFacade {
                 output = output + (i+1) + " |";
                 for (int j = 0; j < 8; j++) {
                     ChessPosition pos = new ChessPosition(i+1, j+1);
+
+                    boolean validMove = false;
+                    if(validMoves != null){
+                        validMove = checkIfPositionIsValidMove(validMoves, pos);
+                    }
+
                     ChessPiece piece = game.getBoard().getPiece(pos);
                     String shape = getAppropriateCharacter(piece);
                     if(i % 2 == 0 && j % 2 == 0){
-                        output = output + EscapeSequences.SET_BG_COLOR_DARK_GREY +  " " + shape + " " + EscapeSequences.RESET_BG_COLOR + "|";
+                        if(validMove){
+                            output = output + EscapeSequences.SET_BG_COLOR_DARK_GREEN +  " " + shape + " " + EscapeSequences.RESET_BG_COLOR + "|";
+                        }else{
+                            output = output + EscapeSequences.SET_BG_COLOR_DARK_GREY +  " " + shape + " " + EscapeSequences.RESET_BG_COLOR + "|";
+                        }
                     }else if(i % 2 == 1 && j % 2 == 1){
-                        output = output + EscapeSequences.SET_BG_COLOR_DARK_GREY +  " " + shape + " " + EscapeSequences.RESET_BG_COLOR + "|";
+                        if(validMove){
+                            output = output + EscapeSequences.SET_BG_COLOR_DARK_GREEN +  " " + shape + " " + EscapeSequences.RESET_BG_COLOR + "|";
+                        }else{
+                            output = output + EscapeSequences.SET_BG_COLOR_DARK_GREY +  " " + shape + " " + EscapeSequences.RESET_BG_COLOR + "|";
+                        }
                     }else{
-                        output = output + EscapeSequences.SET_BG_COLOR_LIGHT_GREY +  " " + shape + " " + EscapeSequences.RESET_BG_COLOR + "|";
+                        if(validMove){
+                            output = output + EscapeSequences.SET_BG_COLOR_GREEN +  " " + shape + " " + EscapeSequences.RESET_BG_COLOR + "|";
+                        }else{
+                            output = output + EscapeSequences.SET_BG_COLOR_LIGHT_GREY +  " " + shape + " " + EscapeSequences.RESET_BG_COLOR + "|";
+                        }
                     }
-                    //output = output + " " + shape + " |";
                 }
                 output = output + " " + (i+1) + "\n";
             }

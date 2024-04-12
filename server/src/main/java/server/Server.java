@@ -16,6 +16,8 @@ public class Server {
     public final ClearService clearService;
     public final GameService gameService;
     public final GameDAO gd;
+    public final AuthDAO ad;
+    public final UserDAO ud;
     private final WebSocketHandler webSocketHandler;
 
 
@@ -27,12 +29,12 @@ public class Server {
         }
 
         this.gd = new SQLGameDAO();
-        AuthDAO ad = new SQLAuthDAO();
-        UserDAO ud = new SQLUsersDAO();
+        this.ad = new SQLAuthDAO();
+        this.ud = new SQLUsersDAO();
         this.clearService = new ClearService(gd, ad, ud);
         this.userService = new UserService(gd, ad, ud);
         this.gameService = new GameService(gd, ad, ud);
-        this.webSocketHandler = new WebSocketHandler();
+        this.webSocketHandler = new WebSocketHandler(this);
     }
 
     public int run(int desiredPort) {
