@@ -1,7 +1,6 @@
 package ui;
 
 import chess.*;
-import dataAccess.DataAccessException;
 import model.GameData;
 import model.LoginSuccess;
 import model.UserData;
@@ -11,12 +10,8 @@ import service.GamesWrapper;
 import websocket.NotificationHandler;
 import websocket.WebSocketFacade;
 
-import javax.swing.text.Position;
-import java.awt.*;
 import java.util.Arrays;
 import java.util.Collection;
-import java.util.Objects;
-import java.util.Scanner;
 
 public class ChessClientFacade {
     private final Server chessServer;
@@ -58,7 +53,7 @@ public class ChessClientFacade {
                 case "highlight_legal_moves" -> highlightLegalMoves(params);
                 default -> help();
             };
-        } catch (ResponseException | DataAccessException ex) {
+        } catch (ResponseException ex) {
             return ex.getMessage();
         } catch (Exception e) {
             throw new RuntimeException(e);
@@ -100,7 +95,7 @@ public class ChessClientFacade {
         return "quit";
     }
 
-    public String login(String... params) throws ResponseException, DataAccessException {
+    public String login(String... params) throws Exception {
         if (params.length >= 2){
             UserData usr = new UserData(params[0], params[1], "");
             LoginSuccess user = chessServer.userService.login(usr);
@@ -109,10 +104,10 @@ public class ChessClientFacade {
             state = State.SIGNEDIN;
             return "user: " + user.username + " was signed in successfully with auth token: " + user.authToken;
         }
-        throw new DataAccessException("Data could not be accessed, incorrect parameter length");
+        throw new Exception("Data could not be accessed, incorrect parameter length");
     }
 
-    public String register(String... params) throws ResponseException, DataAccessException {
+    public String register(String... params) throws Exception {
         if (params.length >= 3){
             UserData usr = new UserData(params[0], params[1], params[2]);
             LoginSuccess user = chessServer.userService.register(usr);
@@ -120,7 +115,7 @@ public class ChessClientFacade {
             authToken = user.authToken;
             return "user: " + user.username + " has been registered";
         }
-        throw new DataAccessException("Data could not be accessed, incorrect parameter length");
+        throw new Exception("Data could not be accessed, incorrect parameter length");
     }
 
     public String logout() throws ResponseException{
@@ -133,15 +128,15 @@ public class ChessClientFacade {
         throw new ResponseException(400, "user must be signed in to log out");
     }
 
-    public String createGame(String... params) throws ResponseException, DataAccessException {
+    public String createGame(String... params) throws Exception {
         if (params.length >= 1){
             int id = chessServer.gameService.createGame(authToken, params[0]);
             return "new chess game was created with id: " + id;
         }
-        throw new DataAccessException("Data could not be accessed, incorrect parameter length");
+        throw new Exception("Data could not be accessed, incorrect parameter length");
     }
 
-    public String listGames() throws ResponseException, DataAccessException {
+    public String listGames() throws Exception {
         if (this.authToken != null && !this.authToken.isEmpty()){
             GamesWrapper gameList = chessServer.gameService.listGames(this.authToken);
             StringBuilder output = new StringBuilder();
@@ -152,7 +147,7 @@ public class ChessClientFacade {
             }
             return output.toString();
         }
-        throw new DataAccessException("Games could not be listed, user's auth token could not be found");
+        throw new Exception("Games could not be listed, user's auth token could not be found");
     }
 
     public String joinGame(String... params) throws Exception {
@@ -163,7 +158,7 @@ public class ChessClientFacade {
             try {
                 GameID = Integer.parseInt(params[0]);
             } catch (NumberFormatException e) {
-                throw new DataAccessException("the game ID must be an int, string input could not be parsed to int");
+                throw new Exception("the game ID must be an int, string input could not be parsed to int");
             }
             if (params[1].equalsIgnoreCase("white")){
                 teamColor = ChessGame.TeamColor.WHITE;
@@ -180,7 +175,7 @@ public class ChessClientFacade {
             String gamePrint = printGame(GameID, params[1], null);
             return "game " + params[0] + " was joined successfully, here is the layout:\n" + gamePrint;
         }
-        throw new DataAccessException("Data could not be accessed, incorrect parameter length");
+        throw new Exception("Data could not be accessed, incorrect parameter length");
     }
 
     public String joinObserver(String... params) throws Exception {
@@ -191,7 +186,7 @@ public class ChessClientFacade {
             try {
                 GameID = Integer.parseInt(params[0]);
             } catch (NumberFormatException e) {
-                throw new DataAccessException("the game ID must be an int, string input could not be parsed to int");
+                throw new Exception("the game ID must be an int, string input could not be parsed to int");
             }
             chessServer.gameService.joinGame(this.authToken, GameID, "");
             state = State.INGAME;
@@ -200,10 +195,10 @@ public class ChessClientFacade {
             String gamePrint = printGame(GameID, "", null);
             return "game " + params[0] + " is now being observed, here is the game:\n" + gamePrint;
         }
-        throw new DataAccessException("Data could not be accessed, incorrect parameter length");
+        throw new Exception("Data could not be accessed, incorrect parameter length");
     }
 
-    public String redrawBoard()throws DataAccessException {
+    public String redrawBoard()throws Exception {
         String color;
         if(teamColor == ChessGame.TeamColor.WHITE){
             color = "white";
@@ -217,7 +212,7 @@ public class ChessClientFacade {
             return printGame(GameID, color, null);
         }
 
-        throw new DataAccessException("could not access game to print");
+        throw new Exception("could not access game to print");
     }
 
     public String leave() throws Exception {
@@ -226,7 +221,7 @@ public class ChessClientFacade {
             ws.leave(username, authToken, GameID);
             return username + " has left the game";
         }
-        throw new DataAccessException("expected user to be in game, but found another state");
+        throw new Exception("expected user to be in game, but found another state");
     }
 
     public String makeMove(String ... params) throws Exception {
@@ -235,7 +230,7 @@ public class ChessClientFacade {
             GameData game = chessServer.gd.getGame(GameID);
 
             if(game.getGame().getTeamTurn() != teamColor){
-                throw new DataAccessException("making a move was not successful, it is not your turn or the game may be over");
+                throw new Exception("making a move was not successful, it is not your turn or the game may be over");
             }
 
             game.getGame().makeMove(chessMove);
@@ -292,7 +287,7 @@ public class ChessClientFacade {
 
             return username + " has moved from " + params[0] + " to " + params[1] + "\n" + advise + ourBoard;
         }
-        throw new DataAccessException("making a move was not successful, parameter length provided was " + params.length);
+        throw new Exception("making a move was not successful, parameter length provided was " + params.length);
     }
 
     public ChessMove chessMoveFromParams(String startString, String endString){
@@ -339,7 +334,7 @@ public class ChessClientFacade {
         return "";
     }
 
-    public String highlightLegalMoves(String ... params) throws DataAccessException {
+    public String highlightLegalMoves(String ... params) throws Exception {
         String startString = params[0];
 
         if(startString.length() != 2){
@@ -369,7 +364,7 @@ public class ChessClientFacade {
         return false;
     }
 
-    public String printGame(int gameId, String teamColor, Collection<ChessMove> validMoves) throws DataAccessException {
+    public String printGame(int gameId, String teamColor, Collection<ChessMove> validMoves) throws Exception {
         ChessGame game = chessServer.gd.getGame(gameId).getGame();
         String spacer = "\u2001\u2005\u200A";
         String output;

@@ -1,7 +1,5 @@
 package ui;
 
-
-import server.Server;
 import webSocketMessages.serverMessages.Notification;
 import websocket.NotificationHandler;
 
