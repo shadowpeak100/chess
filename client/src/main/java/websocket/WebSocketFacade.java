@@ -73,9 +73,9 @@ public class WebSocketFacade extends Endpoint {
         }
     }
 
-    public void makeMove(String playerName, String authToken, int gameID, ChessMove chessMove, String opposingBoard, boolean inCheck, boolean inCheckmate) throws ResponseException {
+    public void makeMove(String playerName, String authToken, int gameID, ChessMove chessMove, String opposingBoard, boolean inCheck, boolean inCheckmate, ChessGame.TeamColor currentTurn) throws ResponseException {
         try {
-            var action = new MakeMove(playerName, authToken, gameID, chessMove, opposingBoard, inCheck, inCheckmate);
+            var action = new MakeMove(playerName, authToken, gameID, chessMove, opposingBoard, inCheck, inCheckmate, currentTurn);
             this.session.getBasicRemote().sendText(new Gson().toJson(action));
         } catch (IOException ex) {
             throw new ResponseException(500, ex.getMessage());

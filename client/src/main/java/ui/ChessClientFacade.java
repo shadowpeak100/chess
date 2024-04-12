@@ -276,7 +276,8 @@ public class ChessClientFacade {
                 ourBoard = printGame(game.getGameID(), "black", null);
             }
 
-            ws.makeMove(username, authToken, GameID, chessMove, opposingBoard, check, checkmate);
+            ChessGame.TeamColor currentTurn = teamColor;
+            ws.makeMove(username, authToken, GameID, chessMove, opposingBoard, check, checkmate, currentTurn);
 
             String advise = "";
             if(check){

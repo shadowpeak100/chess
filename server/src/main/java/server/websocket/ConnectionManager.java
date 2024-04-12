@@ -17,6 +17,9 @@ public class ConnectionManager {
     public void add(String playerName, int gameID, Session session) {
 
         //this should be GameID -> set of connections :)
+        if(playerName == null){
+            playerName = "null";
+        }
         var connection = new Connection(playerName, session);
         if (!connections.containsKey(gameID)) {
             connections.put(gameID, new ConcurrentHashMap<>());
