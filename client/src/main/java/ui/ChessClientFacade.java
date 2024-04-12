@@ -4,7 +4,7 @@ import chess.*;
 import model.GameData;
 import model.LoginSuccess;
 import model.UserData;
-import server.ResponseException;
+// this one can't be here but Idk what else to do right now
 import server.Server;
 import service.GamesWrapper;
 import websocket.NotificationHandler;
@@ -32,7 +32,7 @@ public class ChessClientFacade {
         state = State.SIGNEDOUT;
     }
 
-    public String eval(String input) throws ResponseException{
+    public String eval(String input) throws Exception{
         try {
             var tokens = input.toLowerCase().split(" ");
             var cmd = (tokens.length > 0) ? tokens[0] : "help";
@@ -53,8 +53,6 @@ public class ChessClientFacade {
                 case "highlight_legal_moves" -> highlightLegalMoves(params);
                 default -> help();
             };
-        } catch (ResponseException ex) {
-            return ex.getMessage();
         } catch (Exception e) {
             throw new RuntimeException(e);
         }
@@ -91,7 +89,7 @@ public class ChessClientFacade {
         }
     }
 
-    public String quit() throws ResponseException{
+    public String quit() throws Exception{
         return "quit";
     }
 
@@ -118,14 +116,14 @@ public class ChessClientFacade {
         throw new Exception("Data could not be accessed, incorrect parameter length");
     }
 
-    public String logout() throws ResponseException{
+    public String logout() throws Exception{
         if(state==State.INGAME || state==State.SIGNEDIN){
             state = State.SIGNEDOUT;
             username = null;
             authToken = null;
             return "user was logged out successfully";
         }
-        throw new ResponseException(400, "user must be signed in to log out");
+        throw new Exception("user must be signed in to log out");
     }
 
     public String createGame(String... params) throws Exception {
